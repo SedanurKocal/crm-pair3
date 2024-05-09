@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: invoiceservice
+
+server:
+  port: 8083
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8888/eureka/
+    registerWithEureka: true
+    fetchRegistry: true
