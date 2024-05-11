@@ -6,3 +6,4 @@ spring:
       profile: local
   config:
     import: "configserver:${configurl}"
+configurl: http://localhost:8079
