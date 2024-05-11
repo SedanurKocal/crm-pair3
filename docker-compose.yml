@@ -73,7 +73,7 @@ services:
     restart: on-failure
     environment:
       - SPRING_CLOUD_CONFIG_PROFILE=prod
-        CONFIGURL=http://config-server:8079
+      - CONFIGURL=http://config-server:8079
     networks:
       - common
   gateway-server:
