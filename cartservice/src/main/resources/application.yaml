@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: cartservice
+  cloud:
+    config:
+      profile: local
+  config:
+    import: "configserver:${configurl}"

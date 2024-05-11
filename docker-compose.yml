@@ -1,0 +1,76 @@
+services:
+  product-service:
+    build: ./productservice
+    ports:
+      - "8084:8084"
+    restart: on-failure # hata aldığında çalışana kadar rest
+    #environment:
+     # - SPRING_CLOUD_CONFIG_PROFILE=prod
+      #- CONFIGURL=http://config-server:8079
+   # networks:
+    #  - common
+
+  address-service:
+    build: ./addressservice
+    ports:
+      - "8081:8081"
+    restart: on-failure # hata aldığında çalışana kadar rest
+    ## TODO: environment networks
+
+  cart-service:
+    build: ./cartservice
+    ports:
+      - "8082:8082"
+    restart: on-failure # hata aldığında çalışana kadar rest
+    ## TODO: environment networks
+
+  invoice-service:
+    build: ./invoiceservice
+    ports:
+      - "8083:8083"
+    restart: on-failure # hata aldığında çalışana kadar rest
+    ## TODO: environment networks
+
+  user-service:
+    build: ./userservice
+    ports:
+      - "8085:8085"
+    restart: on-failure # hata aldığında çalışana kadar rest
+    ## TODO: environment networks
+
+  config-server:
+    build: ./configserver
+    ports:
+      - "8079:8079"
+    networks:
+      - common
+
+
+  discovery-server:
+    build: ./discoveryserver
+    ports:
+      - "8888:8888"
+    restart: on-failure
+    #environment:
+     # - SPRING_CLOUD_CONFIG_PROFILE=prod
+      #- CONFIGURL=http://config-server:8079
+    #networks:
+     # - common
+
+
+  gateway-server:
+    build: ./gatewayserver
+    ports:
+      - "8080:8080"
+    restart: on-failure # her hata aldığında restart et
+    # restart : unless-stopped kullanıcı dışında konteyner durdu ise  restart et
+    # alway kullanıcı dahil herhangi bir şekilde durdu ise
+    depends_on:
+      - discovery-server
+      - config-server
+
+  auth-server:
+    build: ./authserver
+    ports:
+      - "8086:8086"
+    restart: on-failure

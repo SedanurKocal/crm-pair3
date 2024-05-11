@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: addressservice
+  cloud:
+    config:
+      profile: local
+  config:
+    import: "configserver:${configurl}"
+
