@@ -8,7 +8,6 @@
         <outputRelativeToContentRoot value="true" />
         <module name="gatewayserver" />
         <module name="authserver" />
-        <module name="addressservice" />
         <module name="productservice" />
         <module name="userservice" />
         <module name="invoiceservice" />
@@ -18,6 +17,9 @@
         <module name="cartservice" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="addressservice" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
@@ -25,7 +27,7 @@
       <module name="authserver" options="-parameters" />
       <module name="cartservice" options="-parameters" />
       <module name="configserver" options="-parameters" />
-      <module name="customerservice" options="-parameters" />
+      <module name="customerservice" options="" />
       <module name="discoveryserver" options="-parameters" />
       <module name="gatewayserver" options="-parameters" />
       <module name="invoiceservice" options="-parameters" />
