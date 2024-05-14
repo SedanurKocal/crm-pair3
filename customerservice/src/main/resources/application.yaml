@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: customerservice
+  cloud:
+    config:
+      profile: local
+  config:
+    import: "configserver:${configurl}"
+
+
+configurl: http://localhost:8079
+
+#TO DO : github'a config eklenecek
