@@ -6,7 +6,9 @@ import com.tcellpair3.customerservice.core.dtos.responses.customer.CreateCustome
 import com.tcellpair3.customerservice.core.dtos.responses.customer.GetAllCustomersResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.GetByIdCustomerResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.UpdateCustomerResponse;
+import com.tcellpair3.customerservice.core.exception.type.BusinessException;
 import com.tcellpair3.customerservice.core.mappers.CustomerMapper;
+import com.tcellpair3.customerservice.core.service.Concrete.CustomerValidationServiceImpl;
 import com.tcellpair3.customerservice.entities.Customer;
 import com.tcellpair3.customerservice.repositories.CustomerRepository;
 import com.tcellpair3.customerservice.service.abstracts.CustomerService;
@@ -20,9 +22,16 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
+    private final CustomerValidationServiceImpl customerValidationService;
     @Override
     public CreateCustomerResponse createCustomer(CreateCustomerRequest request) {
-        //TODO: existByNationalId
+        boolean hasNationalId =customerRepository.existsByNationalId(request.getNationalId());
+        if(hasNationalId)
+        {
+            throw new BusinessException("A customer is already exist with this Nationality ID");
+        }
+        customerValidationService.validateBirthdate(request.getBirthdate());
+        // Birthday check
         Customer customer= CustomerMapper.INSTANCE.createCustomerMapper(request);
         Customer saveCustomer = customerRepository.save(customer);
 
@@ -42,7 +51,11 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public UpdateCustomerResponse updateCustomer(int id, UpdateCustomerRequest request) {
-        //TODO: existByNationalId
+        boolean hasNationalId =customerRepository.existsByNationalId(request.getNationalId());
+        if(hasNationalId)
+        {
+            throw new BusinessException("A customer is already exist with this Nationality ID");
+        }
         Optional<Customer> customerOptional = customerRepository.findById(id);
         Customer existingCustomer = customerOptional.get();
         Customer customer = CustomerMapper.INSTANCE.updateCustomerMapper(request,existingCustomer);
@@ -67,7 +80,7 @@ public class CustomerServiceImpl implements CustomerService {
     public void deleteCustomer(int id) {
 
         customerRepository.deleteById(id);
-//TODO: service exception for db
+
     }
 
     @Override

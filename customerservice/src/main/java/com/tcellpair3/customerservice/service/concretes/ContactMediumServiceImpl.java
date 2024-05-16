@@ -7,8 +7,10 @@ import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.GetAllCo
 import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.GetByIdContactMediumResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.UpdateContactMediumResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.GetAllCustomersResponse;
+import com.tcellpair3.customerservice.core.exception.type.BusinessException;
 import com.tcellpair3.customerservice.core.mappers.ContactMediumMapper;
 import com.tcellpair3.customerservice.core.mappers.CustomerMapper;
+import com.tcellpair3.customerservice.core.service.Abstract.ContactMediumServiceValidation;
 import com.tcellpair3.customerservice.entities.ContactMedium;
 import com.tcellpair3.customerservice.entities.Customer;
 import com.tcellpair3.customerservice.repositories.ContactMediumRepository;
@@ -25,8 +27,22 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ContactMediumServiceImpl implements ContactMediumService {
     private final ContactMediumRepository contactMediumRepository;
+    private final ContactMediumServiceValidation contactMediumServiceValidation;
     @Override
     public CreateContactMediumResponse createContactMedium(CreateContactMediumRequest request) {
+      /* if (request.getMobilePhone().length() != 11 ) {
+            throw new BusinessException("GSM number must be 11 characters long");
+        }
+
+        try {
+            long gsmNumber = Long.parseLong(request.getMobilePhone());
+            if (gsmNumber <= 0) {
+                throw new BusinessException("GSM number must be a positive integer");
+            }
+        } catch (NumberFormatException e) {
+            throw new BusinessException("GSM number must be a valid integer");
+        }*/
+        contactMediumServiceValidation.validatePhoneNumber(request.getMobilePhone());
         ContactMedium contactMedium = ContactMediumMapper.INSTANCE.createContactMediumMapper(request);
         ContactMedium saveContactMedium = contactMediumRepository.save(contactMedium);
 

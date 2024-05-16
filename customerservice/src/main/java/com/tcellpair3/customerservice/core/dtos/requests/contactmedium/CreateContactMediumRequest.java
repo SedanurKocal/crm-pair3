@@ -18,7 +18,6 @@ public class CreateContactMediumRequest {
     private String email;
 
     @NotBlank
-    @Size(max = 11,min = 11,message = "Telefon numarası formatında başında 0 olacak şekilde 11 haneli veri girişi yapınız")
     private String mobilePhone;
 
     @Size(max = 11,min = 11,message = "Ev telefonu formatında başında 0 olacak şekilde 11 haneli veri girişi yapınız")
