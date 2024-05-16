@@ -7,6 +7,8 @@ import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.GetAllCo
 import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.GetByIdContactMediumResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.UpdateContactMediumResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.GetAllCustomersResponse;
+import com.tcellpair3.customerservice.entities.ContactMedium;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,4 +20,6 @@ public interface ContactMediumService {
     void deleteContactMedium(int id);
     List<GetAllContactMediumResponse> getAllContactMedium();
     Optional<GetByIdContactMediumResponse> getByContactMediumId(int id);
+
+
 }

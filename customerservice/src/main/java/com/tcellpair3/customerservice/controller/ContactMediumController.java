@@ -6,6 +6,7 @@ import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.CreateCo
 import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.GetAllContactMediumResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.GetByIdContactMediumResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.UpdateContactMediumResponse;
+import com.tcellpair3.customerservice.entities.ContactMedium;
 import com.tcellpair3.customerservice.repositories.ContactMediumRepository;
 import com.tcellpair3.customerservice.service.abstracts.ContactMediumService;
 import jakarta.validation.Valid;
@@ -34,6 +35,7 @@ public class ContactMediumController {
     {
         return contactMediumService.getByContactMediumId(id);
     }
+
     @PostMapping
     public CreateContactMediumResponse createContactMedium(@Valid @RequestBody CreateContactMediumRequest request) {
         return contactMediumService.createContactMedium(request);

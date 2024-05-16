@@ -26,6 +26,5 @@ public class UpdateContactMediumRequest {
 
     @Size(max = 12,min = 12,message = "Fax numarası formatında 12 haneli veri girişi yapınız")
     private String faxNumber;
-
-    private int customerId;
+ 
 }
