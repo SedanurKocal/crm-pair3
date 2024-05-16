@@ -26,21 +26,15 @@ public class Customer {
     private int id;
 
     @Column(name = "first_name")
-    @NotBlank(message = "This field is required") //TO DO : move to dto
-    @Size(max = 50,message = "Maksimum 50 karakterlik veri girişi yapınız.")
     private String firstName;
 
     @Column(name = "last_name")
-    @NotBlank(message = "This field is required")
-    @Size(max = 50,message = "Maksimum 50 karakterlik veri girişi yapınız.")
     private String lastName;
 
     @Column(name = "middle_name")
-    @Size(max = 50,message = "Maksimum 50 karakterlik veri girişi yapınız.")
     private String middleName;
 
     @Column(name = "national_id" )
-    @NotBlank(message = "This field is required")
     private String nationalId;
 
     @Column(name = "mother_name" )
@@ -50,11 +44,9 @@ public class Customer {
     private String fatherName;
 
     @Column(name = "birth_date")
-    @NotBlank(message = "This field is required")
     private LocalDate birthdate;
 
     @Column(name = "gender")
-    @NotBlank(message = "This field is required")
     private Gender gender;
 
     @OneToMany(mappedBy = "customer")
@@ -62,7 +54,9 @@ public class Customer {
 
     @OneToOne(mappedBy ="customer")
     private ContactMedium contactMedium;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<CustomerInvoice> customerInvoice;
 }
 
-//MOLA :20:35
 

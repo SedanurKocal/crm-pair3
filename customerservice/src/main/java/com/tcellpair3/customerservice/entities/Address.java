@@ -40,4 +40,9 @@ public class Address {
     @NotBlank(message = "This field is required")
     private String addressDescription;
 
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
 }
