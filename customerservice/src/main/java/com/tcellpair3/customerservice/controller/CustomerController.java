@@ -20,6 +20,15 @@ import java.util.Optional;
 public class CustomerController {
     private final CustomerService customerService;
 
+    @GetMapping
+    public List<GetAllCustomersResponse> getAllCustomers(){
+        return customerService.getAllCustomers();
+    }
+    @GetMapping("{id}")
+    public Optional<GetByIdCustomerResponse> getByIdCustomers(@PathVariable int id){
+        return customerService.getByCustomerId(id);
+    }
+
     @PostMapping
     public CreateCustomerResponse createCustomer(@Valid @RequestBody CreateCustomerRequest request){
         return customerService.createCustomer(request);
@@ -34,14 +43,6 @@ public class CustomerController {
         return customerService.updateCustomer(id,request);
     }
 
-    @GetMapping
-    public List<GetAllCustomersResponse> getAllCustomers(){
-        return customerService.getAllCustomers();
-    }
-    @GetMapping("{id}")
-    public Optional<GetByIdCustomerResponse> getByIdCustomers(@PathVariable int id){
-        return customerService.getByCustomerId(id);
-    }
 
 
 }

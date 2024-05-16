@@ -22,6 +22,7 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
     @Override
     public CreateCustomerResponse createCustomer(CreateCustomerRequest request) {
+        //TODO: existByNationalId
         Customer customer= CustomerMapper.INSTANCE.createCustomerMapper(request);
         Customer saveCustomer = customerRepository.save(customer);
 
@@ -41,6 +42,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public UpdateCustomerResponse updateCustomer(int id, UpdateCustomerRequest request) {
+        //TODO: existByNationalId
         Optional<Customer> customerOptional = customerRepository.findById(id);
         Customer existingCustomer = customerOptional.get();
         Customer customer = CustomerMapper.INSTANCE.updateCustomerMapper(request,existingCustomer);
@@ -63,6 +65,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void deleteCustomer(int id) {
+
         customerRepository.deleteById(id);
 //TODO: service exception for db
     }

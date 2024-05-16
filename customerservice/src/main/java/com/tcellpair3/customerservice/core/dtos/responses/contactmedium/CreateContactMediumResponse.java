@@ -1,5 +1,6 @@
-package com.tcellpair3.customerservice.entities;
+package com.tcellpair3.customerservice.core.dtos.responses.contactmedium;
 
+import com.tcellpair3.customerservice.entities.Customer;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -13,25 +14,12 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "contact_medium")
-public class ContactMedium {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class CreateContactMediumResponse {
+
     private int id;
-
     private String email;
-
-    @Column(name = "mobile_phone")
     private String mobilePhone;
-
-    @Column(name = "home_phone")
     private String homePhone;
-
-    @Column(name = "fax_number")
     private String faxNumber;
-
-    @OneToOne
-    @JoinColumn(name = "customer_id", referencedColumnName = "id")
-    private Customer customer;
+    private int customerId;
 }

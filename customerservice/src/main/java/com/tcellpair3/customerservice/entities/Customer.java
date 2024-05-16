@@ -49,10 +49,10 @@ public class Customer {
     @Column(name = "gender")
     private Gender gender;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
     private List<Address> Addresses;
 
-    @OneToOne(mappedBy ="customer")
+    @OneToOne(mappedBy ="customer", cascade = CascadeType.ALL)
     private ContactMedium contactMedium;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
