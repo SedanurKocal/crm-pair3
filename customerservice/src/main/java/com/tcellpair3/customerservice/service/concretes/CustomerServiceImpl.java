@@ -10,7 +10,11 @@ import com.tcellpair3.customerservice.entities.Customer;
 import com.tcellpair3.customerservice.repositories.CustomerRepository;
 import com.tcellpair3.customerservice.service.abstracts.CustomerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -58,6 +62,8 @@ public class CustomerServiceImpl implements CustomerService {
         }
         Optional<Customer> customerOptional = customerRepository.findById(id);
         Customer existingCustomer = customerOptional.get();
+        customerValidationService.validateBirthdate(request.getBirthdate());
+        customerValidationService.isValidTC(request.getNationalId());
         Customer customer = CustomerMapper.INSTANCE.updateCustomerMapper(request,existingCustomer);
         Customer saveCustomer=customerRepository.save(customer);
 
@@ -97,16 +103,18 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<GetAllCustomersResponse> findByFirstNameStartingWithIgnoreCase(String nameStart) {
-        List<Customer> customers = customerRepository.findByFirstNameStartingWithIgnoreCase(nameStart);
-        return customers.stream()
-                .map(CustomerMapper.INSTANCE::getAllCustomerMapper)
-                .collect(Collectors.toList());
+    public Page<SearchResultsResponse> getCustomersByFirstName(String firstName, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Customer> customerPage = customerRepository.findByFirstNameStartingWithIgnoreCase(firstName, pageable);
+        return customerPage.map(CustomerMapper.INSTANCE::searchResultResponse);
     }
-
     @Override
     public List<SearchResultsResponse> findByFirstName(String firstName) {
         List<Customer> customers = customerRepository.findByFirstName(firstName);
+        if(customers.isEmpty())
+        {
+            throw new BusinessException("No customer found! Would you like to create the customer?");
+        }
         return customers.stream()
                 .map(CustomerMapper.INSTANCE::searchResultResponse)
                 .collect(Collectors.toList());
@@ -115,6 +123,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<SearchResultsResponse> findByLastName(String lastName) {
         List<Customer> customers = customerRepository.findByLastName(lastName);
+        if(customers.isEmpty())
+        {
+            throw new BusinessException("No customer found! Would you like to create the customer?");
+        }
         return customers.stream()
                 .map(CustomerMapper.INSTANCE::searchResultResponse)
                 .collect(Collectors.toList());
@@ -123,6 +135,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<SearchResultsResponse> findByAccountNumber(Integer accountNumber) {
         List<Customer> customers = customerRepository.findByAccountNumber(accountNumber);
+        if(customers.isEmpty())
+        {
+            throw new BusinessException("No customer found! Would you like to create the customer?");
+        }
         return customers.stream()
                 .map(CustomerMapper.INSTANCE::searchResultResponse)
                 .collect(Collectors.toList());
@@ -131,6 +147,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<SearchResultsResponse> findByNationalId(String nationalId) {
         List<Customer> customers = customerRepository.findByNationalId(nationalId);
+        if(customers.isEmpty())
+        {
+            throw new BusinessException("No customer found! Would you like to create the customer?");
+        }
         return customers.stream()
                 .map(CustomerMapper.INSTANCE::searchResultResponse)
                 .collect(Collectors.toList());
@@ -139,6 +159,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<SearchResultsResponse> findByContactMedium_MobilePhone(String mobilePhone) {
         List<Customer> customers = customerRepository.findByContactMedium_MobilePhone(mobilePhone);
+        if(customers.isEmpty())
+        {
+            throw new BusinessException("No customer found! Would you like to create the customer?");
+        }
         return customers.stream()
                 .map(CustomerMapper.INSTANCE::searchResultResponse)
                 .collect(Collectors.toList());

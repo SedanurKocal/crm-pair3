@@ -24,18 +24,7 @@ public class ContactMediumServiceImpl implements ContactMediumService {
     private final ContactMediumValidationService contactMediumServiceValidation;
     @Override
     public CreateContactMediumResponse createContactMedium(CreateContactMediumRequest request) {
-      /* if (request.getMobilePhone().length() != 11 ) {
-            throw new BusinessException("GSM number must be 11 characters long");
-        }
 
-        try {
-            long gsmNumber = Long.parseLong(request.getMobilePhone());
-            if (gsmNumber <= 0) {
-                throw new BusinessException("GSM number must be a positive integer");
-            }
-        } catch (NumberFormatException e) {
-            throw new BusinessException("GSM number must be a valid integer");
-        }*/
         contactMediumServiceValidation.validatePhoneNumber(request.getMobilePhone());
         ContactMedium contactMedium = ContactMediumMapper.INSTANCE.createContactMediumMapper(request);
         ContactMedium saveContactMedium = contactMediumRepository.save(contactMedium);
@@ -89,6 +78,7 @@ public class ContactMediumServiceImpl implements ContactMediumService {
 
 
     }
+
 
 
 }

@@ -34,6 +34,6 @@ public class CreateAddressRequest {
     @NotBlank(message = "This field is required")
     private String addressDescription;
 
-
+    private boolean isDefault;
     private int customerId;
 }

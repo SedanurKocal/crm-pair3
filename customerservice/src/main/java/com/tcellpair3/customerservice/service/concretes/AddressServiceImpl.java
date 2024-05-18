@@ -6,9 +6,12 @@ import com.tcellpair3.customerservice.core.dtos.responses.address.CreateAddressR
 import com.tcellpair3.customerservice.core.dtos.responses.address.GetAllAddressResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.address.GetByIdAddressResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.address.UpdateAddressResponse;
+import com.tcellpair3.customerservice.core.exception.type.BusinessException;
 import com.tcellpair3.customerservice.core.mappers.AddressMapper;
 import com.tcellpair3.customerservice.entities.Address;
+import com.tcellpair3.customerservice.entities.Customer;
 import com.tcellpair3.customerservice.repositories.AddressRepository;
+import com.tcellpair3.customerservice.repositories.CustomerRepository;
 import com.tcellpair3.customerservice.service.abstracts.AddressService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,6 +24,7 @@ import java.util.Optional;
 public class AddressServiceImpl implements AddressService {
 
     private final AddressRepository addressRepository;
+    private final CustomerRepository customerRepository;
     @Override
     public CreateAddressResponse createAddress(CreateAddressRequest request) {
         Address address= AddressMapper.INSTANCE.createAddressMapper(request);
@@ -32,6 +36,7 @@ public class AddressServiceImpl implements AddressService {
                 saveAddress.getDistrict(),
                 saveAddress.getStreet(),
                 saveAddress.getHouseFlatNumber(),
+                saveAddress.isDefault(),
                 saveAddress.getAddressDescription(),
                 saveAddress.getCustomer().getId()
 
@@ -49,6 +54,7 @@ public class AddressServiceImpl implements AddressService {
                 saveAddress.getId(),
                 saveAddress.getCity(),
                 saveAddress.getDistrict(),
+                saveAddress.isDefault(),
                 saveAddress.getStreet(),
                 saveAddress.getHouseFlatNumber(),
                 saveAddress.getAddressDescription(),
@@ -60,7 +66,25 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public void deleteAddress(int id) {
-        addressRepository.deleteById(id);
+        Optional<Address> addressOptional = addressRepository.findById(id);
+
+        if (addressOptional.isPresent()) {
+            Address address = addressOptional.get();
+            int customerId = address.getCustomer().getId();
+            long addressCount = addressRepository.countByCustomerId(customerId);
+
+            if (addressCount <= 1) {
+                throw new BusinessException("A customer must have at least one address. You cannot delete the last address.");
+            }
+
+            if (address.isDefault()) {
+                throw new BusinessException("The address that you want to delete is a default address. Please, change the default address then try again");
+            }
+
+            addressRepository.deleteById(id);
+        } else {
+            throw new BusinessException("Address with id " + id + " not found");
+        }
 
     }
 

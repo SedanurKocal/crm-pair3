@@ -18,7 +18,7 @@ public class GetByIdAddressResponse {
 
 
     private String street;
-
+    private boolean isDefault;
     private String houseFlatNumber;
 
 

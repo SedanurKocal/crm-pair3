@@ -24,7 +24,7 @@ public class CreateAddressResponse {
 
     private String houseFlatNumber;
 
-
+    private boolean isDefault;
     private String addressDescription;
 
     private int customerId;

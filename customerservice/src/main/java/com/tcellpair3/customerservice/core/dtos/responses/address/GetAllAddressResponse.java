@@ -17,7 +17,7 @@ public class GetAllAddressResponse {
     private City city; //TO DO : TR de citylerin kontrolü için api?
 
     private String district;
-
+    private boolean isDefault;
 
     private String street;
 

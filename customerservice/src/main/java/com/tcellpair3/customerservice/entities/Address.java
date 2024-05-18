@@ -35,6 +35,8 @@ public class Address {
     @Column(name = "address_description")
     private String addressDescription;
 
+    @Column(name = "is_default")
+    private boolean isDefault;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")

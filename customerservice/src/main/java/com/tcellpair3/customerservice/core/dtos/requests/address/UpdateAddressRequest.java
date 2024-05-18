@@ -26,7 +26,7 @@ public class UpdateAddressRequest {
     @NotBlank(message = "This field is required")
     private String houseFlatNumber;
 
-
+    private boolean isDefault;
     @NotBlank(message = "This field is required")
     private String addressDescription;
 

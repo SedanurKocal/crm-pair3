@@ -18,7 +18,7 @@ public class UpdateAddressResponse {
 
     private String district;
 
-
+    private boolean isDefault;
     private String street;
 
     private String houseFlatNumber;

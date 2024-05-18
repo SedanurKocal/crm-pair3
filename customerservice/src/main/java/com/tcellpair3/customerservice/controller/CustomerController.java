@@ -7,6 +7,7 @@ import com.tcellpair3.customerservice.entities.Customer;
 import com.tcellpair3.customerservice.service.abstracts.CustomerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,10 +27,12 @@ public class CustomerController {
     public Optional<GetByIdCustomerResponse> getByIdCustomers(@PathVariable int id){
         return customerService.getByCustomerId(id);
     }
-    @GetMapping("FindByStartName")
-    public List<GetAllCustomersResponse> getByLikeName(@RequestParam(required = false) String startName)
-    {
-        return customerService.findByFirstNameStartingWithIgnoreCase(startName);
+    @GetMapping("/getCustomersByFirstName")
+    public Page<SearchResultsResponse> getCustomersByFirstName(
+            @RequestParam String firstName,
+            @RequestParam int page,
+            @RequestParam int size) {
+        return customerService.getCustomersByFirstName(firstName, page, size);
     }
     @GetMapping("findByFirstName")
     public List<SearchResultsResponse> findByFirstName(String firstName)
