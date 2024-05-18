@@ -19,8 +19,7 @@ import java.util.List;
 @Entity
 @Table(name = "customers")
 public class Customer {
-    //TO DO : move to dto
-    //TO DO : check MERNIS for nationalID
+    //TODO : check MERNIS for nationalID
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -50,7 +49,7 @@ public class Customer {
     private Gender gender;
 
     @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
-    private List<Address> Addresses;
+    private List<Address> addresses;
 
     @OneToOne(mappedBy ="customer", cascade = CascadeType.ALL)
     private ContactMedium contactMedium;

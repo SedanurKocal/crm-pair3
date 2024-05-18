@@ -21,23 +21,18 @@ public class Address {
     private int id;
 
     @Column(name = "city")
-    @NotBlank(message = "This field is required")
     private City city; //TO DO : TR de citylerin kontrolü için api?
 
     @Column(name = "district")
-    @NotBlank(message = "This field is required")
     private String district;
 
     @Column(name = "street")
-    @NotBlank(message = "This field is required")
     private String street;
 
     @Column(name = "house_flat_number")
-    @NotBlank(message = "This field is required")
-    private String houseFlatNumber; //TO DO: api?
+    private String houseFlatNumber;
 
     @Column(name = "address_description")
-    @NotBlank(message = "This field is required")
     private String addressDescription;
 
 
