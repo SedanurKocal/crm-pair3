@@ -6,6 +6,7 @@ import com.tcellpair3.customerservice.core.dtos.responses.customer.GetByIdCustom
 import com.tcellpair3.customerservice.core.dtos.responses.customer.GetAllCustomersResponse;
 import com.tcellpair3.customerservice.entities.Customer;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
@@ -15,6 +16,7 @@ import java.util.List;
 public interface CustomerMapper {
     CustomerMapper INSTANCE = Mappers.getMapper(CustomerMapper.class);
 
+    @Mapping(target = "accountNumber", source = "accountNumber")
     Customer createCustomerMapper(CreateCustomerRequest request);
 
     GetByIdCustomerResponse getByIdCustomerMapper(Customer customer);
@@ -23,8 +25,8 @@ public interface CustomerMapper {
     List<GetAllCustomersResponse> customersToListCustomerResponses(List<Customer> customers);
 
 
+    @Mapping(target = "accountNumber", source = "accountNumber")
     Customer updateCustomerMapper(UpdateCustomerRequest customerRequest, @MappingTarget Customer customer);
-
 
 
 

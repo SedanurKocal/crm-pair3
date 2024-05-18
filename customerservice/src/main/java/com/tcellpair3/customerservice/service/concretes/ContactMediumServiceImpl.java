@@ -6,28 +6,22 @@ import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.CreateCo
 import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.GetAllContactMediumResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.GetByIdContactMediumResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.UpdateContactMediumResponse;
-import com.tcellpair3.customerservice.core.dtos.responses.customer.GetAllCustomersResponse;
-import com.tcellpair3.customerservice.core.exception.type.BusinessException;
 import com.tcellpair3.customerservice.core.mappers.ContactMediumMapper;
-import com.tcellpair3.customerservice.core.mappers.CustomerMapper;
-import com.tcellpair3.customerservice.core.service.Abstract.ContactMediumServiceValidation;
+import com.tcellpair3.customerservice.core.service.Abstract.ContactMediumValidationService;
 import com.tcellpair3.customerservice.entities.ContactMedium;
-import com.tcellpair3.customerservice.entities.Customer;
 import com.tcellpair3.customerservice.repositories.ContactMediumRepository;
-import com.tcellpair3.customerservice.repositories.CustomerRepository;
 import com.tcellpair3.customerservice.service.abstracts.ContactMediumService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ContactMediumServiceImpl implements ContactMediumService {
     private final ContactMediumRepository contactMediumRepository;
-    private final ContactMediumServiceValidation contactMediumServiceValidation;
+    private final ContactMediumValidationService contactMediumServiceValidation;
     @Override
     public CreateContactMediumResponse createContactMedium(CreateContactMediumRequest request) {
       /* if (request.getMobilePhone().length() != 11 ) {

@@ -1,11 +1,11 @@
 package com.tcellpair3.customerservice.core.service.Concrete;
 
 import com.tcellpair3.customerservice.core.exception.type.BusinessException;
-import com.tcellpair3.customerservice.core.service.Abstract.ContactMediumServiceValidation;
+import com.tcellpair3.customerservice.core.service.Abstract.ContactMediumValidationService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ContactMediumValidationServiceImpl implements ContactMediumServiceValidation {
+public class ContactServiceMediumValidationImpl implements ContactMediumValidationService {
     @Override
     public void validatePhoneNumber(String phoneNumber) {
         if (phoneNumber.length() != 11 ) {

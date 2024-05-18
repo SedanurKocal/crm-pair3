@@ -15,6 +15,8 @@ import java.time.LocalDate;
 public class UpdateCustomerResponse {
     private int id;
 
+    private int accountNumber;
+
     private String firstName;
 
 

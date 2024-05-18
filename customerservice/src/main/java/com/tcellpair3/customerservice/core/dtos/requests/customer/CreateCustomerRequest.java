@@ -6,6 +6,7 @@ import com.tcellpair3.customerservice.entities.CustomerInvoice;
 import com.tcellpair3.customerservice.entities.Gender;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +22,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateCustomerRequest {
+
+
+    @NotNull(message = "This field is required")
+    private int accountNumber;
 
     @NotBlank(message = "This field is required")
     @Size(max = 50,message = "Maksimum 50 karakterlik veri girişi yapınız.")

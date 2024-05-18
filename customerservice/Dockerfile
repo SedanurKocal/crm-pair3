@@ -8,4 +8,4 @@ RUN mvn clean package -DskipTests
 
 FROM openjdk:17-jdk
 COPY --from=build /app/target/customerservice-0.0.1-SNAPSHOT.jar /app/customerservice.jar
-CMD ["java", "-jar", "/app/customerservice.jar"]
+CMD java -jar /app/customerservice.jar

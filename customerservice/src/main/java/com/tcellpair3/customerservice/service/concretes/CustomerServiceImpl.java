@@ -31,12 +31,14 @@ public class CustomerServiceImpl implements CustomerService {
             throw new BusinessException("A customer is already exist with this Nationality ID");
         }
         customerValidationService.validateBirthdate(request.getBirthdate());
+        customerValidationService.isValidTC(request.getNationalId());
         // Birthday check
         Customer customer= CustomerMapper.INSTANCE.createCustomerMapper(request);
         Customer saveCustomer = customerRepository.save(customer);
 
         return new CreateCustomerResponse(
                 saveCustomer.getId(),
+                saveCustomer.getAccountNumber(),
                 saveCustomer.getFirstName(),
                 saveCustomer.getLastName(),
                 saveCustomer.getMiddleName(),
@@ -63,6 +65,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         return new UpdateCustomerResponse(
                 saveCustomer.getId(),
+                saveCustomer.getAccountNumber(),
                 saveCustomer.getFirstName(),
                 saveCustomer.getLastName(),
                 saveCustomer.getMiddleName(),
@@ -94,5 +97,11 @@ public class CustomerServiceImpl implements CustomerService {
         Optional<Customer> customerOptional= customerRepository.findById(id);
         return customerOptional.map(CustomerMapper.INSTANCE::getByIdCustomerMapper);
     }
+
+    @Override
+    public List<Customer> findByFirstNameStartingWithIgnoreCase(String nameStart) {
+        return customerRepository.findByFirstNameStartingWithIgnoreCase(nameStart);
+    }
+
 
 }

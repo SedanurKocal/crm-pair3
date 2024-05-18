@@ -2,10 +2,8 @@ package com.tcellpair3.customerservice.controller;
 
 import com.tcellpair3.customerservice.core.dtos.requests.customer.CreateCustomerRequest;
 import com.tcellpair3.customerservice.core.dtos.requests.customer.UpdateCustomerRequest;
-import com.tcellpair3.customerservice.core.dtos.responses.customer.CreateCustomerResponse;
-import com.tcellpair3.customerservice.core.dtos.responses.customer.GetAllCustomersResponse;
-import com.tcellpair3.customerservice.core.dtos.responses.customer.GetByIdCustomerResponse;
-import com.tcellpair3.customerservice.core.dtos.responses.customer.UpdateCustomerResponse;
+import com.tcellpair3.customerservice.core.dtos.responses.customer.*;
+import com.tcellpair3.customerservice.entities.Customer;
 import com.tcellpair3.customerservice.service.abstracts.CustomerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +26,12 @@ public class CustomerController {
     public Optional<GetByIdCustomerResponse> getByIdCustomers(@PathVariable int id){
         return customerService.getByCustomerId(id);
     }
+    @GetMapping("FindByStartName")
+    public List<Customer> getByLikeName(@RequestParam(required = false) String startName)
+    {
+        return customerService.findByFirstNameStartingWithIgnoreCase(startName);
+    }
+
 
     @PostMapping
     public CreateCustomerResponse createCustomer(@Valid @RequestBody CreateCustomerRequest request){

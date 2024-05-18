@@ -6,6 +6,8 @@ import com.tcellpair3.customerservice.core.dtos.responses.customer.CreateCustome
 import com.tcellpair3.customerservice.core.dtos.responses.customer.GetAllCustomersResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.GetByIdCustomerResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.UpdateCustomerResponse;
+import com.tcellpair3.customerservice.entities.Customer;
+import jakarta.persistence.criteria.CriteriaBuilder;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +19,5 @@ public interface CustomerService {
     void deleteCustomer(int id);
     List<GetAllCustomersResponse> getAllCustomers();
     Optional<GetByIdCustomerResponse> getByCustomerId(int id);
-
-
+    List<Customer> findByFirstNameStartingWithIgnoreCase(String nameStart);
 }

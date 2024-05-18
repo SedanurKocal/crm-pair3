@@ -14,6 +14,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class GetByIdCustomerResponse {
 
+    private int accountNumber;
+
     private String firstName;
 
 
