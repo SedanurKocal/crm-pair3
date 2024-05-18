@@ -20,7 +20,7 @@ public class CreateContactMediumRequest {
     @NotBlank
     private String mobilePhone;
 
-    @Size(max = 11,min = 11,message = "Ev telefonu formatında başında 0 olacak şekilde 11 haneli veri girişi yapınız")
+    @Size(max = 10,min = 10,message = "Ev telefonu formatında başında 0 olmayacak şekilde 10 haneli veri girişi yapınız")
     private String homePhone;
 
     @Size(max = 12,min = 12,message = "Fax numarası formatında 12 haneli veri girişi yapınız")

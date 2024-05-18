@@ -4,6 +4,7 @@ import com.tcellpair3.customerservice.core.dtos.requests.customer.CreateCustomer
 import com.tcellpair3.customerservice.core.dtos.requests.customer.UpdateCustomerRequest;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.GetByIdCustomerResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.GetAllCustomersResponse;
+import com.tcellpair3.customerservice.core.dtos.responses.customer.SearchResultsResponse;
 import com.tcellpair3.customerservice.entities.Customer;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -22,12 +23,11 @@ public interface CustomerMapper {
     GetByIdCustomerResponse getByIdCustomerMapper(Customer customer);
 
     GetAllCustomersResponse getAllCustomerMapper(Customer customer);
+    SearchResultsResponse searchResultResponse(Customer customer);
     List<GetAllCustomersResponse> customersToListCustomerResponses(List<Customer> customers);
 
 
     @Mapping(target = "accountNumber", source = "accountNumber")
     Customer updateCustomerMapper(UpdateCustomerRequest customerRequest, @MappingTarget Customer customer);
-
-
 
 }

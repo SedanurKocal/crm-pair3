@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 public class ContactServiceMediumValidationImpl implements ContactMediumValidationService {
     @Override
     public void validatePhoneNumber(String phoneNumber) {
-        if (phoneNumber.length() != 11 ) {
-            throw new BusinessException("GSM number must be 11 characters long");
+        if (phoneNumber.length() != 10 ) {
+            throw new BusinessException("GSM number must be 10 characters long");
         }
 
         try {

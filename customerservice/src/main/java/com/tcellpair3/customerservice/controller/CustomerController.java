@@ -27,11 +27,35 @@ public class CustomerController {
         return customerService.getByCustomerId(id);
     }
     @GetMapping("FindByStartName")
-    public List<Customer> getByLikeName(@RequestParam(required = false) String startName)
+    public List<GetAllCustomersResponse> getByLikeName(@RequestParam(required = false) String startName)
     {
         return customerService.findByFirstNameStartingWithIgnoreCase(startName);
     }
-
+    @GetMapping("findByFirstName")
+    public List<SearchResultsResponse> findByFirstName(String firstName)
+    {
+        return customerService.findByFirstName(firstName);
+    }
+    @GetMapping("findByLastName")
+    public List<SearchResultsResponse> findByLastName(String lastName)
+    {
+        return customerService.findByLastName(lastName);
+    }
+    @GetMapping("findByAccountNumber")
+    public List<SearchResultsResponse> findByAccountNumber(Integer accountNumber)
+    {
+        return customerService.findByAccountNumber(accountNumber);
+    }
+    @GetMapping("findByNationalId")
+    public List<SearchResultsResponse> findByNationalId(String nationalId)
+    {
+        return customerService.findByNationalId(nationalId);
+    }
+    @GetMapping("findByMobilePhone")
+    public List<SearchResultsResponse> findByMobilePhome(String mobilePhone)
+    {
+        return customerService.findByContactMedium_MobilePhone(mobilePhone);
+    }
 
     @PostMapping
     public CreateCustomerResponse createCustomer(@Valid @RequestBody CreateCustomerRequest request){

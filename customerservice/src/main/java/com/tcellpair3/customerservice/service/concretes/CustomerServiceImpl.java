@@ -2,10 +2,7 @@ package com.tcellpair3.customerservice.service.concretes;
 
 import com.tcellpair3.customerservice.core.dtos.requests.customer.CreateCustomerRequest;
 import com.tcellpair3.customerservice.core.dtos.requests.customer.UpdateCustomerRequest;
-import com.tcellpair3.customerservice.core.dtos.responses.customer.CreateCustomerResponse;
-import com.tcellpair3.customerservice.core.dtos.responses.customer.GetAllCustomersResponse;
-import com.tcellpair3.customerservice.core.dtos.responses.customer.GetByIdCustomerResponse;
-import com.tcellpair3.customerservice.core.dtos.responses.customer.UpdateCustomerResponse;
+import com.tcellpair3.customerservice.core.dtos.responses.customer.*;
 import com.tcellpair3.customerservice.core.exception.type.BusinessException;
 import com.tcellpair3.customerservice.core.mappers.CustomerMapper;
 import com.tcellpair3.customerservice.core.service.Concrete.CustomerValidationServiceImpl;
@@ -17,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -99,8 +97,51 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<Customer> findByFirstNameStartingWithIgnoreCase(String nameStart) {
-        return customerRepository.findByFirstNameStartingWithIgnoreCase(nameStart);
+    public List<GetAllCustomersResponse> findByFirstNameStartingWithIgnoreCase(String nameStart) {
+        List<Customer> customers = customerRepository.findByFirstNameStartingWithIgnoreCase(nameStart);
+        return customers.stream()
+                .map(CustomerMapper.INSTANCE::getAllCustomerMapper)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<SearchResultsResponse> findByFirstName(String firstName) {
+        List<Customer> customers = customerRepository.findByFirstName(firstName);
+        return customers.stream()
+                .map(CustomerMapper.INSTANCE::searchResultResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<SearchResultsResponse> findByLastName(String lastName) {
+        List<Customer> customers = customerRepository.findByLastName(lastName);
+        return customers.stream()
+                .map(CustomerMapper.INSTANCE::searchResultResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<SearchResultsResponse> findByAccountNumber(Integer accountNumber) {
+        List<Customer> customers = customerRepository.findByAccountNumber(accountNumber);
+        return customers.stream()
+                .map(CustomerMapper.INSTANCE::searchResultResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<SearchResultsResponse> findByNationalId(String nationalId) {
+        List<Customer> customers = customerRepository.findByNationalId(nationalId);
+        return customers.stream()
+                .map(CustomerMapper.INSTANCE::searchResultResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<SearchResultsResponse> findByContactMedium_MobilePhone(String mobilePhone) {
+        List<Customer> customers = customerRepository.findByContactMedium_MobilePhone(mobilePhone);
+        return customers.stream()
+                .map(CustomerMapper.INSTANCE::searchResultResponse)
+                .collect(Collectors.toList());
     }
 
 
