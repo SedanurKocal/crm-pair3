@@ -1,5 +1,7 @@
 package com.tcellpair3.customerservice.entities;
 
+import com.tcellpair3.customerservice.enums.AccountStatus;
+import com.tcellpair3.customerservice.enums.AccountType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,10 +15,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomerInvoice  {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class CustomerInvoice  extends  BaseEntity{
 
     @Column(name = "account_name")
     private int accountName;

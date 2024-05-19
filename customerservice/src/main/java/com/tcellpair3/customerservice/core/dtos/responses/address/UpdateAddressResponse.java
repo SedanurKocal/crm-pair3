@@ -1,6 +1,6 @@
 package com.tcellpair3.customerservice.core.dtos.responses.address;
 
-import com.tcellpair3.customerservice.entities.City;
+import com.tcellpair3.customerservice.enums.City;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,6 +1,6 @@
 package com.tcellpair3.customerservice.core.dtos.responses.customer;
 
-import com.tcellpair3.customerservice.entities.Gender;
+import com.tcellpair3.customerservice.enums.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

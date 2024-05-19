@@ -1,8 +1,7 @@
 package com.tcellpair3.customerservice.entities;
 
+import com.tcellpair3.customerservice.enums.City;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,11 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "addresses")
-public class Address {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class Address extends BaseEntity{
 
     @Column(name = "city")
     private City city; //TO DO : TR de citylerin kontrolü için api?

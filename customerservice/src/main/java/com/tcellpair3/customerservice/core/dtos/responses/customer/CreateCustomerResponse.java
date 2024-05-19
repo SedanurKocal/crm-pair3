@@ -1,8 +1,6 @@
 package com.tcellpair3.customerservice.core.dtos.responses.customer;
 
-import com.tcellpair3.customerservice.entities.Gender;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import com.tcellpair3.customerservice.enums.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

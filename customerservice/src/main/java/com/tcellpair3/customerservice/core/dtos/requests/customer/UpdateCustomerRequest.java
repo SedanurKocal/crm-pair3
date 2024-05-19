@@ -1,6 +1,6 @@
 package com.tcellpair3.customerservice.core.dtos.requests.customer;
 
-import com.tcellpair3.customerservice.entities.Gender;
+import com.tcellpair3.customerservice.enums.Gender;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

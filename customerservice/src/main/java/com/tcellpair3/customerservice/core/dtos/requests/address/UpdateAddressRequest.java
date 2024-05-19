@@ -1,7 +1,6 @@
 package com.tcellpair3.customerservice.core.dtos.requests.address;
 
-import com.tcellpair3.customerservice.entities.City;
-import com.tcellpair3.customerservice.entities.Customer;
+import com.tcellpair3.customerservice.enums.City;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

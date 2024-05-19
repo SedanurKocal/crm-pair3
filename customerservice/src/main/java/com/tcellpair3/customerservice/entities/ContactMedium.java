@@ -15,10 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "contact_medium")
-public class ContactMedium {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class ContactMedium extends BaseEntity{
 
     private String email;
 

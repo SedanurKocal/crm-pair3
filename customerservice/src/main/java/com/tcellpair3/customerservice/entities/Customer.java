@@ -1,9 +1,7 @@
 package com.tcellpair3.customerservice.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tcellpair3.customerservice.enums.Gender;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,14 +16,9 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "customers")
-public class Customer {
+public class Customer extends BaseCustomer{
     //TODO : check MERNIS for nationalID
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
 
-    @Column(name = "account_number")
-    private int accountNumber;
 
     @Column(name = "first_name")
     private String firstName;
