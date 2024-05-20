@@ -1,7 +1,5 @@
 package com.tcellpair3.customerservice.entities;
 
-import com.tcellpair3.customerservice.enums.AccountStatus;
-import com.tcellpair3.customerservice.enums.AccountType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

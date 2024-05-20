@@ -1,6 +1,5 @@
 package com.tcellpair3.customerservice.entities;
 
-import com.tcellpair3.customerservice.enums.City;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
