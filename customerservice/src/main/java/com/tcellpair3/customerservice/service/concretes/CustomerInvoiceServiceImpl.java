@@ -4,8 +4,8 @@ import com.tcellpair3.customerservice.core.dtos.requests.customerinvoice.CreateC
 import com.tcellpair3.customerservice.core.dtos.requests.customerinvoice.UpdateCustomerInvoiceRequest;
 import com.tcellpair3.customerservice.core.dtos.responses.customerinvoice.*;
 import com.tcellpair3.customerservice.core.exception.type.BusinessException;
+import com.tcellpair3.customerservice.core.mappers.AddressMapper;
 import com.tcellpair3.customerservice.core.mappers.CustomerInvoiceMapper;
-import com.tcellpair3.customerservice.core.mappers.CustomerMapper;
 import com.tcellpair3.customerservice.entities.Customer;
 import com.tcellpair3.customerservice.entities.CustomerInvoice;
 import com.tcellpair3.customerservice.repositories.CustomerInvoiceRepository;
@@ -70,9 +70,29 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService {
     }
 
     @Override
-    public List<CustomerInvoiceWithCustomer> findByCustomerId(Integer customerId) {
+    public List<CustomerInvoiceWithCustomerResponse> findByCustomerId(Integer customerId) {
         List<CustomerInvoice> customerInvoices = customerInvoiceRepository.findByCustomerId(customerId);
         return CustomerInvoiceMapper.INSTANCE.customerInvoiceWithCustomer(customerInvoices);
 
     }
+
+    @Override
+    public CustomerInvoiceWithAddressResponse findCustomerInvoiceWithAddressesById(Integer invoiceId) {
+        CustomerInvoice customerInvoice = customerInvoiceRepository.findCustomerInvoiceWithAddressesById(invoiceId);
+        if (customerInvoice == null) {
+            return null;
+        }
+
+        CustomerInvoiceWithAddressResponse dto = new CustomerInvoiceWithAddressResponse();
+        dto.setId(customerInvoice.getId());
+        dto.setAccountName(customerInvoice.getAccountName());
+        dto.setAccountStatus(customerInvoice.getAccountStatus());
+        dto.setAccountType(customerInvoice.getAccountType());
+        dto.setCustomerId(customerInvoice.getCustomer().getId());
+        dto.setAddresses(AddressMapper.INSTANCE.AddressToListAddressResponses(customerInvoice.getCustomer().getAddresses()));
+
+        return dto;
+    }
+
+
 }

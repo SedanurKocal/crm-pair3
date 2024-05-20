@@ -2,10 +2,7 @@ package com.tcellpair3.customerservice.service.abstracts;
 
 import com.tcellpair3.customerservice.core.dtos.requests.contactmedium.CreateContactMediumRequest;
 import com.tcellpair3.customerservice.core.dtos.requests.contactmedium.UpdateContactMediumRequest;
-import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.CreateContactMediumResponse;
-import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.GetAllContactMediumResponse;
-import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.GetByIdContactMediumResponse;
-import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.UpdateContactMediumResponse;
+import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.*;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.GetAllCustomersResponse;
 import com.tcellpair3.customerservice.entities.ContactMedium;
 import org.springframework.data.repository.query.Param;
@@ -21,5 +18,6 @@ public interface ContactMediumService {
     List<GetAllContactMediumResponse> getAllContactMedium();
     Optional<GetByIdContactMediumResponse> getByContactMediumId(int id);
 
+    List<ContactMediumWithCustomerResponse> findByCustomerId(int customerId);
 
 }

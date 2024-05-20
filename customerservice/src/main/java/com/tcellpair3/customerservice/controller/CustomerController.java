@@ -2,7 +2,9 @@ package com.tcellpair3.customerservice.controller;
 
 import com.tcellpair3.customerservice.core.dtos.requests.customer.CreateCustomerRequest;
 import com.tcellpair3.customerservice.core.dtos.requests.customer.UpdateCustomerRequest;
+import com.tcellpair3.customerservice.core.dtos.responses.address.GetAllAddressResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.*;
+import com.tcellpair3.customerservice.entities.Address;
 import com.tcellpair3.customerservice.entities.Customer;
 import com.tcellpair3.customerservice.service.abstracts.CustomerService;
 import jakarta.validation.Valid;
@@ -59,7 +61,10 @@ public class CustomerController {
     {
         return customerService.findByContactMedium_MobilePhone(mobilePhone);
     }
-
+    @GetMapping("findByCustomerAddress/{customerId}")
+    public List<GetAllAddressResponse> findByCustomerAddress(@PathVariable Integer customerId) {
+        return customerService.findAddressesByCustomerId(customerId);
+    }
     @PostMapping
     public CreateCustomerResponse createCustomer(@Valid @RequestBody CreateCustomerRequest request){
         return customerService.createCustomer(request);

@@ -2,10 +2,13 @@ package com.tcellpair3.customerservice.service.concretes;
 
 import com.tcellpair3.customerservice.core.dtos.requests.customer.CreateCustomerRequest;
 import com.tcellpair3.customerservice.core.dtos.requests.customer.UpdateCustomerRequest;
+import com.tcellpair3.customerservice.core.dtos.responses.address.GetAllAddressResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.*;
 import com.tcellpair3.customerservice.core.exception.type.BusinessException;
+import com.tcellpair3.customerservice.core.mappers.AddressMapper;
 import com.tcellpair3.customerservice.core.mappers.CustomerMapper;
 import com.tcellpair3.customerservice.core.service.Concrete.CustomerValidationServiceImpl;
+import com.tcellpair3.customerservice.entities.Address;
 import com.tcellpair3.customerservice.entities.Customer;
 import com.tcellpair3.customerservice.repositories.CustomerRepository;
 import com.tcellpair3.customerservice.service.abstracts.CustomerService;
@@ -166,6 +169,12 @@ public class CustomerServiceImpl implements CustomerService {
         return customers.stream()
                 .map(CustomerMapper.INSTANCE::searchResultResponse)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<GetAllAddressResponse> findAddressesByCustomerId(Integer customerId) {
+        List<Address> addresses = customerRepository.findAddressesByCustomerId(customerId);
+        return AddressMapper.INSTANCE.AddressToListAddressResponses(addresses);
     }
 
 

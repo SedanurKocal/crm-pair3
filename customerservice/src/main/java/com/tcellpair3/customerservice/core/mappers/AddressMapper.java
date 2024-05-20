@@ -32,5 +32,8 @@ public interface AddressMapper {
     List<GetAllAddressResponse> AddressToListAddressResponses(List<Address> addressList);
 
     Address updateAddress(UpdateAddressRequest updateAddressRequest, @MappingTarget Address address);
+
+
+
 }
 

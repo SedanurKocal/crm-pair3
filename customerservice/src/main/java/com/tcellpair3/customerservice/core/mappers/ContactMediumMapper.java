@@ -2,6 +2,7 @@ package com.tcellpair3.customerservice.core.mappers;
 
 import com.tcellpair3.customerservice.core.dtos.requests.contactmedium.CreateContactMediumRequest;
 import com.tcellpair3.customerservice.core.dtos.requests.contactmedium.UpdateContactMediumRequest;
+import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.ContactMediumWithCustomerResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.GetAllContactMediumResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.GetByIdContactMediumResponse;
 import com.tcellpair3.customerservice.entities.ContactMedium;
@@ -31,4 +32,9 @@ public interface ContactMediumMapper {
     List<GetAllContactMediumResponse> contactMediumToListContactResponses(List<ContactMedium> contactMedium);
 
     ContactMedium updateContactMedium(UpdateContactMediumRequest contactMediumRequest, @MappingTarget ContactMedium contactMedium);
+
+    @Mapping(source = "customer.id", target = "customerId")
+    ContactMediumWithCustomerResponse toDto(ContactMedium contactMedium);
+
+    List<ContactMediumWithCustomerResponse> toDtoList(List<ContactMedium> contactMediums);
 }

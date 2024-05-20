@@ -1,15 +1,13 @@
 package com.tcellpair3.customerservice.core.mappers;
 
-import com.tcellpair3.customerservice.core.dtos.requests.customer.UpdateCustomerRequest;
 import com.tcellpair3.customerservice.core.dtos.requests.customerinvoice.CreateCustomerInvoiceRequest;
 import com.tcellpair3.customerservice.core.dtos.requests.customerinvoice.UpdateCustomerInvoiceRequest;
-import com.tcellpair3.customerservice.core.dtos.responses.customer.GetAllCustomersResponse;
-import com.tcellpair3.customerservice.core.dtos.responses.customer.GetByIdCustomerResponse;
-import com.tcellpair3.customerservice.core.dtos.responses.customer.SearchResultsResponse;
-import com.tcellpair3.customerservice.core.dtos.responses.customerinvoice.CustomerInvoiceWithCustomer;
+import com.tcellpair3.customerservice.core.dtos.responses.address.GetAllAddressResponse;
+import com.tcellpair3.customerservice.core.dtos.responses.customerinvoice.CustomerInvoiceWithAddressResponse;
+import com.tcellpair3.customerservice.core.dtos.responses.customerinvoice.CustomerInvoiceWithCustomerResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customerinvoice.GetAllCustomerInvoiceResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customerinvoice.GetByIdCustomerInvoiceResponse;
-import com.tcellpair3.customerservice.entities.Customer;
+import com.tcellpair3.customerservice.entities.Address;
 import com.tcellpair3.customerservice.entities.CustomerInvoice;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -34,7 +32,12 @@ public interface CustomerInvoiceMapper {
     CustomerInvoice updateCustomerInvoiceMapper(UpdateCustomerInvoiceRequest customerRequest, @MappingTarget CustomerInvoice customerInvoice);
 
     @Mapping(target = "customerId", source = "customer.id")
-    CustomerInvoiceWithCustomer customerInvoiceWithCustomer(CustomerInvoice customerInvoice);
+    CustomerInvoiceWithCustomerResponse customerInvoiceWithCustomer(CustomerInvoice customerInvoice);
 
-    List<CustomerInvoiceWithCustomer> customerInvoiceWithCustomer(List<CustomerInvoice> customerInvoices);
+    List<CustomerInvoiceWithCustomerResponse> customerInvoiceWithCustomer(List<CustomerInvoice> customerInvoices);
+
+    @Mapping(target = "customerId", source = "customer.id")
+    CustomerInvoiceWithAddressResponse toCustomerInvoiceWithAddressesResponse(CustomerInvoice customerInvoice);
+
+    List<GetAllAddressResponse> toAddressDTOs(List<Address> addresses);
 }

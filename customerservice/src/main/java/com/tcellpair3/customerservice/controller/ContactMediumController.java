@@ -2,10 +2,7 @@ package com.tcellpair3.customerservice.controller;
 
 import com.tcellpair3.customerservice.core.dtos.requests.contactmedium.CreateContactMediumRequest;
 import com.tcellpair3.customerservice.core.dtos.requests.contactmedium.UpdateContactMediumRequest;
-import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.CreateContactMediumResponse;
-import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.GetAllContactMediumResponse;
-import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.GetByIdContactMediumResponse;
-import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.UpdateContactMediumResponse;
+import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.*;
 import com.tcellpair3.customerservice.entities.ContactMedium;
 import com.tcellpair3.customerservice.repositories.ContactMediumRepository;
 import com.tcellpair3.customerservice.service.abstracts.ContactMediumService;
@@ -35,7 +32,11 @@ public class ContactMediumController {
     {
         return contactMediumService.getByContactMediumId(id);
     }
-
+    @GetMapping("/ContactMediumWithCustomer/{customerId}")
+    public List<ContactMediumWithCustomerResponse> findByCustomerId(@PathVariable Integer customerId)
+    {
+        return contactMediumService.findByCustomerId(customerId);
+    }
     @PostMapping
     public CreateContactMediumResponse createContactMedium(@Valid @RequestBody CreateContactMediumRequest request) {
         return contactMediumService.createContactMedium(request);

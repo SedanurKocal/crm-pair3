@@ -2,10 +2,7 @@ package com.tcellpair3.customerservice.service.concretes;
 
 import com.tcellpair3.customerservice.core.dtos.requests.contactmedium.CreateContactMediumRequest;
 import com.tcellpair3.customerservice.core.dtos.requests.contactmedium.UpdateContactMediumRequest;
-import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.CreateContactMediumResponse;
-import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.GetAllContactMediumResponse;
-import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.GetByIdContactMediumResponse;
-import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.UpdateContactMediumResponse;
+import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.*;
 import com.tcellpair3.customerservice.core.mappers.ContactMediumMapper;
 import com.tcellpair3.customerservice.core.service.Abstract.ContactMediumValidationService;
 import com.tcellpair3.customerservice.entities.ContactMedium;
@@ -79,6 +76,11 @@ public class ContactMediumServiceImpl implements ContactMediumService {
 
     }
 
+    @Override
+    public List<ContactMediumWithCustomerResponse> findByCustomerId(int customerId) {
+        List<ContactMedium> contactMediums = contactMediumRepository.findByCustomerId(customerId);
+        return ContactMediumMapper.INSTANCE.toDtoList(contactMediums);
+    }
 
 
 }
