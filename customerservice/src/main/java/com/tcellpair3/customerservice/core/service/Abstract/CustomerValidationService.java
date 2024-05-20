@@ -6,4 +6,6 @@ public interface CustomerValidationService {
     public void validateBirthdate(LocalDate birthdate);
     public boolean isValidTC(String nationalId);
 
+
+
 }

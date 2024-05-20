@@ -7,6 +7,7 @@ import com.tcellpair3.customerservice.core.dtos.responses.customer.*;
 import com.tcellpair3.customerservice.core.exception.type.BusinessException;
 import com.tcellpair3.customerservice.core.mappers.AddressMapper;
 import com.tcellpair3.customerservice.core.mappers.CustomerMapper;
+import com.tcellpair3.customerservice.core.service.Abstract.ContactMediumValidationService;
 import com.tcellpair3.customerservice.core.service.Concrete.CustomerValidationServiceImpl;
 import com.tcellpair3.customerservice.entities.Address;
 import com.tcellpair3.customerservice.entities.Customer;
@@ -28,6 +29,7 @@ import java.util.stream.Collectors;
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
     private final CustomerValidationServiceImpl customerValidationService;
+    private final ContactMediumValidationService contactMediumValidationService;
     @Override
     public CreateCustomerResponse createCustomer(CreateCustomerRequest request) {
         boolean hasNationalId =customerRepository.existsByNationalId(request.getNationalId());
@@ -161,6 +163,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<SearchResultsResponse> findByContactMedium_MobilePhone(String mobilePhone) {
+        contactMediumValidationService.validatePhoneNumber(mobilePhone);
         List<Customer> customers = customerRepository.findByContactMedium_MobilePhone(mobilePhone);
         if(customers.isEmpty())
         {

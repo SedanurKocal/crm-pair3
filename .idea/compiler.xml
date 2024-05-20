@@ -9,8 +9,8 @@
         <outputRelativeToContentRoot value="true" />
         <module name="gatewayserver" />
         <module name="authserver" />
-        <module name="productservice" />
         <module name="userservice" />
+        <module name="productservice" />
         <module name="invoiceservice" />
         <module name="discoveryserver" />
         <module name="configserver" />
