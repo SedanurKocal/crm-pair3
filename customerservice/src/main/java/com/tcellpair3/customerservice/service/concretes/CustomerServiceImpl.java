@@ -11,6 +11,8 @@ import com.tcellpair3.customerservice.core.service.Abstract.ContactMediumValidat
 import com.tcellpair3.customerservice.core.service.Concrete.CustomerValidationServiceImpl;
 import com.tcellpair3.customerservice.entities.Address;
 import com.tcellpair3.customerservice.entities.Customer;
+import com.tcellpair3.customerservice.entities.CustomerInvoice;
+import com.tcellpair3.customerservice.repositories.CustomerInvoiceRepository;
 import com.tcellpair3.customerservice.repositories.CustomerRepository;
 import com.tcellpair3.customerservice.service.abstracts.CustomerService;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +32,7 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
     private final CustomerValidationServiceImpl customerValidationService;
     private final ContactMediumValidationService contactMediumValidationService;
+    private final CustomerInvoiceRepository customerInvoiceRepository;
     @Override
     public CreateCustomerResponse createCustomer(CreateCustomerRequest request) {
         boolean hasNationalId =customerRepository.existsByNationalId(request.getNationalId());
@@ -67,6 +70,12 @@ public class CustomerServiceImpl implements CustomerService {
         }
         Optional<Customer> customerOptional = customerRepository.findById(id);
         Customer existingCustomer = customerOptional.get();
+
+        List<CustomerInvoice> invoices = customerInvoiceRepository.findByCustomerId(customerOptional.get().getId());
+        for (CustomerInvoice invoice : invoices) {
+            invoice.setAccountName(request.getAccountNumber());
+            customerInvoiceRepository.save(invoice);
+        }
         customerValidationService.validateBirthdate(request.getBirthdate());
         customerValidationService.isValidTC(request.getNationalId());
         Customer customer = CustomerMapper.INSTANCE.updateCustomerMapper(request,existingCustomer);

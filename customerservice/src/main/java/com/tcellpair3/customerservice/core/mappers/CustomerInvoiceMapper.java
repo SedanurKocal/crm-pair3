@@ -21,6 +21,7 @@ public interface CustomerInvoiceMapper {
     CustomerInvoiceMapper INSTANCE = Mappers.getMapper(CustomerInvoiceMapper.class);
 
     @Mapping(target = "customer.id",source = "customerId")
+    @Mapping(target = "customer.accountNumber",source = "accountName")
     CustomerInvoice createCustomerInvoiceMapper(CreateCustomerInvoiceRequest request);
 
     GetByIdCustomerInvoiceResponse getByIdCustomerInvoiceMapper(CustomerInvoice customerInvoice);
