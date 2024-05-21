@@ -24,7 +24,7 @@ public class ContactMediumServiceImpl implements ContactMediumService {
     private final CustomerRepository customerRepository;
     @Override
     public CreateContactMediumResponse createContactMedium(CreateContactMediumRequest request) {
-        if(!customerRepository.existsById(request.getCustomerId())){
+       if(!customerRepository.existsById(request.getCustomerId())){
             throw new BusinessException("kullanıcı bulunamadı");
         }
         contactMediumServiceValidation.validatePhoneNumber(request.getMobilePhone());

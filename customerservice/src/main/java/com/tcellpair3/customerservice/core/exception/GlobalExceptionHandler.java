@@ -2,10 +2,12 @@ package com.tcellpair3.customerservice.core.exception;
 
 
 import com.tcellpair3.customerservice.core.exception.details.BusinessExceptionDetails;
+import com.tcellpair3.customerservice.core.exception.details.DateTimeParseExceptionDetails;
 import com.tcellpair3.customerservice.core.exception.type.BusinessException;
 import com.tcellpair3.customerservice.core.exception.type.DateTimeParseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -22,6 +24,18 @@ public class GlobalExceptionHandler {
         businessExceptionDetails.setTitle(exception.getMessage());
         return businessExceptionDetails;
     }
+    @ExceptionHandler({HttpMessageNotReadableException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public DateTimeParseExceptionDetails handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+        DateTimeParseExceptionDetails details = new DateTimeParseExceptionDetails();
+        if (ex.getCause() instanceof DateTimeParseException) {
+            DateTimeParseException dtpe = (DateTimeParseException) ex.getCause();
+            details.setTitle(dtpe.getMessage());
+        } else {
+            details.setTitle(ex.getMessage());
+        }
+        return details;
+    }
     // @Not blank için hazırlanan messageleri bastırır
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> handleValidationExceptions(MethodArgumentNotValidException ex) {
@@ -29,9 +43,5 @@ public class GlobalExceptionHandler {
                 .body(ex.getBindingResult().getAllErrors().get(0).getDefaultMessage());
     }
 
-    @ExceptionHandler(DateTimeParseException.class)
-    public ResponseEntity<String> handleDateTimeParseException(DateTimeParseException ex) {
-        // Return a response with a BAD_REQUEST status and an error message
-        return new ResponseEntity<>("Geçersiz tarih formatı: " + ex.getParsedString(), HttpStatus.BAD_REQUEST);
-    }
+
 }

@@ -1,6 +1,7 @@
 package com.tcellpair3.customerservice.core.service.Concrete;
 
 import com.tcellpair3.customerservice.core.exception.type.BusinessException;
+import com.tcellpair3.customerservice.core.exception.type.DateTimeParseException;
 import com.tcellpair3.customerservice.core.service.Abstract.CustomerValidationService;
 import com.tcellpair3.customerservice.service.concretes.CustomerServiceImpl;
 import org.springframework.stereotype.Service;
@@ -14,9 +15,13 @@ public class CustomerValidationServiceImpl implements CustomerValidationService 
     public void validateBirthdate(LocalDate birthdate) {
 
         LocalDate today = LocalDate.now();
+
+        // Birthdate should not be in the future
         if (birthdate.isAfter(today)) {
             throw new BusinessException("Birthdate cannot be in the future");
         }
+
+
     }
 
     @Override
