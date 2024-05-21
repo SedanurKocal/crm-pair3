@@ -12,9 +12,9 @@ import java.time.Year;
 public class CustomerValidationServiceImpl implements CustomerValidationService {
 
     public void validateBirthdate(LocalDate birthdate) {
-        int currentYear = Year.now().getValue();
-        int birthYear = birthdate.getYear();
-        if (birthYear > currentYear) {
+
+        LocalDate today = LocalDate.now();
+        if (birthdate.isAfter(today)) {
             throw new BusinessException("Birthdate cannot be in the future");
         }
     }

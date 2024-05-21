@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CustomerService {
-
     CreateCustomerResponse createCustomer(CreateCustomerRequest request);
     UpdateCustomerResponse updateCustomer(int id, UpdateCustomerRequest request);
     void deleteCustomer(int id);
@@ -26,8 +25,5 @@ public interface CustomerService {
     List<SearchResultsResponse> findByAccountNumber(Integer accountNumber);
     List<SearchResultsResponse> findByNationalId(String nationalId);
     List<SearchResultsResponse> findByContactMedium_MobilePhone(String mobilePhone);
-
-
     List<GetAllAddressResponse> findAddressesByCustomerId(Integer customerId);
-
 }

@@ -13,6 +13,7 @@ import java.util.List;
 
 public interface CustomerRepository extends JpaRepository<Customer,Integer> {
     boolean existsByNationalId(String nationalId);
+
     Page<Customer> findByFirstNameStartingWithIgnoreCase(String firstName, Pageable pageable);
     List<Customer> findByFirstName(String firstName);
     List<Customer> findByLastName(String lastName);
