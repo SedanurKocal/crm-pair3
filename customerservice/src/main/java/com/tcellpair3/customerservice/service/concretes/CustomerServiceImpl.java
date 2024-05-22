@@ -5,8 +5,10 @@ import com.tcellpair3.customerservice.core.dtos.requests.customer.UpdateCustomer
 import com.tcellpair3.customerservice.core.dtos.responses.address.GetAllAddressResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.*;
 import com.tcellpair3.customerservice.core.exception.type.BusinessException;
+import com.tcellpair3.customerservice.core.exception.type.IllegalArgumentException;
 import com.tcellpair3.customerservice.core.mappers.AddressMapper;
 import com.tcellpair3.customerservice.core.mappers.CustomerMapper;
+import com.tcellpair3.customerservice.core.mernis.IRKKPSPublicSoap;
 import com.tcellpair3.customerservice.core.service.Abstract.ContactMediumValidationService;
 import com.tcellpair3.customerservice.core.service.Concrete.CustomerValidationServiceImpl;
 import com.tcellpair3.customerservice.entities.Address;
@@ -34,8 +36,47 @@ public class CustomerServiceImpl implements CustomerService {
     private final ContactMediumValidationService contactMediumValidationService;
     private final CustomerInvoiceRepository customerInvoiceRepository;
     @Override
-    public CreateCustomerResponse createCustomer(CreateCustomerRequest request) {
-        boolean hasNationalId =customerRepository.existsByNationalId(request.getNationalId());
+    public CreateCustomerResponse createCustomer(CreateCustomerRequest request) throws Exception {
+
+        IRKKPSPublicSoap client = new IRKKPSPublicSoap();
+
+        boolean isRealPerson = client.TCKimlikNoDogrula(
+                Long.valueOf(request.getNationalId()),
+                request.getFirstName(),
+                request.getLastName(),
+                Integer.valueOf(request.getBirthdate().getYear())
+        );
+
+        if(isRealPerson){
+            boolean hasNationalId =customerRepository.existsByNationalId(request.getNationalId());
+            if(hasNationalId)
+            {
+                throw new BusinessException("A customer is already exist with this Nationality ID");
+            }
+            customerValidationService.validateBirthdate(request.getBirthdate());
+
+            Customer customer= CustomerMapper.INSTANCE.createCustomerMapper(request);
+            Customer saveCustomer = customerRepository.save(customer);
+
+            return new CreateCustomerResponse(
+                    saveCustomer.getId(),
+                    saveCustomer.getAccountNumber(),
+                    saveCustomer.getFirstName(),
+                    saveCustomer.getLastName(),
+                    saveCustomer.getMiddleName(),
+                    saveCustomer.getNationalId(),
+                    saveCustomer.getMotherName(),
+                    saveCustomer.getFatherName(),
+                    saveCustomer.getBirthdate(),
+                    saveCustomer.getGender()
+            );
+        }
+
+        else {
+            throw new IllegalArgumentException("Kullanıcı bulunamadı");
+        }
+
+        /*boolean hasNationalId =customerRepository.existsByNationalId(request.getNationalId());
         if(hasNationalId)
         {
             throw new BusinessException("A customer is already exist with this Nationality ID");
@@ -46,28 +87,29 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer= CustomerMapper.INSTANCE.createCustomerMapper(request);
         Customer saveCustomer = customerRepository.save(customer);
 
-        return new CreateCustomerResponse(
-                saveCustomer.getId(),
-                saveCustomer.getAccountNumber(),
-                saveCustomer.getFirstName(),
-                saveCustomer.getLastName(),
-                saveCustomer.getMiddleName(),
-                saveCustomer.getNationalId(),
-                saveCustomer.getMotherName(),
-                saveCustomer.getFatherName(),
-                saveCustomer.getBirthdate(),
-                saveCustomer.getGender()
-        );
+         */
+
+
 
     }
 
     @Override
-    public UpdateCustomerResponse updateCustomer(int id, UpdateCustomerRequest request) {
-        boolean hasNationalId =customerRepository.existsByNationalId(request.getNationalId());
-        if(hasNationalId)
-        {
-            throw new BusinessException("A customer is already exist with this Nationality ID");
-        }
+    public UpdateCustomerResponse updateCustomer(int id, UpdateCustomerRequest request) throws Exception {
+        IRKKPSPublicSoap client = new IRKKPSPublicSoap();
+
+        boolean isRealPerson = client.TCKimlikNoDogrula(
+                Long.valueOf(request.getNationalId()),
+                request.getFirstName(),
+                request.getLastName(),
+                Integer.valueOf(request.getBirthdate().getYear())
+        );
+
+        if(isRealPerson){
+            boolean hasNationalId =customerRepository.existsByNationalId(request.getNationalId());
+            if(hasNationalId)
+            {
+                throw new BusinessException("A customer is already exist with this Nationality ID");
+            }
         Optional<Customer> customerOptional = customerRepository.findById(id);
         Customer existingCustomer = customerOptional.get();
 
@@ -94,6 +136,12 @@ public class CustomerServiceImpl implements CustomerService {
                 saveCustomer.getGender()
 
                 );
+
+    }
+
+    else{
+        throw new IllegalArgumentException("Kullanıcı bulunamadı");
+        }
 
     }
 

@@ -66,7 +66,7 @@ public class CustomerController {
         return customerService.findAddressesByCustomerId(customerId);
     }
     @PostMapping
-    public CreateCustomerResponse createCustomer(@Valid @RequestBody CreateCustomerRequest request){
+    public CreateCustomerResponse createCustomer(@Valid @RequestBody CreateCustomerRequest request) throws Exception {
         return customerService.createCustomer(request);
     }
 
@@ -75,7 +75,7 @@ public class CustomerController {
         customerService.deleteCustomer(id);
     }
     @PutMapping("{id}")
-    public UpdateCustomerResponse deleteCustomer(@PathVariable int id, @RequestBody @Valid UpdateCustomerRequest request){
+    public UpdateCustomerResponse deleteCustomer(@PathVariable int id, @RequestBody @Valid UpdateCustomerRequest request) throws Exception {
         return customerService.updateCustomer(id,request);
     }
 

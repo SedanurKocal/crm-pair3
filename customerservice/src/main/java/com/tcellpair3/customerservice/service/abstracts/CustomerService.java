@@ -14,8 +14,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CustomerService {
-    CreateCustomerResponse createCustomer(CreateCustomerRequest request);
-    UpdateCustomerResponse updateCustomer(int id, UpdateCustomerRequest request);
+    CreateCustomerResponse createCustomer(CreateCustomerRequest request) throws Exception;
+    UpdateCustomerResponse updateCustomer(int id, UpdateCustomerRequest request) throws Exception;
     void deleteCustomer(int id);
     List<GetAllCustomersResponse> getAllCustomers();
     Optional<GetByIdCustomerResponse> getByCustomerId(int id);

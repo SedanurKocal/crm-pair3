@@ -3,8 +3,10 @@ package com.tcellpair3.customerservice.core.exception;
 
 import com.tcellpair3.customerservice.core.exception.details.BusinessExceptionDetails;
 import com.tcellpair3.customerservice.core.exception.details.DateTimeParseExceptionDetails;
+import com.tcellpair3.customerservice.core.exception.details.IllegalArgumentExceptionDetails;
 import com.tcellpair3.customerservice.core.exception.type.BusinessException;
 import com.tcellpair3.customerservice.core.exception.type.DateTimeParseException;
+import com.tcellpair3.customerservice.core.exception.type.IllegalArgumentException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -23,6 +25,13 @@ public class GlobalExceptionHandler {
         BusinessExceptionDetails businessExceptionDetails = new BusinessExceptionDetails();
         businessExceptionDetails.setTitle(exception.getMessage());
         return businessExceptionDetails;
+    }
+    @ExceptionHandler({IllegalArgumentException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public IllegalArgumentExceptionDetails handleIllegalArgumentException(IllegalArgumentException exception){
+        IllegalArgumentExceptionDetails illegalArgumentExceptionDetails = new IllegalArgumentExceptionDetails();
+        illegalArgumentExceptionDetails.setTitle(exception.getMessage());
+        return illegalArgumentExceptionDetails;
     }
     @ExceptionHandler({HttpMessageNotReadableException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
