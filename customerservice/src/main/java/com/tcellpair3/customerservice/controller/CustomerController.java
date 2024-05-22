@@ -7,9 +7,11 @@ import com.tcellpair3.customerservice.core.dtos.responses.customer.*;
 import com.tcellpair3.customerservice.entities.Address;
 import com.tcellpair3.customerservice.entities.Customer;
 import com.tcellpair3.customerservice.service.abstracts.CustomerService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,10 +20,11 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/v1/customers/")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "bearerAuth")
 public class CustomerController {
     private final CustomerService customerService;
 
-    @GetMapping
+    @GetMapping("getAll")
     public List<GetAllCustomersResponse> getAllCustomers(){
         return customerService.getAllCustomers();
     }
@@ -36,7 +39,7 @@ public class CustomerController {
             @RequestParam int size) {
         return customerService.getCustomersByFirstName(firstName, page, size);
     }
-    @GetMapping("/findByFirstName")
+    @GetMapping("findByFirstName")
     public List<SearchResultsResponse> findByFirstName(String firstName)
     {
         return customerService.findByFirstName(firstName);

@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/auth/")
+@RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -19,10 +19,10 @@ public class AuthController {
     {
         authService.register(request);
     }
-    @PostMapping("/login")
-    @ResponseStatus(HttpStatus.OK)
-    public void login(@RequestBody LoginRequest request)
+
+    @PostMapping("login")
+    public String login(@RequestBody LoginRequest request)
     {
-        authService.login(request);
+        return authService.login(request);
     }
 }

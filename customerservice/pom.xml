@@ -85,6 +85,42 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.easywsdl</groupId>
+			<artifactId>ExKsoap2</artifactId>
+			<version>1.0.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.ksoap2-android</groupId>
+			<artifactId>ksoap2-android-assembly</artifactId>
+			<version>3.6.4</version>
+		</dependency>
+		<dependency>
+			<groupId>com.easywsdl</groupId>
+			<artifactId>ExKsoap2</artifactId>
+			<version>1.0.4.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/../easywsdl/ExKsoap2-1.0.4.0.jar</systemPath>
+		</dependency>
+
+		<!-- ksoap2-android-assembly -->
+		<dependency>
+			<groupId>com.google.code.ksoap2-android</groupId>
+			<artifactId>ksoap2-android-assembly</artifactId>
+			<version>3.6.4</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/../easywsdl/ksoap2-android-assembly-3.6.4-jar-with-dependencies.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.turkcell</groupId>
+			<artifactId>tcell.core</artifactId>
+			<version>2.0.3</version>
+		</dependency>
+
 
 	</dependencies>
 
