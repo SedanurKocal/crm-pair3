@@ -36,7 +36,7 @@ public class CustomerController {
             @RequestParam int size) {
         return customerService.getCustomersByFirstName(firstName, page, size);
     }
-    @GetMapping("findByFirstName")
+    @GetMapping("/findByFirstName")
     public List<SearchResultsResponse> findByFirstName(String firstName)
     {
         return customerService.findByFirstName(firstName);

@@ -12,6 +12,7 @@ package com.tcellpair3.customerservice.core.mernis;
 //
 // Licence: 7514DA398BDE186C83FF2FCF62343D2D30B722E6C1FE5D70086D8F599FE5600238108EF4A15D8376A5246B28AB17D62381E279BBD89E4E3F3C1DD24EDBF7667B
 //------------------------------------------------------------------------
+
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.*;
 import org.kxml2.io.KXmlParser;
@@ -19,17 +20,15 @@ import org.kxml2.kdom.Element;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
-import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Vector;
-import java.io.StringReader;
-import java.io.StringWriter;
 
 
 class IRKSoapFaultEx extends org.ksoap2.SoapFault
