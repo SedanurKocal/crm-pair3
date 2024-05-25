@@ -1,11 +1,10 @@
 package com.tcellpair3.customerservice.clients;
 
 import com.tcellpair3.addressservice.entities.Address;
+import jakarta.validation.Valid;
+import jakarta.ws.rs.Path;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,4 +15,7 @@ public interface AddressClient {
 
     @PostMapping("/address")
     Address createAddress(@RequestBody Address address);
+
+    @PutMapping("{id}")
+    public Address updateAddress(@PathVariable int id,@Valid @RequestBody Address address);
 }

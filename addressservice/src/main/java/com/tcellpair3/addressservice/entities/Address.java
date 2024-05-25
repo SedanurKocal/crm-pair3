@@ -1,6 +1,7 @@
 package com.tcellpair3.addressservice.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,15 +25,19 @@ public class Address{
     private City city;
 
     @Column(name = "district")
+    @NotBlank(message = "This field is required")
     private String district;
 
     @Column(name = "street")
+    @NotBlank(message = "This field is required")
     private String street;
 
     @Column(name = "house_flat_number")
+    @NotBlank(message = "This field is required")
     private String houseFlatNumber;
 
     @Column(name = "address_description")
+    @NotBlank(message = "This field is required")
     private String addressDescription;
 
     @Column(name = "is_default")

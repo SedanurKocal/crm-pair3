@@ -14,7 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CreateAddressRequest {
 
-
+    @NotBlank(message = "This field is required")
     private City city; //TO DO : TR de citylerin kontrolü için api?
 
     @NotBlank(message = "This field is required")
