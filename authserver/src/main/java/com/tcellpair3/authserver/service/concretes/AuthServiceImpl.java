@@ -3,11 +3,11 @@ package com.tcellpair3.authserver.service.concretes;
 import com.tcellpair3.authserver.core.dtos.requests.LoginRequest;
 import com.tcellpair3.authserver.core.exception.type.UnauthorizedException;
 import com.tcellpair3.authserver.core.mapper.AuthMapper;
-import com.tcellpair3.authserver.core.services.JwtService;
 import com.tcellpair3.authserver.entities.User;
 import com.tcellpair3.authserver.service.abstracts.AuthService;
 import com.tcellpair3.authserver.core.dtos.requests.RegisterRequest;
 import com.tcellpair3.authserver.service.abstracts.UserService;
+import com.turkcell.tcell.core.security.BaseJwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,8 +28,8 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
+    private final BaseJwtService baseJwtService;
 
-    private final JwtService jwtService;
     @Override
     public void register(RegisterRequest request) {
         User user = AuthMapper.INSTANCE.userFromRequest(request);
@@ -56,7 +56,7 @@ public class AuthServiceImpl implements AuthService {
                 .map((role) -> role.getAuthority())
                 .toList();
         claims.put("roles", roles);
-        return jwtService.generateToken(loginRequest.getEmail(), claims);
+        return baseJwtService.generateToken(loginRequest.getEmail(), claims);
 
     }
 }
