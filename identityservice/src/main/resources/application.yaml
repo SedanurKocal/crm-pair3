@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: identityservice
+  cloud:
+    config:
+      profile: local
+  config:
+    import: "configserver:${configurl}"
+
+
+configurl: http://localhost:8079
+

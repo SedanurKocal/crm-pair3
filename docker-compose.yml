@@ -66,8 +66,8 @@ services:
     networks:
       - common
 
-  auth-server:
-    build: ./authserver
+  identity-service:
+    build: ./identityservice
     ports:
       - "8086:8086"
     restart: on-failure
@@ -91,9 +91,6 @@ services:
       - CONFIGURL=http://config-server:8079
     networks:
       - common
-
-
-
 
 
   postgres:
