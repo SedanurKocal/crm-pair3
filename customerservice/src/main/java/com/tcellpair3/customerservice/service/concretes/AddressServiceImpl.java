@@ -29,7 +29,7 @@ public class AddressServiceImpl implements AddressService {
     public CreateAddressResponse createAddress(CreateAddressRequest request) {
         Address address= AddressMapper.INSTANCE.createAddressMapper(request);
         Address saveAddress= addressRepository.save(address);
-
+    //todo: bir kullanıcının default adresi yalnızca 1 tane olabilir
         return new CreateAddressResponse(
                 saveAddress.getId(),
                 saveAddress.getCity(),
@@ -49,7 +49,7 @@ public class AddressServiceImpl implements AddressService {
         Address existingAddress = addressOptional.get();
         Address address= AddressMapper.INSTANCE.updateAddress(request,existingAddress);
         Address saveAddress= addressRepository.save(address);
-
+        //todo: bir kullanıcının default adresi yalnızca 1 tane olabilir
         return new UpdateAddressResponse(
                 saveAddress.getId(),
                 saveAddress.getCity(),
