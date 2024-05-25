@@ -2,6 +2,7 @@ package com.tcellpair3.customerservice.service.abstracts;
 
 import com.tcellpair3.customerservice.core.dtos.requests.customer.CreateCustomerRequest;
 import com.tcellpair3.customerservice.core.dtos.requests.customer.UpdateCustomerRequest;
+import com.tcellpair3.customerservice.core.dtos.responses.address.CustomerWithAddressesResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.address.GetAllAddressResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.*;
 import com.tcellpair3.customerservice.entities.Address;
@@ -26,4 +27,8 @@ public interface CustomerService {
     List<SearchResultsResponse> findByNationalId(String nationalId);
     List<SearchResultsResponse> findByContactMedium_MobilePhone(String mobilePhone);
     List<GetAllAddressResponse> findAddressesByCustomerId(Integer customerId);
+
+
+    CustomerWithAddressesResponse getCustomerWithAddresses(Integer customerId);
+    boolean existsById(Integer customerId);
 }

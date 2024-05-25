@@ -2,6 +2,7 @@ package com.tcellpair3.customerservice.controller;
 
 import com.tcellpair3.customerservice.core.dtos.requests.customer.CreateCustomerRequest;
 import com.tcellpair3.customerservice.core.dtos.requests.customer.UpdateCustomerRequest;
+import com.tcellpair3.customerservice.core.dtos.responses.address.CustomerWithAddressesResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.address.GetAllAddressResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.*;
 import com.tcellpair3.customerservice.entities.Address;
@@ -11,6 +12,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/customers/")
+@RequestMapping("/api/v1/customers")
 @RequiredArgsConstructor
 @SecurityRequirement(name = "bearerAuth")
 public class CustomerController {
@@ -67,6 +69,16 @@ public class CustomerController {
     @GetMapping("findByCustomerAddress/{customerId}")
     public List<GetAllAddressResponse> findByCustomerAddress(@PathVariable Integer customerId) {
         return customerService.findAddressesByCustomerId(customerId);
+    }
+    @GetMapping("/{customerId}/with-addresses")
+    public ResponseEntity<CustomerWithAddressesResponse> getCustomerWithAddresses(@PathVariable Integer customerId) {
+        CustomerWithAddressesResponse customerWithAddresses = customerService.getCustomerWithAddresses(customerId);
+        return ResponseEntity.ok(customerWithAddresses);
+    }
+
+    @GetMapping("/{customerId}/exists")
+    public boolean doesCustomerExist(@PathVariable Integer customerId) {
+        return customerService.existsById(customerId);
     }
     @PostMapping
     public CreateCustomerResponse createCustomer(@Valid @RequestBody CreateCustomerRequest request) throws Exception {

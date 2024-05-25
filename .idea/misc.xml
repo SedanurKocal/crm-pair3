@@ -15,14 +15,19 @@
         <option value="$PROJECT_DIR$/authserver/pom.xml" />
         <option value="$PROJECT_DIR$/customerservice/pom.xml" />
         <option value="$PROJECT_DIR$/identityservice/pom.xml" />
+        <option value="$PROJECT_DIR$/../tcellcrmcurrent/adresservice/pom.xml" />
+        <option value="$PROJECT_DIR$/adressservice/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/adresservice/pom.xml" />
+        <option value="$PROJECT_DIR$/adressservice/pom.xml" />
         <option value="$PROJECT_DIR$/authserver/pom.xml" />
         <option value="$PROJECT_DIR$/userservice/pom.xml" />
       </set>
     </option>
+    <option name="workspaceImportForciblyTurnedOn" value="true" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="21" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />

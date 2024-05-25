@@ -21,7 +21,7 @@ public class CustomerSecurityConfiguration {
         baseSecurityService.configureCommonSecurityRules(http);
         http.authorizeHttpRequests(authorizeRequests ->
                 authorizeRequests
-                        .requestMatchers("/api/v1/customers/**").authenticated()
+                        .requestMatchers("/api/v1/customers/**").permitAll()
                         .requestMatchers("/api/v1/address//**").authenticated()
                         .requestMatchers("/api/v1/contactMedium/").authenticated()
                         .requestMatchers("/api/v1/customerInvoices/**").authenticated()

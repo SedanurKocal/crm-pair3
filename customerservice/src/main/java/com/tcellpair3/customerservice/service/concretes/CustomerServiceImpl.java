@@ -1,7 +1,9 @@
 package com.tcellpair3.customerservice.service.concretes;
 
+import com.tcellpair3.customerservice.clients.AddressClient;
 import com.tcellpair3.customerservice.core.dtos.requests.customer.CreateCustomerRequest;
 import com.tcellpair3.customerservice.core.dtos.requests.customer.UpdateCustomerRequest;
+import com.tcellpair3.customerservice.core.dtos.responses.address.CustomerWithAddressesResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.address.GetAllAddressResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.*;
 import com.tcellpair3.customerservice.core.exception.type.BusinessException;
@@ -35,6 +37,7 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerValidationServiceImpl customerValidationService;
     private final ContactMediumValidationService contactMediumValidationService;
     private final CustomerInvoiceRepository customerInvoiceRepository;
+    private final AddressClient addressClient;
     @Override
     public CreateCustomerResponse createCustomer(CreateCustomerRequest request) throws Exception {
 
@@ -235,6 +238,21 @@ public class CustomerServiceImpl implements CustomerService {
     public List<GetAllAddressResponse> findAddressesByCustomerId(Integer customerId) {
         List<Address> addresses = customerRepository.findAddressesByCustomerId(customerId);
         return AddressMapper.INSTANCE.AddressToListAddressResponses(addresses);
+    }
+
+    @Override
+    public CustomerWithAddressesResponse getCustomerWithAddresses(Integer customerId) {
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new RuntimeException("Customer not found"));
+
+        List<com.tcellpair3.addressservice.entities.Address> addresses = addressClient.getAddressesByCustomerId(customerId);
+
+        return new CustomerWithAddressesResponse(customer, addresses);
+    }
+
+    @Override
+    public boolean existsById(Integer customerId) {
+        return customerRepository.existsById(customerId);
     }
 
 
