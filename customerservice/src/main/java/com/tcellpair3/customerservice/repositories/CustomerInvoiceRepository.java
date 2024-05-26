@@ -10,10 +10,6 @@ import java.util.List;
 public interface CustomerInvoiceRepository extends JpaRepository<CustomerInvoice,Integer> {
     List<CustomerInvoice> findByCustomerId(Integer customerId);
 
-    @Query("SELECT ci FROM CustomerInvoice ci " +
-            "JOIN ci.customer c " +
-            "JOIN c.addresses a " +
-            "WHERE ci.id = :invoiceId")
-    CustomerInvoice findCustomerInvoiceWithAddressesById(@Param("invoiceId") Integer invoiceId);
+
 
 }

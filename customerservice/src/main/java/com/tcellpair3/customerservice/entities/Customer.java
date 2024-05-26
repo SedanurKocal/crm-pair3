@@ -43,9 +43,6 @@ public class Customer extends BaseCustomer{
     @Column(name = "gender")
     private Gender gender;
 
-    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
-    private List<Address> addresses;
-
     @OneToOne(mappedBy ="customer", cascade = CascadeType.ALL)
     private ContactMedium contactMedium;
 

@@ -2,12 +2,10 @@ package com.tcellpair3.customerservice.core.mappers;
 
 import com.tcellpair3.customerservice.core.dtos.requests.customerinvoice.CreateCustomerInvoiceRequest;
 import com.tcellpair3.customerservice.core.dtos.requests.customerinvoice.UpdateCustomerInvoiceRequest;
-import com.tcellpair3.customerservice.core.dtos.responses.address.GetAllAddressResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customerinvoice.CustomerInvoiceWithAddressResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customerinvoice.CustomerInvoiceWithCustomerResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customerinvoice.GetAllCustomerInvoiceResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customerinvoice.GetByIdCustomerInvoiceResponse;
-import com.tcellpair3.customerservice.entities.Address;
 import com.tcellpair3.customerservice.entities.CustomerInvoice;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -40,5 +38,5 @@ public interface CustomerInvoiceMapper {
     @Mapping(target = "customerId", source = "customer.id")
     CustomerInvoiceWithAddressResponse toCustomerInvoiceWithAddressesResponse(CustomerInvoice customerInvoice);
 
-    List<GetAllAddressResponse> toAddressDTOs(List<Address> addresses);
+
 }

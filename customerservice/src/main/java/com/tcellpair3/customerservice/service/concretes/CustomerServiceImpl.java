@@ -1,25 +1,22 @@
 package com.tcellpair3.customerservice.service.concretes;
 
+import com.tcellpair3.addressservice.entities.Address;
 import com.tcellpair3.customerservice.clients.AddressClient;
 import com.tcellpair3.customerservice.core.dtos.requests.customer.CreateCustomerRequest;
 import com.tcellpair3.customerservice.core.dtos.requests.customer.UpdateCustomerRequest;
-import com.tcellpair3.customerservice.core.dtos.responses.address.CustomerWithAddressesResponse;
-import com.tcellpair3.customerservice.core.dtos.responses.address.GetAllAddressResponse;
+import com.tcellpair3.customerservice.core.dtos.responses.customerinvoice.CustomerWithAddressesResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.*;
 import com.tcellpair3.customerservice.core.exception.type.BusinessException;
 import com.tcellpair3.customerservice.core.exception.type.IllegalArgumentException;
-import com.tcellpair3.customerservice.core.mappers.AddressMapper;
 import com.tcellpair3.customerservice.core.mappers.CustomerMapper;
 import com.tcellpair3.customerservice.core.mernis.IRKKPSPublicSoap;
 import com.tcellpair3.customerservice.core.service.Abstract.ContactMediumValidationService;
 import com.tcellpair3.customerservice.core.service.Concrete.CustomerValidationServiceImpl;
-import com.tcellpair3.customerservice.entities.Address;
 import com.tcellpair3.customerservice.entities.Customer;
 import com.tcellpair3.customerservice.entities.CustomerInvoice;
 import com.tcellpair3.customerservice.repositories.CustomerInvoiceRepository;
 import com.tcellpair3.customerservice.repositories.CustomerRepository;
 import com.tcellpair3.customerservice.service.abstracts.CustomerService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -31,13 +28,21 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
     private final CustomerValidationServiceImpl customerValidationService;
     private final ContactMediumValidationService contactMediumValidationService;
     private final CustomerInvoiceRepository customerInvoiceRepository;
     private final AddressClient addressClient;
+
+    public CustomerServiceImpl(CustomerRepository customerRepository, CustomerValidationServiceImpl customerValidationService, ContactMediumValidationService contactMediumValidationService, CustomerInvoiceRepository customerInvoiceRepository, AddressClient addressClient) {
+        this.customerRepository = customerRepository;
+        this.customerValidationService = customerValidationService;
+        this.contactMediumValidationService = contactMediumValidationService;
+        this.customerInvoiceRepository = customerInvoiceRepository;
+        this.addressClient = addressClient;
+    }
+
     @Override
     public CreateCustomerResponse createCustomer(CreateCustomerRequest request) throws Exception {
 
@@ -234,22 +239,14 @@ public class CustomerServiceImpl implements CustomerService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<GetAllAddressResponse> findAddressesByCustomerId(Integer customerId) {
-        List<Address> addresses = customerRepository.findAddressesByCustomerId(customerId);
-        return AddressMapper.INSTANCE.AddressToListAddressResponses(addresses);
-    }
+
 
     @Override
     public CustomerWithAddressesResponse getCustomerWithAddresses(Integer customerId) {
-        Customer customer = customerRepository.findById(customerId)
-                .orElseThrow(() -> new RuntimeException("Customer not found"));
-
-        List<com.tcellpair3.addressservice.entities.Address> addresses = addressClient.getAddressesByCustomerId(customerId);
-
+        Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new RuntimeException("Customer not found"));
+        List<Address> addresses = addressClient.getAddressesByCustomerId(customerId);
         return new CustomerWithAddressesResponse(customer, addresses);
     }
-
     @Override
     public boolean existsById(Integer customerId) {
         return customerRepository.existsById(customerId);

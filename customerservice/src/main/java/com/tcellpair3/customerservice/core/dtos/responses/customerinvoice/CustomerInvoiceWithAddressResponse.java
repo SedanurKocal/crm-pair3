@@ -1,6 +1,5 @@
 package com.tcellpair3.customerservice.core.dtos.responses.customerinvoice;
 
-import com.tcellpair3.customerservice.core.dtos.responses.address.GetAllAddressResponse;
 import com.tcellpair3.customerservice.entities.AccountStatus;
 import com.tcellpair3.customerservice.entities.AccountType;
 import lombok.AllArgsConstructor;
@@ -20,5 +19,4 @@ public class CustomerInvoiceWithAddressResponse {
     private AccountStatus accountStatus;
     private AccountType accountType;
     private Integer customerId;
-    private List<GetAllAddressResponse> addresses;
 }

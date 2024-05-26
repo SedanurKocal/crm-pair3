@@ -15,7 +15,7 @@
         <module name="configserver" />
         <module name="cartservice" />
       </profile>
-      <profile name="Annotation profile for identityservice" enabled="true">
+      <profile name="Annotation profile for customerservice" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />

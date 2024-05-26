@@ -1,28 +1,11 @@
 spring:
   application:
     name: addressservice
-  datasource:
-    url: jdbc:postgresql://localhost:5432/addressservice
-    username: postgres
-    password: test
-  jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-      ddl-auto: update
   cloud:
     config:
-      enabled: false
+      profile: local
+  config:
+    import: "configserver:${configurl}"
 
-server:
-  port: 8090
-  error:
-    include-message: always
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8888/eureka/
-    registerWithEureka: true
-    fetchRegistry: true
+configurl: http://localhost:8079

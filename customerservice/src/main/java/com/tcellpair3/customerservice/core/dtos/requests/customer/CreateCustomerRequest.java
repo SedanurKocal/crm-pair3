@@ -3,13 +3,11 @@ package com.tcellpair3.customerservice.core.dtos.requests.customer;
 import com.tcellpair3.customerservice.entities.Gender;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
+import lombok.Setter; 
 
 import java.time.LocalDate;
 

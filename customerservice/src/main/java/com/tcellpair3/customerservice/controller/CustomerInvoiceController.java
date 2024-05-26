@@ -24,14 +24,7 @@ public class CustomerInvoiceController {
     {
         return customerInvoiceService.findByCustomerId(customerId);
     }
-    @GetMapping("/{invoiceId}/addresses")
-    public ResponseEntity<CustomerInvoiceWithAddressResponse> getCustomerInvoiceWithAddresses(@PathVariable Integer invoiceId) {
-        CustomerInvoiceWithAddressResponse customerInvoiceDTO = customerInvoiceService.findCustomerInvoiceWithAddressesById(invoiceId);
-        if (customerInvoiceDTO == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(customerInvoiceDTO, HttpStatus.OK);
-    }
+
     @PostMapping
     public CreateCustomerInvoiceResponse createCustomerInvoice(@Valid @RequestBody CreateCustomerInvoiceRequest request){
         return customerInvoiceService.createCustomerInvoice(request);

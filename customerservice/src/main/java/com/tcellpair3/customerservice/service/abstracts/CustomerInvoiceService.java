@@ -16,5 +16,5 @@ public interface CustomerInvoiceService {
 
     List<CustomerInvoiceWithCustomerResponse> findByCustomerId(Integer customerId);
 
-    CustomerInvoiceWithAddressResponse findCustomerInvoiceWithAddressesById(Integer invoiceId);
+
 }

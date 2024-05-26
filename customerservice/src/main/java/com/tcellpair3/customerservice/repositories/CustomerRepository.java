@@ -1,6 +1,5 @@
 package com.tcellpair3.customerservice.repositories;
 
-import com.tcellpair3.customerservice.entities.Address;
 import com.tcellpair3.customerservice.entities.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,9 +19,6 @@ public interface CustomerRepository extends JpaRepository<Customer,Integer> {
     List<Customer> findByAccountNumber(Integer accountNumber);
     List<Customer> findByNationalId(String nationalId);
     List<Customer> findByContactMedium_MobilePhone(String mobilePhone);
-
-    @Query("SELECT c.addresses FROM Customer c WHERE c.id = :customerId")
-    List<Address> findAddressesByCustomerId(@Param("customerId") Integer customerId);
 
     //TODO: order search
 
