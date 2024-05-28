@@ -2,9 +2,10 @@
 
 
 FROM maven:3.8.3-openjdk-17 as build
+COPY settings.xml /root/.m2/settings.xml
 WORKDIR /app
 COPY . /app/
-RUN mvn clean package -DskipTests
+RUN mvn clean package -DskipTests -e
 
 
 FROM openjdk:17-jdk

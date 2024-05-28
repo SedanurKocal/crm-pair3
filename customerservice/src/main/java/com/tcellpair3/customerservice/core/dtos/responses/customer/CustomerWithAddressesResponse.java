@@ -1,4 +1,4 @@
-package com.tcellpair3.customerservice.core.dtos.responses.customerinvoice;
+package com.tcellpair3.customerservice.core.dtos.responses.customer;
 
 import com.tcellpair3.addressservice.entities.Address;
 import com.tcellpair3.customerservice.entities.Customer;

@@ -20,6 +20,7 @@ public class AddressSecurityConfiguration {
         baseSecurityService.configureCommonSecurityRules(http);
         http.authorizeHttpRequests(authorizeRequests ->
                 authorizeRequests
+                        //.requestMatchers("/address/**").authenticated()
                         .anyRequest().permitAll()
         );
         return http.build();

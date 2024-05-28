@@ -2,7 +2,7 @@ package com.tcellpair3.customerservice.controller;
 
 import com.tcellpair3.customerservice.core.dtos.requests.customer.CreateCustomerRequest;
 import com.tcellpair3.customerservice.core.dtos.requests.customer.UpdateCustomerRequest;
-import com.tcellpair3.customerservice.core.dtos.responses.customerinvoice.CustomerWithAddressesResponse;
+import com.tcellpair3.customerservice.core.dtos.responses.customer.CustomerWithAddressesResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.CreateCustomerResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.GetAllCustomersResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.GetByIdCustomerResponse;

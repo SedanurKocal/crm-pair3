@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.tcellpair3</groupId>
 	<artifactId>addressservice</artifactId>
-	<version>2.0.0</version>
+	<version>2.1.0</version>
 	<name>addressservice</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
@@ -84,6 +84,7 @@
 			<url>https://maven.pkg.github.com/tcell-gygy-pair3/core-pair3</url>
 		</repository>
 	</repositories>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>

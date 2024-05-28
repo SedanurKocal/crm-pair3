@@ -4,7 +4,7 @@ import com.tcellpair3.addressservice.entities.Address;
 import com.tcellpair3.customerservice.clients.AddressClient;
 import com.tcellpair3.customerservice.core.dtos.requests.customer.CreateCustomerRequest;
 import com.tcellpair3.customerservice.core.dtos.requests.customer.UpdateCustomerRequest;
-import com.tcellpair3.customerservice.core.dtos.responses.customerinvoice.CustomerWithAddressesResponse;
+import com.tcellpair3.customerservice.core.dtos.responses.customer.CustomerWithAddressesResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.*;
 import com.tcellpair3.customerservice.core.exception.type.BusinessException;
 import com.tcellpair3.customerservice.core.exception.type.IllegalArgumentException;
