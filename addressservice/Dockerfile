@@ -1,26 +1,16 @@
-# İlk aşama: Maven ile derleme
 FROM maven:3.8.3-openjdk-17 as build
-
-# settings.xml dosyasını kopyalayın
-COPY settings.xml /root/.m2/settings.xml
-
-# Çalışma dizinini ayarla
 WORKDIR /app
 
-# Proje dosyalarını kopyala
+ARG GITHUB_USERNAME
+ARG GITHUB_TOKEN
+
+RUN mkdir -p /root/.m2 && \
+    echo "<?xml version='1.0' encoding='UTF-8'?><settings xmlns='http://maven.apache.org/SETTINGS/1.2.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://maven.apache.org/SETTINGS/1.2.0 https://maven.apache.org/xsd/settings-1.2.0.xsd'><servers><server><id>github</id><username>${GITHUB_USERNAME}</username><password>${GITHUB_TOKEN}</password></server></servers></settings>" > /root/.m2/settings.xml
+
 COPY . /app/
+RUN mvn clean package -s /root/.m2/settings.xml -DskipTests
 
-# Maven ile projeyi derle
-RUN mvn clean package -DskipTests
-
-# İkinci aşama: OpenJDK ile çalıştırma
 FROM openjdk:17-jdk
-
-# Derlenen jar dosyasını kopyala
-COPY --from=build /app/target/addressservice-2.0.0.jar /app/addressservice.jar
-
-# İsteğe bağlı olarak uygulamanın çalışacağı portu açabilirsiniz
+COPY --from=build /app/target/addressservice-2.1.0.jar /app/addressservice.jar
 # EXPOSE 8082
-
-# Uygulamayı çalıştır
-CMD ["java", "-jar", "/app/addressservice.jar"]
+CMD java -jar /app/addressservice.jar
