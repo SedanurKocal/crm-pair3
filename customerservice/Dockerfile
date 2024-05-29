@@ -9,8 +9,10 @@ RUN mkdir -p /root/.m2 && \
 
 COPY pom.xml .
 COPY src ./src
-RUN mvn clean package -DskipTests -e
+COPY easywsdl/ExKsoap2-1.0.4.0.jar /app/easywsdl/ExKsoap2-1.0.4.0.jar
+COPY easywsdl/ksoap2-android-assembly-3.6.4-jar-with-dependencies.jar /app/easywsdl/ksoap2-android-assembly-3.6.4-jar-with-dependencies.jar
+RUN mvn clean package -DskipTests
 
 FROM openjdk:17-jdk
-COPY --from=build /app/target/customerservice-1.0.0.jar /app/customerservice.jar
+COPY --from=build /app/target/customerservice-0.0.2-SNAPSHOT.jar /app/customerservice.jar
 CMD ["java", "-jar", "/app/customerservice.jar"]
