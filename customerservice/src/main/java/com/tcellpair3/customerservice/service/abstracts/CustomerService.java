@@ -25,4 +25,6 @@ public interface CustomerService {
 
     CustomerWithAddressesResponse getCustomerWithAddresses(Integer customerId);
     boolean existsById(Integer customerId);
+
+
 }

@@ -26,6 +26,7 @@ import java.util.Optional;
 public class CustomerController {
     private final CustomerService customerService;
 
+
     @GetMapping("getAll")
     public List<GetAllCustomersResponse> getAllCustomers() {
         return customerService.getAllCustomers();
