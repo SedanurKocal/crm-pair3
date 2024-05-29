@@ -1,5 +1,6 @@
 package com.tcellpair3.addressservice.service.abstracts;
 
+import com.tcellpair3.addressservice.core.dto.responses.AddressDtoResponse;
 import com.tcellpair3.addressservice.entities.Address;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -10,7 +11,7 @@ public interface AddressService {
     List<Address> getAddressesByCustomerId(Integer customerId);
     List<Address> getAllAddress();
     Optional<Address> getByIdAddress(int id);
-    Address createAddress(Address address);
+    AddressDtoResponse createAddress(AddressDtoResponse request);
     Address updateAddress(int id,Address address);
     void deleteAddress(int id);
 

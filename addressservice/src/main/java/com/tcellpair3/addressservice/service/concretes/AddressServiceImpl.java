@@ -1,7 +1,9 @@
 package com.tcellpair3.addressservice.service.concretes;
 
-import com.tcellpair3.addressservice.clients.CustomerClient;
+import com.tcellpair3.addressservice.clients.CustomerServiceClient;
+import com.tcellpair3.addressservice.core.dto.responses.AddressDtoResponse;
 import com.tcellpair3.addressservice.core.exception.type.BusinessException;
+import com.tcellpair3.addressservice.core.mappers.AddressMapper;
 import com.tcellpair3.addressservice.entities.Address;
 import com.tcellpair3.addressservice.repositories.AddressRepository;
 import com.tcellpair3.addressservice.service.abstracts.AddressService;
@@ -15,7 +17,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AddressServiceImpl implements AddressService {
     private final AddressRepository addressRepository;
-    private final CustomerClient client;
+    private final CustomerServiceClient client;
 
     @Override
     public void deleteAddress(int id) {
@@ -55,13 +57,15 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public Address createAddress(Address address) {
-        boolean customerExists = client.doesCustomerExist(address.getCustomerId());
+    public AddressDtoResponse createAddress(AddressDtoResponse request) {
+        boolean customerExists = client.doesCustomerExist(request.getCustomerId());
         if (!customerExists) {
             throw new BusinessException("Customer does not exist");
         }
 
-        return addressRepository.save(address);
+        Address address = AddressMapper.INSTANCE.addressDTOToAddress(request);
+        Address savedAddress = addressRepository.save(address);
+        return AddressMapper.INSTANCE.addressToAddressDTO(savedAddress);
 
     }
 

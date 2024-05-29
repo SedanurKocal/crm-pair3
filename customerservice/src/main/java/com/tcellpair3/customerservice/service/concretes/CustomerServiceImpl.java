@@ -1,10 +1,7 @@
 package com.tcellpair3.customerservice.service.concretes;
 
-import com.tcellpair3.addressservice.entities.Address;
-import com.tcellpair3.customerservice.clients.AddressClient;
 import com.tcellpair3.customerservice.core.dtos.requests.customer.CreateCustomerRequest;
 import com.tcellpair3.customerservice.core.dtos.requests.customer.UpdateCustomerRequest;
-import com.tcellpair3.customerservice.core.dtos.responses.customer.CustomerWithAddressesResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.*;
 import com.tcellpair3.customerservice.core.exception.type.BusinessException;
 import com.tcellpair3.customerservice.core.exception.type.IllegalArgumentException;
@@ -20,7 +17,6 @@ import com.tcellpair3.customerservice.service.abstracts.CustomerService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
@@ -34,14 +30,14 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerValidationServiceImpl customerValidationService;
     private final ContactMediumValidationService contactMediumValidationService;
     private final CustomerInvoiceRepository customerInvoiceRepository;
-    private final AddressClient addressClient;
+   // private final AddressClient addressClient;
 
-    public CustomerServiceImpl(CustomerRepository customerRepository, CustomerValidationServiceImpl customerValidationService, ContactMediumValidationService contactMediumValidationService, CustomerInvoiceRepository customerInvoiceRepository, AddressClient addressClient) {
+    public CustomerServiceImpl(CustomerRepository customerRepository, CustomerValidationServiceImpl customerValidationService, ContactMediumValidationService contactMediumValidationService, CustomerInvoiceRepository customerInvoiceRepository) {
         this.customerRepository = customerRepository;
         this.customerValidationService = customerValidationService;
         this.contactMediumValidationService = contactMediumValidationService;
         this.customerInvoiceRepository = customerInvoiceRepository;
-        this.addressClient = addressClient;
+
     }
 
     @Override
@@ -242,12 +238,6 @@ public class CustomerServiceImpl implements CustomerService {
 
 
 
-    @Override
-    public CustomerWithAddressesResponse getCustomerWithAddresses(Integer customerId) {
-        Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new RuntimeException("Customer not found"));
-        List<Address> addresses = addressClient.getAddressesByCustomerId(customerId);
-        return new CustomerWithAddressesResponse(customer, addresses);
-    }
     @Override
     public boolean existsById(Integer customerId) {
         return customerRepository.existsById(customerId);

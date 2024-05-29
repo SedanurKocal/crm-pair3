@@ -1,9 +1,8 @@
 package com.tcellpair3.addressservice.controller;
 
-import com.tcellpair3.addressservice.clients.CustomerClient;
-import com.tcellpair3.addressservice.core.exception.type.BusinessException;
+import com.tcellpair3.addressservice.clients.CustomerServiceClient;
+import com.tcellpair3.addressservice.core.dto.responses.AddressDtoResponse;
 import com.tcellpair3.addressservice.entities.Address;
-import com.tcellpair3.addressservice.repositories.AddressRepository;
 import com.tcellpair3.addressservice.service.abstracts.AddressService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AddressController {
     private final AddressService addressService;
-    private final CustomerClient customerClient;
+    private final CustomerServiceClient customerServiceClient;
     @GetMapping("/customer/{customerId}")
     public List<Address> getAddressesByCustomerId(@PathVariable Integer customerId) {
         return addressService.getAddressesByCustomerId(customerId);
@@ -33,9 +32,9 @@ public class AddressController {
         return addressService.getByIdAddress(id);
     }
     @PostMapping
-    public Address createAddress(@Valid @RequestBody Address address) {
+    public AddressDtoResponse createAddress(@Valid @RequestBody AddressDtoResponse request) {
 
-        return addressService.createAddress(address);
+        return addressService.createAddress(request);
     }
     @PutMapping("{id}")
     public Address updateAddress(@PathVariable int id,@Valid @RequestBody Address address)

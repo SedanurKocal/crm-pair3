@@ -1,14 +1,10 @@
 package com.tcellpair3.customerservice.service.concretes;
 
-import com.tcellpair3.addressservice.entities.Address;
-import com.tcellpair3.customerservice.clients.AddressClient;
 import com.tcellpair3.customerservice.core.dtos.requests.customerinvoice.CreateCustomerInvoiceRequest;
 import com.tcellpair3.customerservice.core.dtos.requests.customerinvoice.UpdateCustomerInvoiceRequest;
-import com.tcellpair3.customerservice.core.dtos.responses.customer.CustomerWithAddressesResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customerinvoice.*;
 import com.tcellpair3.customerservice.core.exception.type.BusinessException;
 import com.tcellpair3.customerservice.core.mappers.CustomerInvoiceMapper;
-import com.tcellpair3.customerservice.core.mappers.CustomerMapper;
 import com.tcellpair3.customerservice.entities.Customer;
 import com.tcellpair3.customerservice.entities.CustomerInvoice;
 import com.tcellpair3.customerservice.repositories.CustomerInvoiceRepository;
@@ -26,7 +22,7 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService {
 
     private final CustomerInvoiceRepository customerInvoiceRepository;
     private final CustomerRepository customerRepository;
-    private final AddressClient addressClient;
+    //private final AddressClient addressClient;
     @Override
     public CreateCustomerInvoiceResponse createCustomerInvoice(CreateCustomerInvoiceRequest request) {
 

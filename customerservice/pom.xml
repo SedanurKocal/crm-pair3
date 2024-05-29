@@ -112,11 +112,6 @@
 			<artifactId>tcell.core</artifactId>
 			<version>2.0.3</version>
 		</dependency>
-		<dependency>
-			<groupId>com.tcellpair3</groupId>
-			<artifactId>addressservice</artifactId>
-			<version>2.1.0</version>
-		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.security</groupId>
@@ -129,6 +124,14 @@
 			<id>github</id>
 			<name>Github Package Center</name>
 			<url>https://maven.pkg.github.com/tcell-gygy-pair3/core-pair3</url>
+		</repository>
+		<repository>
+			<id>central</id>
+			<url>https://repo.maven.apache.org/maven2</url>
+		</repository>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
 		</repository>
 	</repositories>
 

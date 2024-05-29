@@ -2,7 +2,6 @@ package com.tcellpair3.customerservice.service.abstracts;
 
 import com.tcellpair3.customerservice.core.dtos.requests.customer.CreateCustomerRequest;
 import com.tcellpair3.customerservice.core.dtos.requests.customer.UpdateCustomerRequest;
-import com.tcellpair3.customerservice.core.dtos.responses.customer.CustomerWithAddressesResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.*;
 import org.springframework.data.domain.Page;
 
@@ -23,7 +22,6 @@ public interface CustomerService {
     List<SearchResultsResponse> findByContactMedium_MobilePhone(String mobilePhone);
 
 
-    CustomerWithAddressesResponse getCustomerWithAddresses(Integer customerId);
     boolean existsById(Integer customerId);
 
 

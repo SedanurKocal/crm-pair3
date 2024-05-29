@@ -2,7 +2,6 @@ package com.tcellpair3.customerservice.controller;
 
 import com.tcellpair3.customerservice.core.dtos.requests.customer.CreateCustomerRequest;
 import com.tcellpair3.customerservice.core.dtos.requests.customer.UpdateCustomerRequest;
-import com.tcellpair3.customerservice.core.dtos.responses.customer.CustomerWithAddressesResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.CreateCustomerResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.GetAllCustomersResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.GetByIdCustomerResponse;
@@ -13,7 +12,6 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -70,11 +68,6 @@ public class CustomerController {
         return customerService.findByContactMedium_MobilePhone(mobilePhone);
     }
 
-    @GetMapping("/{customerId}/with-addresses")
-    public ResponseEntity<CustomerWithAddressesResponse> getCustomerWithAddresses(@PathVariable Integer customerId) {
-        CustomerWithAddressesResponse customerWithAddresses = customerService.getCustomerWithAddresses(customerId);
-        return ResponseEntity.ok(customerWithAddresses);
-    }
 
     @GetMapping("/{customerId}/exists")
     public boolean doesCustomerExist(@PathVariable Integer customerId) {

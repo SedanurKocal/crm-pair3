@@ -9,7 +9,6 @@
         <outputRelativeToContentRoot value="true" />
         <module name="gatewayserver" />
         <module name="productservice" />
-        <module name="addressservice" />
         <module name="invoiceservice" />
         <module name="discoveryserver" />
         <module name="configserver" />
@@ -27,6 +26,7 @@
         </processorPath>
         <module name="customerservice" />
         <module name="identityservice" />
+        <module name="addressservice" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
