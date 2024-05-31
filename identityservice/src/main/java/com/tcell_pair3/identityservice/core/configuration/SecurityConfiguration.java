@@ -23,10 +23,12 @@ public class SecurityConfiguration {
 
     private static final String[] WHITE_LIST = {
             "/api/v1/auth/**",
+            "/api/v2/role/**",
             "/swagger-ui/**",
             "/v2/api-docs",
             "/v3/api-docs/**",
-            "/swagger-ui/index.html/**"
+            "/swagger-ui/index.html/**",
+
     };
 
 
@@ -35,6 +37,7 @@ public class SecurityConfiguration {
         baseSecurityService.configureCommonSecurityRules(http);
         http.authorizeHttpRequests(authorizeRequests ->
                 authorizeRequests.requestMatchers(WHITE_LIST).permitAll()
+                        .anyRequest().authenticated()
         );
         return http.build();
     }

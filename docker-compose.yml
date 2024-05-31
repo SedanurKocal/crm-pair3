@@ -34,8 +34,6 @@ services:
     ports:
       - "8087:8087"
     restart: on-failure
-    depends_on:
-      - address-service
     networks:
       - common
     environment:

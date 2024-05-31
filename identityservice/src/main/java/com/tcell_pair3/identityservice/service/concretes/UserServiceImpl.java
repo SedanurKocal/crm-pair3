@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -16,6 +18,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void add(User user) {
         userRepository.save(user);
+    }
+
+    @Override
+    public Optional<User> getUserById(int id) {
+        return userRepository.findById(id);
     }
 
     @Override
