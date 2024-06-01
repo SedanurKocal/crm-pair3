@@ -14,8 +14,8 @@ import lombok.Setter;
 @Entity
 @Table(name = "products")
 public class Product extends BaseEntity {
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="product_no")
+
+    @Column(name="product_no",unique = true)
     private int productNo;
 
     @Column(name = "price")
@@ -25,4 +25,10 @@ public class Product extends BaseEntity {
     @JoinColumn(name = "catalog_id")
     private Catalog catalog;
 
+    @PrePersist
+    private void setProductNo() {
+        if (this.productNo == 0) {
+            this.productNo = (int) (Math.random() * 100);
+        }
+    }
 }

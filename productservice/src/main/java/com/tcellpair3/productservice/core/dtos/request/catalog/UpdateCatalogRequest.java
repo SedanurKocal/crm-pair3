@@ -11,12 +11,10 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 public class UpdateCatalogRequest {
 
     private String name;
 
-    private LocalDateTime createdDate;
 
     private LocalDateTime updatedDate;
 

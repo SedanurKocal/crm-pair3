@@ -9,17 +9,11 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 public class CreateCatalogRequest {
 
     private String name;
-
     private LocalDateTime createdDate;
-
-    private LocalDateTime updatedDate;
-
     private boolean isDeleted;
-
 
 
 }

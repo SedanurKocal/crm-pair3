@@ -10,13 +10,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 public class CreateProductResponse {
     private int id;
     private int productNo;
     private String name;
     private LocalDateTime createdDate;
-    private LocalDateTime updatedDate;
     private boolean isDeleted;
     private int catalogId;
+
+
 }

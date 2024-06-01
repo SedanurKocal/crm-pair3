@@ -14,15 +14,9 @@ import java.time.LocalDateTime;
 public class CreateProductRequest {
     private String name;
 
-    private int productNo;
-
-    private LocalDateTime createdDate;
-
-    private LocalDateTime updatedDate;
-
     private boolean isDeleted;
-
+    private LocalDateTime createdDate;
     private double price;
 
-    private Catalog catalog;
+    private int catalogId;
 }

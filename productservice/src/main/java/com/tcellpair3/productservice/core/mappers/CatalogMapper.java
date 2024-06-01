@@ -1,5 +1,6 @@
 package com.tcellpair3.productservice.core.mappers;
 
+import com.tcellpair3.productservice.core.dtos.request.catalog.CreateCatalogRequest;
 import com.tcellpair3.productservice.core.dtos.request.catalog.UpdateCatalogRequest;
 import com.tcellpair3.productservice.core.dtos.response.catalog.GetAllCatalogsResponse;
 import com.tcellpair3.productservice.core.dtos.response.catalog.GetCatalogByIdResponse;
@@ -14,8 +15,8 @@ import java.util.List;
 @Mapper
 public interface CatalogMapper {
     CatalogMapper INSTANCE = Mappers.getMapper(CatalogMapper.class);
-
-    Catalog createCatalogMapper(Catalog catalog);
+    @Mapping(target = "updatedDate", ignore = true)
+    Catalog createCatalogMapper(CreateCatalogRequest catalog);
 
     GetCatalogByIdResponse getCatalogByIdMapper(Catalog catalog);
 
@@ -23,5 +24,6 @@ public interface CatalogMapper {
 
     List<GetAllCatalogsResponse> catalogToListCatalogResponses(List<Catalog> catalogList);
 
+    @Mapping(target = "createdDate", ignore = true)
     Catalog updateCatalogMapper(UpdateCatalogRequest catalogRequest, @MappingTarget Catalog catalog);
 }

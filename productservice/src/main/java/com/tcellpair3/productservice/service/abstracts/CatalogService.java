@@ -6,6 +6,7 @@ import com.tcellpair3.productservice.core.dtos.response.catalog.CreateCatalogRes
 import com.tcellpair3.productservice.core.dtos.response.catalog.GetAllCatalogsResponse;
 import com.tcellpair3.productservice.core.dtos.response.catalog.GetCatalogByIdResponse;
 import com.tcellpair3.productservice.core.dtos.response.catalog.UpdateCatalogResponse;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +14,7 @@ import java.util.Optional;
 public interface CatalogService {
 
     CreateCatalogResponse createCatalog(CreateCatalogRequest request);
-    UpdateCatalogResponse updateCatalog(UpdateCatalogRequest request);
+    UpdateCatalogResponse updateCatalog(int id,UpdateCatalogRequest request);
 
     void deleteCatalog(int id);
 

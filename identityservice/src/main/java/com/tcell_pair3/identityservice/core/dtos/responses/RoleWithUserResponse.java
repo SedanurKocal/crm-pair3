@@ -1,4 +1,4 @@
-package com.tcell_pair3.identityservice.core.dtos.requests;
+package com.tcell_pair3.identityservice.core.dtos.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoleWithUser {
+public class RoleWithUserResponse {
 
     private int userId;
     private int roleId;

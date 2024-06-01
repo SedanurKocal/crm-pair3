@@ -2,7 +2,7 @@ package com.tcell_pair3.identityservice.controllers;
 
 
 import com.tcell_pair3.identityservice.core.dtos.requests.RoleRequest;
-import com.tcell_pair3.identityservice.core.dtos.requests.RoleWithUser;
+import com.tcell_pair3.identityservice.core.dtos.responses.RoleWithUserResponse;
 import com.tcell_pair3.identityservice.entities.Role;
 import com.tcell_pair3.identityservice.entities.User;
 import com.tcell_pair3.identityservice.service.abstracts.RoleService;
@@ -27,7 +27,7 @@ public class RoleController {
         return ResponseEntity.ok(newRole);
     }
     @PostMapping("/{userId}/roles/{roleId}")
-    public ResponseEntity<RoleWithUser> assignRoleToUser(@PathVariable int userId, @PathVariable int roleId) {
+    public ResponseEntity<RoleWithUserResponse> assignRoleToUser(@PathVariable int userId, @PathVariable int roleId) {
         Optional<User> userOptional = userService.getUserById(userId);
         Optional<Role> roleOptional = roleService.getRoleById(roleId);
 
@@ -38,8 +38,8 @@ public class RoleController {
             user.getRoles().add(role);
             userService.add(user);
 
-            RoleWithUser roleWithUser = new RoleWithUser(userId, roleId);
-            return ResponseEntity.ok(roleWithUser);
+            RoleWithUserResponse roleWithUserResponse = new RoleWithUserResponse(userId, roleId);
+            return ResponseEntity.ok(roleWithUserResponse);
         } else {
             return ResponseEntity.notFound().build();
         }

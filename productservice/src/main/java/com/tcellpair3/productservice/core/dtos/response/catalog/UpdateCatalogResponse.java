@@ -16,8 +16,6 @@ public class UpdateCatalogResponse {
 
     private String name;
 
-    private LocalDateTime createdDate;
-
     private LocalDateTime updatedDate;
 
     private boolean isDeleted;

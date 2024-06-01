@@ -11,21 +11,14 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
-
 public class UpdateProductRequest {
 
     private String name;
 
-    private int productNo;
-
-    private LocalDateTime createdDate;
-
-    private LocalDateTime updatedDate;
-
     private boolean isDeleted;
+    private LocalDateTime updatedDate;
 
     private double price;
 
-    private Catalog catalog;
+    private int catalogId;
 }

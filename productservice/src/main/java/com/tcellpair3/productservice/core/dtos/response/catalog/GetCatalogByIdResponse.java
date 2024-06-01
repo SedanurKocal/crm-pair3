@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class GetCatalogByIdResponse {
 
+    private int id;
     private String name;
 
     private LocalDateTime createdDate;

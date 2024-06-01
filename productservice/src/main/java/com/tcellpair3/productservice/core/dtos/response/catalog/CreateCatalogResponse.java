@@ -15,6 +15,5 @@ public class CreateCatalogResponse {
     private int id;
     private String name;
     private LocalDateTime createdDate;
-    private LocalDateTime updatedDate;
     private boolean isDeleted;
 }
