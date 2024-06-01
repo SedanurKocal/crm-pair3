@@ -5,7 +5,7 @@ import com.tcellpair3.customerservice.core.dtos.requests.contactmedium.UpdateCon
 import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.*;
 import com.tcellpair3.customerservice.core.exception.type.BusinessException;
 import com.tcellpair3.customerservice.core.mappers.ContactMediumMapper;
-import com.tcellpair3.customerservice.core.service.Abstract.ContactMediumValidationService;
+import com.tcellpair3.customerservice.core.service.abstracts.ContactMediumValidationService;
 import com.tcellpair3.customerservice.entities.ContactMedium;
 import com.tcellpair3.customerservice.repositories.ContactMediumRepository;
 import com.tcellpair3.customerservice.repositories.CustomerRepository;
@@ -73,7 +73,7 @@ public class ContactMediumServiceImpl implements ContactMediumService {
     }
 
     @Override
-    public Optional<GetByIdContactMediumResponse> getByContactMediumId(int id) {
+    public Optional<GetContactMediumByIdResponse> getByContactMediumId(int id) {
        Optional<ContactMedium> contactMediumOptional = contactMediumRepository.findById(id);
 
         return contactMediumOptional.map(ContactMediumMapper.INSTANCE::getByIdContactMediumMapper);

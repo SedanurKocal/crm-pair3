@@ -65,7 +65,7 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService {
     }
 
     @Override
-    public Optional<GetByIdCustomerInvoiceResponse> getByCustomerInvoiceId(int id) {
+    public Optional<GetCustomerInvoiceByIdResponse> getByCustomerInvoiceId(int id) {
         return Optional.empty();
     }
 
@@ -77,7 +77,7 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService {
     }
 
     @Override
-    public Optional<GetByIdCustomerInvoiceResponse> findByIdCustomerInvoice(Integer customerInvoiceId) {
+    public Optional<GetCustomerInvoiceByIdResponse> findByIdCustomerInvoice(Integer customerInvoiceId) {
         Optional<CustomerInvoice> customerInvoiceOptional = customerInvoiceRepository.findById(customerInvoiceId);
         return customerInvoiceOptional.map(CustomerInvoiceMapper.INSTANCE::getByIdCustomerInvoiceMapper);
     }

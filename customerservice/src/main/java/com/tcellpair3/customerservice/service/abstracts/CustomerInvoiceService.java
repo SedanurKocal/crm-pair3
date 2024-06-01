@@ -12,8 +12,8 @@ public interface CustomerInvoiceService {
     UpdateCustomerInvoiceResponse updateCustomerInvoice(int id , UpdateCustomerInvoiceRequest request);
     void deleteCustomerInvoice(int id);
     List<GetAllCustomerInvoiceResponse> getAllCustomerInvoice();
-    Optional<GetByIdCustomerInvoiceResponse> getByCustomerInvoiceId(int id);
+    Optional<GetCustomerInvoiceByIdResponse> getByCustomerInvoiceId(int id);
 
     List<CustomerInvoiceWithCustomerResponse> findByCustomerId(Integer customerId);
-    Optional<GetByIdCustomerInvoiceResponse> findByIdCustomerInvoice(Integer customerInvoiceId);
+    Optional<GetCustomerInvoiceByIdResponse> findByIdCustomerInvoice(Integer customerInvoiceId);
 }

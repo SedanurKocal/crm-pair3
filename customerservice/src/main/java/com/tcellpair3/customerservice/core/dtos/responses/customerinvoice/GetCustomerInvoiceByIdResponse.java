@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetByIdCustomerInvoiceResponse {
+public class GetCustomerInvoiceByIdResponse {
     private int id;
     private int accountName;
 

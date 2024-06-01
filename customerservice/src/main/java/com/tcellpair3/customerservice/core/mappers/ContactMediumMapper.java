@@ -4,7 +4,7 @@ import com.tcellpair3.customerservice.core.dtos.requests.contactmedium.CreateCon
 import com.tcellpair3.customerservice.core.dtos.requests.contactmedium.UpdateContactMediumRequest;
 import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.ContactMediumWithCustomerResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.GetAllContactMediumResponse;
-import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.GetByIdContactMediumResponse;
+import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.GetContactMediumByIdResponse;
 import com.tcellpair3.customerservice.entities.ContactMedium;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -23,7 +23,7 @@ public interface ContactMediumMapper {
 
 
     @Mapping(source = "customer.id", target = "customerId")
-    GetByIdContactMediumResponse getByIdContactMediumMapper(ContactMedium contactMedium);
+    GetContactMediumByIdResponse getByIdContactMediumMapper(ContactMedium contactMedium);
 
 
     @Mapping(source = "customer.id", target = "customerId")

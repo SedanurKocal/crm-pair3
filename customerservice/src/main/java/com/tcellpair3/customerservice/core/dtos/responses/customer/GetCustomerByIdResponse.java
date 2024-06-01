@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetByIdCustomerResponse {
+public class GetCustomerByIdResponse {
 
     private int accountNumber;
 

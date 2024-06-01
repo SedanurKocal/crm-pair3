@@ -5,7 +5,7 @@ import com.tcellpair3.customerservice.core.dtos.requests.customerinvoice.UpdateC
 import com.tcellpair3.customerservice.core.dtos.responses.customerinvoice.CustomerInvoiceWithAddressResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customerinvoice.CustomerInvoiceWithCustomerResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customerinvoice.GetAllCustomerInvoiceResponse;
-import com.tcellpair3.customerservice.core.dtos.responses.customerinvoice.GetByIdCustomerInvoiceResponse;
+import com.tcellpair3.customerservice.core.dtos.responses.customerinvoice.GetCustomerInvoiceByIdResponse;
 import com.tcellpair3.customerservice.entities.CustomerInvoice;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -22,7 +22,7 @@ public interface CustomerInvoiceMapper {
     @Mapping(target = "customer.accountNumber",source = "accountName")
     CustomerInvoice createCustomerInvoiceMapper(CreateCustomerInvoiceRequest request);
     @Mapping(target = "customerId",source = "customer.id")
-    GetByIdCustomerInvoiceResponse getByIdCustomerInvoiceMapper(CustomerInvoice customerInvoice);
+    GetCustomerInvoiceByIdResponse getByIdCustomerInvoiceMapper(CustomerInvoice customerInvoice);
 
     GetAllCustomerInvoiceResponse getAllCustomerInvoiceMapper(CustomerInvoice customerInvoice);
     List<GetAllCustomerInvoiceResponse> customerInvoiceToListCustomerInvoiceResponses(List<CustomerInvoice> customerInvoices);

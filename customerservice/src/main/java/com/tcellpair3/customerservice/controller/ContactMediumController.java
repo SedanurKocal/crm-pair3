@@ -3,11 +3,8 @@ package com.tcellpair3.customerservice.controller;
 import com.tcellpair3.customerservice.core.dtos.requests.contactmedium.CreateContactMediumRequest;
 import com.tcellpair3.customerservice.core.dtos.requests.contactmedium.UpdateContactMediumRequest;
 import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.*;
-import com.tcellpair3.customerservice.entities.ContactMedium;
-import com.tcellpair3.customerservice.repositories.ContactMediumRepository;
 import com.tcellpair3.customerservice.service.abstracts.ContactMediumService;
 import jakarta.validation.Valid;
-import jakarta.ws.rs.Path;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +25,7 @@ public class ContactMediumController {
         return contactMediumService.getAllContactMedium();
     }
     @GetMapping("{id}")
-    public Optional<GetByIdContactMediumResponse> getByIdContactMedium(@PathVariable int id)
+    public Optional<GetContactMediumByIdResponse> getByIdContactMedium(@PathVariable int id)
     {
         return contactMediumService.getByContactMediumId(id);
     }

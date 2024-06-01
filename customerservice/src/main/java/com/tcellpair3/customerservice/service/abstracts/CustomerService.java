@@ -13,7 +13,7 @@ public interface CustomerService {
     UpdateCustomerResponse updateCustomer(int id, UpdateCustomerRequest request) throws Exception;
     void deleteCustomer(int id);
     List<GetAllCustomersResponse> getAllCustomers();
-    Optional<GetByIdCustomerResponse> getByCustomerId(int id);
+    Optional<GetCustomerByIdResponse> getByCustomerId(int id);
     public Page<SearchResultsResponse> getCustomersByFirstName(String firstName, int page, int size);
     List<SearchResultsResponse> findByFirstName(String firstName);
     List<SearchResultsResponse> findByLastName(String lastName);

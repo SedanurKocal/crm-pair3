@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetByIdContactMediumResponse {
+public class GetContactMediumByIdResponse {
     private int id;
     private String email;
     private String mobilePhone;

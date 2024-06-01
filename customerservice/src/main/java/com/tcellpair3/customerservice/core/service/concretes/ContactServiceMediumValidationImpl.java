@@ -1,7 +1,7 @@
-package com.tcellpair3.customerservice.core.service.Concrete;
+package com.tcellpair3.customerservice.core.service.concretes;
 
 import com.tcellpair3.customerservice.core.exception.type.BusinessException;
-import com.tcellpair3.customerservice.core.service.Abstract.ContactMediumValidationService;
+import com.tcellpair3.customerservice.core.service.abstracts.ContactMediumValidationService;
 import org.springframework.stereotype.Service;
 
 @Service

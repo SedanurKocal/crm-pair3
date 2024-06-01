@@ -1,4 +1,4 @@
-package com.tcellpair3.customerservice.core.dtos.responses.customer;
+package com.tcellpair3.productservice.core.dtos.response.product;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,13 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class SearchResultsResponse {
     private int id;
-
-    private String firstName;
-
-
-    private String lastName;
-
-    private String middleName;
-
-    private String nationalId;
+    private int productNo;
+    private String name;
 }

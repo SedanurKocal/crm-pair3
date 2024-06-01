@@ -7,8 +7,8 @@ import com.tcellpair3.customerservice.core.exception.type.BusinessException;
 import com.tcellpair3.customerservice.core.exception.type.IllegalArgumentException;
 import com.tcellpair3.customerservice.core.mappers.CustomerMapper;
 import com.tcellpair3.customerservice.core.mernis.IRKKPSPublicSoap;
-import com.tcellpair3.customerservice.core.service.Abstract.ContactMediumValidationService;
-import com.tcellpair3.customerservice.core.service.Concrete.CustomerValidationServiceImpl;
+import com.tcellpair3.customerservice.core.service.abstracts.ContactMediumValidationService;
+import com.tcellpair3.customerservice.core.service.concretes.CustomerValidationServiceImpl;
 import com.tcellpair3.customerservice.entities.Customer;
 import com.tcellpair3.customerservice.entities.CustomerInvoice;
 import com.tcellpair3.customerservice.repositories.CustomerInvoiceRepository;
@@ -164,7 +164,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Optional<GetByIdCustomerResponse> getByCustomerId(int id) {
+    public Optional<GetCustomerByIdResponse> getByCustomerId(int id) {
         Optional<Customer> customerOptional= customerRepository.findById(id);
         return customerOptional.map(CustomerMapper.INSTANCE::getByIdCustomerMapper);
     }

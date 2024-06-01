@@ -1,4 +1,4 @@
-package com.tcellpair3.customerservice.core.service.Abstract;
+package com.tcellpair3.customerservice.core.service.abstracts;
 
 import java.time.LocalDate;
 

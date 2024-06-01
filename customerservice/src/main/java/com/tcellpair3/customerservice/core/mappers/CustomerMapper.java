@@ -2,7 +2,7 @@ package com.tcellpair3.customerservice.core.mappers;
 
 import com.tcellpair3.customerservice.core.dtos.requests.customer.CreateCustomerRequest;
 import com.tcellpair3.customerservice.core.dtos.requests.customer.UpdateCustomerRequest;
-import com.tcellpair3.customerservice.core.dtos.responses.customer.GetByIdCustomerResponse;
+import com.tcellpair3.customerservice.core.dtos.responses.customer.GetCustomerByIdResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.GetAllCustomersResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.SearchResultsResponse;
 import com.tcellpair3.customerservice.entities.Customer;
@@ -20,7 +20,7 @@ public interface CustomerMapper {
     @Mapping(target = "accountNumber", source = "accountNumber")
     Customer createCustomerMapper(CreateCustomerRequest request);
 
-    GetByIdCustomerResponse getByIdCustomerMapper(Customer customer);
+    GetCustomerByIdResponse getByIdCustomerMapper(Customer customer);
 
     GetAllCustomersResponse getAllCustomerMapper(Customer customer);
     SearchResultsResponse searchResultResponse(Customer customer);

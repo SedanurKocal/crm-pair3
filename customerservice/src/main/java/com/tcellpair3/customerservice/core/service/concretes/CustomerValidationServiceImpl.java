@@ -1,13 +1,10 @@
-package com.tcellpair3.customerservice.core.service.Concrete;
+package com.tcellpair3.customerservice.core.service.concretes;
 
 import com.tcellpair3.customerservice.core.exception.type.BusinessException;
-import com.tcellpair3.customerservice.core.exception.type.DateTimeParseException;
-import com.tcellpair3.customerservice.core.service.Abstract.CustomerValidationService;
-import com.tcellpair3.customerservice.service.concretes.CustomerServiceImpl;
+import com.tcellpair3.customerservice.core.service.abstracts.CustomerValidationService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.Year;
 
 @Service
 public class CustomerValidationServiceImpl implements CustomerValidationService {

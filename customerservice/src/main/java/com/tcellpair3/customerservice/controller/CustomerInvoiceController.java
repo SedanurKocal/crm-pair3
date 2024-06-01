@@ -3,7 +3,7 @@ package com.tcellpair3.customerservice.controller;
 import com.tcellpair3.customerservice.core.dtos.requests.customerinvoice.CreateCustomerInvoiceRequest;
 import com.tcellpair3.customerservice.core.dtos.responses.customerinvoice.CreateCustomerInvoiceResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customerinvoice.CustomerInvoiceWithCustomerResponse;
-import com.tcellpair3.customerservice.core.dtos.responses.customerinvoice.GetByIdCustomerInvoiceResponse;
+import com.tcellpair3.customerservice.core.dtos.responses.customerinvoice.GetCustomerInvoiceByIdResponse;
 import com.tcellpair3.customerservice.service.abstracts.CustomerInvoiceService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ public class CustomerInvoiceController {
         return customerInvoiceService.findByCustomerId(customerId);
     }
     @GetMapping("/{customerInvoiceId}")
-    public Optional<GetByIdCustomerInvoiceResponse> findByIdCustomerInvoice(@PathVariable Integer customerInvoiceId)
+    public Optional<GetCustomerInvoiceByIdResponse> findByIdCustomerInvoice(@PathVariable Integer customerInvoiceId)
     {
         return customerInvoiceService.findByIdCustomerInvoice(customerInvoiceId);
     }

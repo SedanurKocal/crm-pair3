@@ -4,7 +4,7 @@ import com.tcellpair3.customerservice.core.dtos.requests.customer.CreateCustomer
 import com.tcellpair3.customerservice.core.dtos.requests.customer.UpdateCustomerRequest;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.CreateCustomerResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.GetAllCustomersResponse;
-import com.tcellpair3.customerservice.core.dtos.responses.customer.GetByIdCustomerResponse;
+import com.tcellpair3.customerservice.core.dtos.responses.customer.GetCustomerByIdResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.SearchResultsResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.UpdateCustomerResponse;
 import com.tcellpair3.customerservice.service.abstracts.CustomerService;
@@ -31,7 +31,7 @@ public class CustomerController {
     }
 
     @GetMapping("{id}")
-    public Optional<GetByIdCustomerResponse> getByIdCustomers(@PathVariable int id) {
+    public Optional<GetCustomerByIdResponse> getByIdCustomers(@PathVariable int id) {
         return customerService.getByCustomerId(id);
     }
 

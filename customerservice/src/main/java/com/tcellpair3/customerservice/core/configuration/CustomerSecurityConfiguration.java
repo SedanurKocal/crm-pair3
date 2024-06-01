@@ -1,4 +1,4 @@
-package com.tcellpair3.customerservice.core.security;
+package com.tcellpair3.customerservice.core.configuration;
 
 import com.turkcell.tcell.core.security.BaseSecurityService;
 import jakarta.ws.rs.HttpMethod;
