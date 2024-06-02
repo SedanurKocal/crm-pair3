@@ -80,8 +80,23 @@
 			<groupId>org.hibernate.validator</groupId>
 			<artifactId>hibernate-validator</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.turkcell</groupId>
+			<artifactId>tcell.core</artifactId>
+			<version>2.0.3</version>
+		</dependency>
 	</dependencies>
-
+	<repositories>
+		<repository>
+			<id>github</id>
+			<name>Github Package Center</name>
+			<url>https://maven.pkg.github.com/tcell-gygy-pair3/core-pair3</url>
+		</repository>
+		<repository>
+			<id>central</id>
+			<url>https://repo.maven.apache.org/maven2</url>
+		</repository>
+	</repositories>
 
 	<dependencyManagement>
 		<dependencies>
