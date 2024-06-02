@@ -45,7 +45,7 @@ public class CustomerGlobalExceptionHandler {
         }
         return details;
     }
-    // @Not blank için hazırlanan messageleri bastırır
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> handleValidationExceptions(MethodArgumentNotValidException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)

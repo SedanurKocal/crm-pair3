@@ -2,6 +2,7 @@ package com.tcell_pair3.identityservice.service.concretes;
 
 import com.tcell_pair3.identityservice.core.exception.type.UnauthorizedException;
 import com.tcell_pair3.identityservice.core.mapper.AuthMapper;
+import com.tcell_pair3.identityservice.core.service.abstracts.ValidateEmailService;
 import com.tcell_pair3.identityservice.entities.User;
 import com.tcell_pair3.identityservice.service.abstracts.AuthService;
 import com.tcell_pair3.identityservice.service.abstracts.UserService;
@@ -28,9 +29,11 @@ public class AuthServiceImpl implements AuthService {
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
     private final BaseJwtService baseJwtService;
+    private final ValidateEmailService validateEmailService;
 
     @Override
     public void register(RegisterRequest request) {
+        validateEmailService.validateEmail(request.getEmail());
         User user = AuthMapper.INSTANCE.userFromRequest(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         userService.add(user);
@@ -39,6 +42,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String login(LoginRequest loginRequest) {
+        validateEmailService.validateEmail(loginRequest.getEmail());
         // TODO: Handle Exception.
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
