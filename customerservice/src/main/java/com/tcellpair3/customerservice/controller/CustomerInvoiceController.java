@@ -32,5 +32,8 @@ public class CustomerInvoiceController {
     public CreateCustomerInvoiceResponse createCustomerInvoice(@Valid @RequestBody CreateCustomerInvoiceRequest request){
         return customerInvoiceService.createCustomerInvoice(request);
     }
-
+    @DeleteMapping("{id}")
+    public void deleteCustomerInvoice(@PathVariable Integer id){
+        customerInvoiceService.deleteCustomerInvoice(id);
+    }
 }

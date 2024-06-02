@@ -43,6 +43,11 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public List<Address> getAddressesByCustomerId(Integer customerId) {
+        boolean customerExists = client.doesCustomerExist(customerId);
+        if(!customerExists)
+        {
+            throw new BusinessException("Customer does not exist");
+        }
         return addressRepository.findByCustomerId(customerId);
     }
 
@@ -53,6 +58,11 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public Optional<Address> getByIdAddress(int id) {
+        Optional<Address> existingAddress = addressRepository.findById(id);
+        if(existingAddress.isEmpty())
+        {
+            throw new BusinessException("Address not found");
+        }
         return addressRepository.findById(id);
     }
 
@@ -83,10 +93,8 @@ public class AddressServiceImpl implements AddressService {
             throw new BusinessException("Customer does not exist");
         }
 
-        // Set the ID of the updatedAddress to the existing ID
         address.setAddressId(existingAddress.getAddressId());
 
-        // Save the updated address, which should now update the existing record
         return addressRepository.saveAndFlush(address);
     }
 }

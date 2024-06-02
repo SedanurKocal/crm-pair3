@@ -4,21 +4,25 @@ import com.tcellpair3.customerservice.core.exception.type.BusinessException;
 import com.tcellpair3.customerservice.core.service.abstracts.ContactMediumValidationService;
 import org.springframework.stereotype.Service;
 
+import java.util.regex.Pattern;
+
 @Service
 public class ContactServiceMediumValidationImpl implements ContactMediumValidationService {
+    private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile("^0[0-9]{10}$");
+
     @Override
     public void validatePhoneNumber(String phoneNumber) {
-        if (phoneNumber.length() != 10 ) {
-            throw new BusinessException("GSM number must be 10 characters long");
+        if (!PHONE_NUMBER_PATTERN.matcher(phoneNumber).matches()) {
+            throw new BusinessException("Telefon numarası 0 ile başlamalı ve 11 haneli olmalıdır");
         }
 
         try {
             long gsmNumber = Long.parseLong(phoneNumber);
             if (gsmNumber <= 0) {
-                throw new BusinessException("GSM number must be a positive integer");
+                throw new BusinessException("GSM numarası pozitif bir tamsayı olmalıdır");
             }
         } catch (NumberFormatException e) {
-            throw new BusinessException("GSM number must be a valid integer");
+            throw new BusinessException("GSM numarası geçerli bir tamsayı olmalıdır");
         }
     }
 }

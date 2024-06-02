@@ -1,5 +1,6 @@
 package com.tcell_pair3.identityservice.service.concretes;
 
+import com.tcell_pair3.identityservice.core.exception.type.BusinessException;
 import com.tcell_pair3.identityservice.service.abstracts.UserService;
 import com.tcell_pair3.identityservice.core.exception.type.UnauthorizedException;
 import com.tcell_pair3.identityservice.entities.User;
@@ -17,6 +18,11 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     @Override
     public void add(User user) {
+        Optional<User> hasEmail = userRepository.findByEmail(user.getEmail());
+        if (hasEmail.isPresent())
+        {
+            throw new BusinessException("User already exists");
+        }
         userRepository.save(user);
     }
 

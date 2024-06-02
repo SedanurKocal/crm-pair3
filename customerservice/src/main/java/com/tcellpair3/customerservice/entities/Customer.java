@@ -43,7 +43,7 @@ public class Customer extends BaseCustomer{
     @Column(name = "gender")
     private Gender gender;
 
-    @OneToOne(mappedBy ="customer", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private ContactMedium contactMedium;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)

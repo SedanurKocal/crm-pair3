@@ -56,7 +56,7 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService {
 
     @Override
     public void deleteCustomerInvoice(int id) {
-
+            customerInvoiceRepository.deleteById(id);
     }
 
     @Override

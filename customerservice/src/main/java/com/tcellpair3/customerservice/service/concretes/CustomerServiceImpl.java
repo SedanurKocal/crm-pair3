@@ -81,20 +81,6 @@ public class CustomerServiceImpl implements CustomerService {
             throw new IllegalArgumentException("Kullanıcı bulunamadı");
         }
 
-        /*boolean hasNationalId =customerRepository.existsByNationalId(request.getNationalId());
-        if(hasNationalId)
-        {
-            throw new BusinessException("A customer is already exist with this Nationality ID");
-        }
-        customerValidationService.validateBirthdate(request.getBirthdate());
-        customerValidationService.isValidTC(request.getNationalId());
-        // Birthday check
-        Customer customer= CustomerMapper.INSTANCE.createCustomerMapper(request);
-        Customer saveCustomer = customerRepository.save(customer);
-
-         */
-
-
 
     }
 

@@ -27,7 +27,7 @@ public class ContactMediumServiceImpl implements ContactMediumService {
        if(!customerRepository.existsById(request.getCustomerId())){
             throw new BusinessException("kullanıcı bulunamadı");
         }
-        contactMediumServiceValidation.validatePhoneNumber(request.getMobilePhone());
+        //contactMediumServiceValidation.validatePhoneNumber(request.getMobilePhone());
         ContactMedium contactMedium = ContactMediumMapper.INSTANCE.createContactMediumMapper(request);
         ContactMedium saveContactMedium = contactMediumRepository.save(contactMedium);
         //todo: var olan customerId'ye ait contact medium zaten varsa hata handle edilecek.
