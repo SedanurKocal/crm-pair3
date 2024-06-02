@@ -23,9 +23,9 @@ public class CustomerSecurityConfiguration {
                 authorizeRequests
                         .requestMatchers("/api/v1/customers/**").permitAll()
                         .requestMatchers("/api/v1/address/**").authenticated()
-                        .requestMatchers("/api/v1/contactMedium/").authenticated()
+                        .requestMatchers("/api/v1/contactMedium/**").authenticated()
                         .requestMatchers("/api/v1/customerInvoices/**").authenticated()
-                        .requestMatchers(HttpMethod.DELETE, "/api/v1/contactMedium/**").hasAnyAuthority("string")
+
                         .anyRequest().permitAll()
         );
         return http.build();
