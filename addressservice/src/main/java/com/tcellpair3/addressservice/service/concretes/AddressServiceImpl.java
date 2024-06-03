@@ -1,7 +1,9 @@
 package com.tcellpair3.addressservice.service.concretes;
 
 import com.tcellpair3.addressservice.clients.CustomerServiceClient;
-import com.tcellpair3.addressservice.core.dto.responses.AddressDtoResponse;
+import com.tcellpair3.addressservice.core.dto.requests.CreateAddressRequest;
+import com.tcellpair3.addressservice.core.dto.requests.UpdateAddressRequest;
+import com.tcellpair3.addressservice.core.dto.responses.*;
 import com.tcellpair3.addressservice.core.exception.type.BusinessException;
 import com.tcellpair3.addressservice.core.mappers.AddressMapper;
 import com.tcellpair3.addressservice.entities.Address;
@@ -42,45 +44,56 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public List<Address> getAddressesByCustomerId(Integer customerId) {
+    public List<GetAddressCustomerById> getAddressesByCustomerId(Integer customerId) {
         boolean customerExists = client.doesCustomerExist(customerId);
-        if(!customerExists)
-        {
+        if (!customerExists) {
             throw new BusinessException("Customer does not exist");
         }
-        return addressRepository.findByCustomerId(customerId);
+        List<Address> addresses = addressRepository.findByCustomerId(customerId);
+        return AddressMapper.INSTANCE.getAllAddressByCustomerId(addresses);
     }
 
     @Override
-    public List<Address> getAllAddress() {
-        return addressRepository.findAll();
+    public List<GetAllAddressResponse> getAllAddress() {
+        List<Address> addresses=addressRepository.findAll();
+        return AddressMapper.INSTANCE.addressToListAddressResponse(addresses);
     }
 
     @Override
-    public Optional<Address> getByIdAddress(int id) {
+    public Optional<GetByAddressIdResponse> getByIdAddress(int id) {
         Optional<Address> existingAddress = addressRepository.findById(id);
         if(existingAddress.isEmpty())
         {
             throw new BusinessException("Address not found");
         }
-        return addressRepository.findById(id);
+        return existingAddress.map(AddressMapper.INSTANCE::getByAddressIdMapper);
     }
 
     @Override
-    public AddressDtoResponse createAddress(AddressDtoResponse request) {
+    public CreateAddressResponse createAddress(CreateAddressRequest request) {
         boolean customerExists = client.doesCustomerExist(request.getCustomerId());
         if (!customerExists) {
             throw new BusinessException("Customer does not exist");
         }
 
-        Address address = AddressMapper.INSTANCE.addressDTOToAddress(request);
-        Address savedAddress = addressRepository.save(address);
-        return AddressMapper.INSTANCE.addressToAddressDTO(savedAddress);
+        Address address = AddressMapper.INSTANCE.createAddressMapper(request);
+        Address saveAddress = addressRepository.save(address);
+        //return AddressMapper.INSTANCE.createAddressResponse(savedAddress);
+        return new CreateAddressResponse(
+                saveAddress.getAddressId(),
+                saveAddress.getCustomerId(),
+                saveAddress.getCity(),
+                saveAddress.getAddressDescription(),
+                saveAddress.getStreet(),
+                saveAddress.getHouseFlatNumber(),
+                saveAddress.getDistrict(),
+                saveAddress.isDefault()
+        );
 
     }
 
     @Override
-    public Address updateAddress(int id,Address address) {
+    public UpdateAddressResponse updateAddress(int id, UpdateAddressRequest request) {
         Optional<Address> addressOptional = addressRepository.findById(id);
         if (!addressOptional.isPresent()) {
             throw new BusinessException("Address not found");
@@ -88,13 +101,26 @@ public class AddressServiceImpl implements AddressService {
 
         Address existingAddress = addressOptional.get();
 
-        boolean customerExists = client.doesCustomerExist(address.getCustomerId());
+        boolean customerExists = client.doesCustomerExist(request.getCustomerId());
         if (!customerExists) {
             throw new BusinessException("Customer does not exist");
         }
 
-        address.setAddressId(existingAddress.getAddressId());
+        //address.setAddressId(existingAddress.getAddressId());
+        //return addressRepository.saveAndFlush(address);
 
-        return addressRepository.saveAndFlush(address);
+        Address address = AddressMapper.INSTANCE.updateAddressMapper(request,existingAddress);
+        Address saveAddress=addressRepository.save(address);
+
+        return new UpdateAddressResponse(
+                saveAddress.getAddressId(),
+                saveAddress.getCustomerId(),
+                saveAddress.getCity(),
+                saveAddress.getAddressDescription(),
+                saveAddress.getStreet(),
+                saveAddress.getHouseFlatNumber(),
+                saveAddress.getDistrict(),
+                saveAddress.isDefault()
+        );
     }
 }
