@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface CartService {
     void addProductToCustomer(Integer customerInvoceId, Integer productId,Integer addressId);
     void deleteCart(String cartId);
-    Optional<Cart> getByIdCart(String basketId);
+    Optional<Cart> getByIdCart(String cartId);
     List<Cart> getCartsByCustomerInvoiceId(Integer customerInvoiceId);
     boolean hasActiveProducts(int customerInvoice);
     double getTotalPriceByCustomerInvoiceId(Integer customerInvoiceId);

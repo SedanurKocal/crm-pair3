@@ -46,18 +46,18 @@ public class CartServiceImpl implements CartService {
         ProductResponse product = productServiceClient.getProductDetails(productId);
         AddressResponse address = addressClient.addressDetails(addressId);
 
-        Cart basket = new Cart();
-        basket.setCustomerInvoiceId(customerInvoceId);
-        basket.setProductNo(product.getProductNo());
-        basket.setProductName(product.getName());
-        basket.setPrice(product.getPrice());
-        basket.setAddressDescription(address.getAddressDescription());
-        basket.setCity(address.getCity());
-        basket.setStreet(address.getStreet());
-        basket.setHouseFlatNumber(address.getHouseFlatNumber());
-        basket.setDistrict(address.getDistrict());
-        orderClient.saveCartAsOrder(basket);
-        cartRepository.save(basket);
+        Cart cart = new Cart();
+        cart.setCustomerInvoiceId(customerInvoceId);
+        cart.setProductNo(product.getProductNo());
+        cart.setProductName(product.getName());
+        cart.setPrice(product.getPrice());
+        cart.setAddressDescription(address.getAddressDescription());
+        cart.setCity(address.getCity());
+        cart.setStreet(address.getStreet());
+        cart.setHouseFlatNumber(address.getHouseFlatNumber());
+        cart.setDistrict(address.getDistrict());
+        orderClient.saveCartAsOrder(cart);
+        cartRepository.save(cart);
     }
 
     @Override
@@ -66,8 +66,8 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Optional<Cart> getByIdCart(String basketId) {
-        return cartRepository.findById(basketId);
+    public Optional<Cart> getByIdCart(String cartId) {
+        return cartRepository.findById(cartId);
     }
 
     @Override
@@ -83,8 +83,8 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public double getTotalPriceByCustomerInvoiceId(Integer customerInvoiceId) {
-        List<Cart> baskets = cartRepository.findByCustomerInvoiceId(customerInvoiceId);
-        return baskets.stream()
+        List<Cart> carts = cartRepository.findByCustomerInvoiceId(customerInvoiceId);
+        return carts.stream()
                 .mapToDouble(Cart::getPrice)
                 .sum();
     }
