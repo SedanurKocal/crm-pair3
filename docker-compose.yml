@@ -51,8 +51,8 @@ services:
       - CONFIGURL=http://config-server:8079
     networks:
       - common
-  invoice-service:
-    build: ./invoiceservice
+  order-service:
+    build: ./orderservice
     ports:
       - "8083:8083"
     restart: on-failure # hata aldığında çalışana kadar rest

@@ -1,13 +1,10 @@
 package com.tcellpair3.productservice.controller;
 
 
-import com.tcellpair3.productservice.core.dtos.request.catalog.CreateCatalogRequest;
 import com.tcellpair3.productservice.core.dtos.request.product.CreateProductRequest;
 import com.tcellpair3.productservice.core.dtos.request.product.UpdateProductRequest;
-import com.tcellpair3.productservice.core.dtos.response.catalog.CreateCatalogResponse;
 import com.tcellpair3.productservice.core.dtos.response.product.*;
 import com.tcellpair3.productservice.service.abstracts.ProductService;
-import jakarta.ws.rs.Path;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

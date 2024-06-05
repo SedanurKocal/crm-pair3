@@ -15,5 +15,5 @@ public interface AddressService {
     CreateAddressResponse createAddress(CreateAddressRequest request);
     UpdateAddressResponse updateAddress(int id, UpdateAddressRequest address);
     void deleteAddress(int id);
-
+    boolean existById(int id);
 }

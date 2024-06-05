@@ -44,6 +44,11 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
+    public boolean existById(int addressId) {
+        return addressRepository.existsById(addressId);
+    }
+
+    @Override
     public List<GetAddressCustomerById> getAddressesByCustomerId(Integer customerId) {
         boolean customerExists = client.doesCustomerExist(customerId);
         if (!customerExists) {

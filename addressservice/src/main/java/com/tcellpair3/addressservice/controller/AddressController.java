@@ -48,4 +48,9 @@ public class AddressController {
     public void deleteAddress(@PathVariable int id){
         addressService.deleteAddress(id);
     }
+
+    @GetMapping("/{addressId}/exists")
+    public boolean addressIdExists(@PathVariable int addressId){
+        return  addressService.existById(addressId);
+    }
 }
