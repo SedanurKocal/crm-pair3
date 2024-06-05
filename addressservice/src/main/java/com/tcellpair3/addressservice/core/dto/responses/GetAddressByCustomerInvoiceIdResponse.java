@@ -11,8 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class GetAddressByCustomerInvoiceIdResponse {
 
-    private int id;
-    private int customerInvoiceId;
+    private Integer id;
+    private Integer customerInvoiceId;
     private String firstName;
     private String lastName;
 }

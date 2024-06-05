@@ -10,8 +10,10 @@ import com.tcellpair3.addressservice.entities.Address;
 import com.tcellpair3.addressservice.repositories.AddressRepository;
 import com.tcellpair3.addressservice.service.abstracts.AddressService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,6 +74,21 @@ public class AddressServiceImpl implements AddressService {
             throw new BusinessException("Address not found");
         }
         return existingAddress.map(AddressMapper.INSTANCE::getByAddressIdMapper);
+    }
+
+    @Override
+    public List<AddressResponse> getAddressesByCustomerInvoiceId(Integer customerInvoiceId) {
+        ResponseEntity<GetAddressByCustomerInvoiceIdResponse> responseEntity = client.getCustomerByInvoiceId(customerInvoiceId);
+
+        // Müşteri bilgilerini al
+        GetAddressByCustomerInvoiceIdResponse customerResponse = responseEntity.getBody();
+
+        if (customerResponse != null && customerResponse.getId() != null) {
+            // Müşteri ID'sine göre adresleri al
+            return addressRepository.findAddressesByCustomerId(customerResponse.getId());
+        }
+
+        return Collections.emptyList(); // Eğer müşteri bulunamazsa boş liste döner
     }
 
     @Override

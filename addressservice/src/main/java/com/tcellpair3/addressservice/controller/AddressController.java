@@ -7,6 +7,7 @@ import com.tcellpair3.addressservice.core.dto.responses.*;
 import com.tcellpair3.addressservice.service.abstracts.AddressService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -52,4 +53,15 @@ public class AddressController {
     public boolean addressIdExists(@PathVariable int addressId){
         return  addressService.existById(addressId);
     }
+
+    @GetMapping("/customerInvoice/{customerInvoiceId}")
+    public ResponseEntity<List<AddressResponse>> getAddressesByCustomerInvoiceId(@PathVariable Integer customerInvoiceId) {
+        List<AddressResponse> addresses = addressService.getAddressesByCustomerInvoiceId(customerInvoiceId);
+        if (addresses.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(addresses);
+    }
 }
+
+
