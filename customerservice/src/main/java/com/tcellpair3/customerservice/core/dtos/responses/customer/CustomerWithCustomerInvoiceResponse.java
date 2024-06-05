@@ -1,4 +1,4 @@
-package com.tcellpair3.cartservice.core.dtos;
+package com.tcellpair3.customerservice.core.dtos.responses.customer;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +10,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomerWithCustomerInvoiceResponse {
-    private int customerId;
+    private int id;
     private int customerInvoiceId;
+    private int customerId;
+    private String firstName;
+    private String lastName;
+
 }

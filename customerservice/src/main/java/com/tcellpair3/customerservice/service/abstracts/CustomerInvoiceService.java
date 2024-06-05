@@ -2,6 +2,7 @@ package com.tcellpair3.customerservice.service.abstracts;
 
 import com.tcellpair3.customerservice.core.dtos.requests.customerinvoice.CreateCustomerInvoiceRequest;
 import com.tcellpair3.customerservice.core.dtos.requests.customerinvoice.UpdateCustomerInvoiceRequest;
+import com.tcellpair3.customerservice.core.dtos.responses.customer.CustomerWithCustomerInvoiceResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customerinvoice.*;
 
 import java.util.List;
@@ -13,7 +14,10 @@ public interface CustomerInvoiceService {
     void deleteCustomerInvoice(int id);
     List<GetAllCustomerInvoiceResponse> getAllCustomerInvoice();
     Optional<GetCustomerInvoiceByIdResponse> getByCustomerInvoiceId(int id);
-
+    boolean existsById(Integer customerInvoiceId);
     List<CustomerInvoiceWithCustomerResponse> findByCustomerId(Integer customerId);
     Optional<GetCustomerInvoiceByIdResponse> findByIdCustomerInvoice(Integer customerInvoiceId);
+
+    CustomerWithCustomerInvoiceResponse getCustomerByInvoiceId(Integer invoiceId);
+
 }

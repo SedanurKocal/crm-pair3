@@ -27,6 +27,7 @@ public interface ProductMapper {
     GetProductByIdResponse getProductByIdMapper(Product product);
 
     @Mapping(target = "catalogId", source = "catalog.id")
+    @Mapping(target = "price", source = "price")
     GetAllProductsResponse getAllProductsMapper(Product product);
 
     SearchResultsResponse productToSearchResultsResponse(Product product);

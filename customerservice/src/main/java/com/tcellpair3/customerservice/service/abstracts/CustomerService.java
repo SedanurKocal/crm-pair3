@@ -24,5 +24,6 @@ public interface CustomerService {
 
     boolean existsById(Integer customerId);
 
+    void cartNumber(int cartId);
 
 }

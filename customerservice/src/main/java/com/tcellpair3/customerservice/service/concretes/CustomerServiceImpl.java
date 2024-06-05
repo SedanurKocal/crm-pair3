@@ -1,5 +1,6 @@
 package com.tcellpair3.customerservice.service.concretes;
 
+import com.tcellpair3.customerservice.clients.CartClient;
 import com.tcellpair3.customerservice.core.dtos.requests.customer.CreateCustomerRequest;
 import com.tcellpair3.customerservice.core.dtos.requests.customer.UpdateCustomerRequest;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.*;
@@ -31,13 +32,14 @@ public class CustomerServiceImpl implements CustomerService {
     private final ContactMediumValidationService contactMediumValidationService;
     private final CustomerInvoiceRepository customerInvoiceRepository;
    // private final AddressClient addressClient;
+    private final CartClient cartClient;
 
-    public CustomerServiceImpl(CustomerRepository customerRepository, CustomerValidationServiceImpl customerValidationService, ContactMediumValidationService contactMediumValidationService, CustomerInvoiceRepository customerInvoiceRepository) {
+    public CustomerServiceImpl(CustomerRepository customerRepository, CustomerValidationServiceImpl customerValidationService, ContactMediumValidationService contactMediumValidationService, CustomerInvoiceRepository customerInvoiceRepository, CartClient cartClient) {
         this.customerRepository = customerRepository;
         this.customerValidationService = customerValidationService;
         this.contactMediumValidationService = contactMediumValidationService;
         this.customerInvoiceRepository = customerInvoiceRepository;
-
+        this.cartClient = cartClient;
     }
 
     @Override
@@ -229,7 +231,10 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.existsById(customerId);
     }
 
-
+    @Override
+    public void cartNumber(int cartId) {
+        cartClient.getByIdCart(cartId);
+    }
 
 
 }

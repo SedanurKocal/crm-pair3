@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface CustomerInvoiceRepository extends JpaRepository<CustomerInvoice,Integer> {
     List<CustomerInvoice> findByCustomerId(Integer customerId);
-
+    boolean existsById(Integer id);
 
 
 

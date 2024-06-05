@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/contactMedium")
+@RequestMapping("/api/v1/contactMediums")
 @RequiredArgsConstructor
 public class ContactMediumController {
 

@@ -28,6 +28,16 @@ public class CustomerInvoiceController {
     {
         return customerInvoiceService.findByIdCustomerInvoice(customerInvoiceId);
     }
+//TODO: GET CUSTOMER BY ORDER NUMBER FR-3
+//    @GetMapping("/{invoiceId}/customer")
+//    public ResponseEntity<CustomerWithCustomerInvoiceResponse> getCustomerByInvoiceId(@PathVariable Integer invoiceId) {
+//        CustomerWithCustomerInvoiceResponse response = customerInvoiceService.getCustomerByInvoiceId(invoiceId);
+//        if (response != null) {
+//            return ResponseEntity.ok(response);
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
     @PostMapping
     public CreateCustomerInvoiceResponse createCustomerInvoice(@Valid @RequestBody CreateCustomerInvoiceRequest request){
         return customerInvoiceService.createCustomerInvoice(request);

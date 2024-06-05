@@ -74,6 +74,11 @@ public class CustomerController {
         return customerService.existsById(customerId);
     }
 
+    @GetMapping("/{id}/cart")
+    public void cartNumber(@PathVariable("id") Integer cartId) {
+        customerService.cartNumber(cartId);
+    }
+
     @PostMapping
     public CreateCustomerResponse createCustomer(@Valid @RequestBody CreateCustomerRequest request) throws Exception {
         return customerService.createCustomer(request);

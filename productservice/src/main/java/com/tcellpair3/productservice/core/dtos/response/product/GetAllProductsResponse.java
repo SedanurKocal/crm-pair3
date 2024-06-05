@@ -14,6 +14,7 @@ import lombok.Setter;
 public class GetAllProductsResponse {
     private int id;
     private int productNo;
+    private double price;
     private String name;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;

@@ -2,10 +2,7 @@ package com.tcellpair3.productservice.core.dtos.response.product;
 
 import java.time.LocalDateTime;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
@@ -14,6 +11,7 @@ import lombok.Setter;
 public class GetProductByIdResponse {
     private String name;
     private int productNo;
+    private double price;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
     private boolean isDeleted;
