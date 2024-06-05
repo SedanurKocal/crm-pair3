@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetAddressCustomerById {
+public class GetAddressByCustomerIdResponse {
     private int addressId;
 
     private int customerId;

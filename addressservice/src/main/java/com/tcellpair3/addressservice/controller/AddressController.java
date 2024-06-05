@@ -4,7 +4,6 @@ import com.tcellpair3.addressservice.clients.CustomerServiceClient;
 import com.tcellpair3.addressservice.core.dto.requests.CreateAddressRequest;
 import com.tcellpair3.addressservice.core.dto.requests.UpdateAddressRequest;
 import com.tcellpair3.addressservice.core.dto.responses.*;
-import com.tcellpair3.addressservice.entities.Address;
 import com.tcellpair3.addressservice.service.abstracts.AddressService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +19,7 @@ public class AddressController {
     private final AddressService addressService;
     private final CustomerServiceClient customerServiceClient;
     @GetMapping("/customer/{customerId}")
-    public List<GetAddressCustomerById> getAddressesByCustomerId(@PathVariable Integer customerId) {
+    public List<GetAddressByCustomerIdResponse> getAddressesByCustomerId(@PathVariable Integer customerId) {
         return addressService.getAddressesByCustomerId(customerId);
     }
     @GetMapping()

@@ -49,7 +49,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public List<GetAddressCustomerById> getAddressesByCustomerId(Integer customerId) {
+    public List<GetAddressByCustomerIdResponse> getAddressesByCustomerId(Integer customerId) {
         boolean customerExists = client.doesCustomerExist(customerId);
         if (!customerExists) {
             throw new BusinessException("Customer does not exist");
