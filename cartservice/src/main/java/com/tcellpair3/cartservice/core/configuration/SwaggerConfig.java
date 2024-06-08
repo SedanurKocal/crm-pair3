@@ -1,4 +1,4 @@
-package com.tcellpair3.addressservice.configuration;
+package com.tcellpair3.cartservice.core.configuration;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
@@ -13,9 +13,9 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @OpenAPIDefinition(
-        info = @Info(title = "Address Service API", version = "1.0", description = "Address Service API Documentation"),
+        info = @Info(title = "Cart Service API", version = "1.0", description = "Cart Service API Documentation"),
         security = @SecurityRequirement(name = "bearerAuth"),
-        servers = @Server(url = "http://localhost:8090")
+        servers = @Server(url = "http://localhost:8082")
 )
 @SecurityScheme(
         name = "bearerAuth",
