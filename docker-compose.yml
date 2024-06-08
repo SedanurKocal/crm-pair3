@@ -103,6 +103,10 @@ services:
       - CONFIGURL=http://config-server:8079
     networks:
       - common
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
 
 
   postgres:

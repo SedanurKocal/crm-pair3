@@ -20,6 +20,7 @@ public class CartSecurityConfiguration {
         baseSecurityService.configureCommonSecurityRules(http);
         http.authorizeHttpRequests(authorizeRequests ->
                 authorizeRequests.requestMatchers("/api/v1/carts/findAll").authenticated()
+                        .requestMatchers("/api/v1/orders/save").permitAll()
                         .anyRequest().permitAll()
         );
         return http.build();

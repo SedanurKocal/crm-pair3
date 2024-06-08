@@ -1,11 +1,12 @@
 package com.tcellpair3.cartservice.client;
 
+import com.tcellpair3.cartservice.core.configuration.FeignClientConfig;
 import com.tcellpair3.cartservice.core.dtos.AddressResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient("addressservice")
+@FeignClient(name = "addressservice",configuration = FeignClientConfig.class)
 public interface AddressClient {
     @GetMapping("/api/v1/addresses/{addressId}/exists")
     boolean doesAddressExist(@PathVariable int addressId);
