@@ -14,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "orders")
 @Entity
+
 public class Order {
 
     @Id
@@ -21,9 +22,14 @@ public class Order {
     private int id;
     @Column(name = "customer_invoice_id")
     private int customerInvoiceId;
-    @Column(name = "order_items")
+    @ElementCollection
+    @CollectionTable(name = "order_items", joinColumns = @JoinColumn(name = "order_id"))
+    @Column(name = "order_item")
     private List<String> orderItems;
-    @Column(name = "service_addresses")
+
+    @ElementCollection
+    @CollectionTable(name = "service_addresses", joinColumns = @JoinColumn(name = "order_id"))
+    @Column(name = "service_address")
     private List<String> serviceAddresses;
     @Column(name = "total_amount")
     private double totalAmount;

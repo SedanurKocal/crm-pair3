@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface ProductService {
     CreateProductResponse createProduct(CreateProductRequest createProductRequest);
     List<GetAllProductsResponse> getAllProducts();
-    Optional<GetProductByIdResponse> getProductById(int id);
+    GetProductByIdResponse getProductById(int id);
     UpdateProductResponse updateProducts(int id, UpdateProductRequest request);
     void deleteProduct (int id);
     List<SearchResultsResponse> findByName(String name);

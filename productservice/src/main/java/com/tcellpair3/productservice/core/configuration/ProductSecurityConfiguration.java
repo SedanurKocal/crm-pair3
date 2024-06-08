@@ -20,6 +20,7 @@ public class ProductSecurityConfiguration {
         baseSecurityService.configureCommonSecurityRules(http);
         http.authorizeHttpRequests(authorizeRequests ->
                 authorizeRequests
+                        //.requestMatchers("/api/v1/products/**").authenticated()
                         .anyRequest().permitAll()
         );
         return http.build();

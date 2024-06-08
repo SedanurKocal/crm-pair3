@@ -58,7 +58,12 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService {
 
     @Override
     public UpdateCustomerInvoiceResponse updateCustomerInvoice(int id, UpdateCustomerInvoiceRequest request) {
-        return null;
+        Optional<CustomerInvoice> optionalCustomerInvoice = customerInvoiceRepository.findById(id);
+        CustomerInvoice existingCustomerInvoice = optionalCustomerInvoice.get();
+        CustomerInvoice customerInvoice = CustomerInvoiceMapper.INSTANCE.updateCustomerInvoiceMapper(request,existingCustomerInvoice);
+        CustomerInvoice updatedCustomerInvoice = customerInvoiceRepository.save(customerInvoice);
+
+        return new UpdateCustomerInvoiceResponse(updatedCustomerInvoice.getId(),updatedCustomerInvoice.getAccountName(),updatedCustomerInvoice.getAccountStatus(),updatedCustomerInvoice.getAccountType(),updatedCustomerInvoice.getCustomer().getId());
     }
 
     @Override

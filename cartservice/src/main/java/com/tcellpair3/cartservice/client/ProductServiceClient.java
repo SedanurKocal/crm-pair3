@@ -9,4 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface ProductServiceClient {
     @GetMapping("/api/v1/products/{id}")
     ProductResponse getProductDetails(@PathVariable("id") Integer productId);
+
+    // controller tarafında controller yazılacak
 }

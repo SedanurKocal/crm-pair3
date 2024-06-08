@@ -36,12 +36,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Optional<GetProductByIdResponse> getProductById(int id) {
-        Optional<Product> productOptional = productRepository.findByIdAndNotDeleted(id);
-        if (productOptional.isEmpty()) {
-            throw new BusinessException("Product Not Found");
-        }
-        return productOptional.map(ProductMapper.INSTANCE::getProductByIdMapper);
+    public GetProductByIdResponse getProductById(int id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+        return new GetProductByIdResponse(product.getName(),product.getProductNo(),product.getPrice(), product.getCreatedDate(), product.getUpdatedDate(),product.getCatalog().isDeleted(), product.getCatalog().getId());
     }
 
     @Override
