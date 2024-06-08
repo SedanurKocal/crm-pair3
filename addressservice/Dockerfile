@@ -9,7 +9,7 @@ RUN mkdir -p /root/.m2 && \
 
 COPY pom.xml .
 COPY src ./src
-RUN mvn clean package -DskipTests -e
+RUN mvn clean package -s /root/.m2/settings.xml -DskipTests
 
 FROM openjdk:17-jdk
 COPY --from=build /app/target/addressservice-2.1.0.jar /app/addressservice.jar

@@ -11,7 +11,7 @@ COPY pom.xml .
 COPY src ./src
 COPY easywsdl/ExKsoap2-1.0.4.0.jar /app/easywsdl/ExKsoap2-1.0.4.0.jar
 COPY easywsdl/ksoap2-android-assembly-3.6.4-jar-with-dependencies.jar /app/easywsdl/ksoap2-android-assembly-3.6.4-jar-with-dependencies.jar
-RUN mvn clean package -DskipTests
+RUN mvn clean package -s /root/.m2/settings.xml -DskipTests
 
 FROM openjdk:17-jdk
 COPY --from=build /app/target/customerservice-0.0.2-SNAPSHOT.jar /app/customerservice.jar

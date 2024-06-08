@@ -1,7 +1,10 @@
+version: '3.8'
+
 services:
   address-service:
     build:
       context: ./addressservice
+      dockerfile: Dockerfile
       args:
         GITHUB_USERNAME: ${GITHUB_USERNAME}
         GITHUB_TOKEN: ${GITHUB_TOKEN}
@@ -13,21 +16,30 @@ services:
     environment:
       - SPRING_CLOUD_CONFIG_PROFILE=prod
       - CONFIGURL=http://config-server:8079
-    volumes:
-      - ~/.m2:/root/.m2
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/addressservice
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=test
+
   product-service:
-    build: ./productservice
+    build:
+      context: ./productservice
+      dockerfile: Dockerfile
+      args:
+        GITHUB_USERNAME: ${GITHUB_USERNAME}
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
     ports:
       - "8084:8084"
-    restart: on-failure # hata aldığında çalışana kadar rest
+    restart: on-failure
     environment:
       - SPRING_CLOUD_CONFIG_PROFILE=prod
       - CONFIGURL=http://config-server:8079
     networks:
       - common
+
   customer-service:
     build:
       context: ./customerservice
+      dockerfile: Dockerfile
       args:
         GITHUB_USERNAME: ${GITHUB_USERNAME}
         GITHUB_TOKEN: ${GITHUB_TOKEN}
@@ -39,36 +51,58 @@ services:
     environment:
       - SPRING_CLOUD_CONFIG_PROFILE=prod
       - CONFIGURL=http://config-server:8079
-    volumes:
-      - ~/.m2:/root/.m2
+
   cart-service:
-    build: ./cartservice
+    build:
+      context: ./cartservice
+      dockerfile: Dockerfile
+      args:
+        GITHUB_USERNAME: ${GITHUB_USERNAME}
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
     ports:
       - "8082:8082"
-    restart: on-failure # hata aldığında çalışana kadar rest
+    restart: on-failure
     environment:
       - SPRING_CLOUD_CONFIG_PROFILE=prod
       - CONFIGURL=http://config-server:8079
     networks:
       - common
+
   order-service:
-    build: ./orderservice
+    build:
+      context: ./orderservice
+      dockerfile: Dockerfile
+      args:
+        GITHUB_USERNAME: ${GITHUB_USERNAME}
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
     ports:
       - "8083:8083"
-    restart: on-failure # hata aldığında çalışana kadar rest
+    restart: on-failure
     environment:
       - SPRING_CLOUD_CONFIG_PROFILE=prod
       - CONFIGURL=http://config-server:8079
     networks:
       - common
+
   config-server:
-    build: ./configserver
+    build:
+      context: ./configserver
+      dockerfile: Dockerfile
+      args:
+        GITHUB_USERNAME: ${GITHUB_USERNAME}
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
     ports:
       - "8079:8079"
     networks:
       - common
+
   discovery-server:
-    build: ./discoveryserver
+    build:
+      context: ./discoveryserver
+      dockerfile: Dockerfile
+      args:
+        GITHUB_USERNAME: ${GITHUB_USERNAME}
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
     ports:
       - "8888:8888"
     restart: on-failure
@@ -79,7 +113,12 @@ services:
       - common
 
   identity-service:
-    build: ./identityservice
+    build:
+      context: ./identityservice
+      dockerfile: Dockerfile
+      args:
+        GITHUB_USERNAME: ${GITHUB_USERNAME}
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
     ports:
       - "8086:8086"
     restart: on-failure
@@ -88,13 +127,17 @@ services:
       - CONFIGURL=http://config-server:8079
     networks:
       - common
+
   gateway-server:
-    build: ./gatewayserver
+    build:
+      context: ./gatewayserver
+      dockerfile: Dockerfile
+      args:
+        GITHUB_USERNAME: ${GITHUB_USERNAME}
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
     ports:
       - "8080:8080"
-    restart: on-failure # her hata aldığında restart et
-    # restart : unless-stopped kullanıcı dışında konteyner durdu ise  restart et
-    # alway kullanıcı dahil herhangi bir şekilde durdu ise
+    restart: on-failure
     depends_on:
       - discovery-server
       - config-server
@@ -103,24 +146,27 @@ services:
       - CONFIGURL=http://config-server:8079
     networks:
       - common
+
   mongodb:
     image: mongo
     ports:
       - "27017:27017"
-
+    networks:
+      - common
 
   postgres:
     image: postgres
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_PASSWORD=test
+      POSTGRES_PASSWORD: test
     volumes:
-      - postgresql-volume:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - common
 
 volumes:
-  postgresql-volume: #dosyada ki nickname
-    name: postgresql-volume #klasör ismi
+  postgres_data:
 
 networks:
   common:

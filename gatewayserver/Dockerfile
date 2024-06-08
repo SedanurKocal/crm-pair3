@@ -12,7 +12,7 @@ RUN mkdir -p /root/.m2 && \
 
 COPY pom.xml .
 COPY src ./src
-RUN mvn clean package -DskipTests -e
+RUN mvn clean package -s /root/.m2/settings.xml -DskipTests
 
 FROM openjdk:17-jdk
 COPY --from=build /app/target/gatewayserver-0.0.1-SNAPSHOT.jar /app/gatewayserver.jar
