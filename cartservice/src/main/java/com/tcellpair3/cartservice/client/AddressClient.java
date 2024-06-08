@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient("addressservice")
 public interface AddressClient {
-    @GetMapping("/address/{addressId}/exists")
-    boolean addressIdExists(@PathVariable int addressId);
+    @GetMapping("/api/v1/addresses/{addressId}/exists")
+    boolean doesAddressExist(@PathVariable int addressId);
 
-    @GetMapping("/address/addressDetail/{addressId}")
+    @GetMapping("/api/v1/addresses/addressDetail/{addressId}")
     AddressResponse addressDetails(@PathVariable("addressId") Integer addressId);
 
 }

@@ -21,7 +21,7 @@ public class CartController {
     public Optional<Cart> getByIdCart(@PathVariable("id") String cartId) {
         return cartService.getByIdCart(cartId);
     }
-    @GetMapping("findAll")
+    @GetMapping()
     public List<Cart> findAll()
     {
         return cartService.getAllCarts();

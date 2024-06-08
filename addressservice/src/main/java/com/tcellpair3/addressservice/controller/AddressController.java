@@ -33,6 +33,15 @@ public class AddressController {
     {
         return addressService.getByIdAddress(id);
     }
+
+// adressdetails
+    @GetMapping("/addressDetail/{addressId}")
+    public AddressResponse addressDetails(@PathVariable Integer addressId)
+    {
+        return addressService.getAddressDetails(addressId);
+    }
+
+    /////
     @PostMapping
     public CreateAddressResponse createAddress(@Valid @RequestBody CreateAddressRequest request) {
 

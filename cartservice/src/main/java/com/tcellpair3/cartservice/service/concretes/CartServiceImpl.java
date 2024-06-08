@@ -13,10 +13,13 @@ import com.tcellpair3.cartservice.entities.Cart;
 import com.tcellpair3.cartservice.repository.CartRepository;
 import com.tcellpair3.cartservice.service.abstracts.CartService;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.service.spi.ServiceException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,28 +29,43 @@ import java.util.Optional;
 public class CartServiceImpl implements CartService {
 
     private final CartRepository cartRepository;
-    private final CustomerInvoiceClient client;
+    private final CustomerInvoiceClient customerInvoiceClient;
     private final ProductServiceClient productServiceClient;
     private final AddressClient addressClient;
     private final OrderClient orderClient;
     @Override
-    public void addProductToCustomer(Integer customerInvoceId, Integer productId,Integer addressId) {
+    public void addProductToCustomer(Integer customerInvoiceId, Integer productId,Integer addressId) {
         // müşteri fatura hesabı sorgulama
-        boolean customerInvoiceExists = client.doesCustomerInvoiceExist(customerInvoceId);
-        // address sorgulama
-        boolean addressExists = addressClient.addressIdExists(addressId);
-        if (!customerInvoiceExists) {
-            throw new BusinessException("Customer not found");
+        // ResponseEntity<Boolean> customerInvoiceExists = customerInvoiceClient.doesCustomerInvoiceExist(customerInvoceId);
+        try {
+            ResponseEntity<Boolean> customerInvoiceExistsResponse = customerInvoiceClient.doesCustomerInvoiceExist(customerInvoiceId);
+            if (customerInvoiceExistsResponse.getStatusCode() == HttpStatus.NOT_FOUND || !Boolean.TRUE.equals(customerInvoiceExistsResponse.getBody())) {
+                throw new BusinessException("Customer invoice not found");
+            }
+        } catch (HttpClientErrorException.NotFound ex) {
+            throw new BusinessException("Customer invoice not found", ex);
+        } catch (Exception ex) {
+            throw new ServiceException("An error occurred while checking if customer invoice exists", ex);
         }
-        if (!addressExists) {
-            throw new BusinessException("Address not found");
+
+        // address sorgulama
+        boolean addressExists;
+        try {
+            addressExists = addressClient.doesAddressExist(addressId);
+            if (!addressExists) {
+                throw new BusinessException("Address not found");
+            }
+        } catch (HttpClientErrorException.NotFound ex) {
+            throw new BusinessException("Address not found", ex);
+        } catch (Exception ex) {
+            throw new ServiceException("An error occurred while checking if address exists", ex);
         }
 
         ProductResponse product = productServiceClient.getProductDetails(productId);
         AddressResponse address = addressClient.addressDetails(addressId);
 
         Cart cart = new Cart();
-        cart.setCustomerInvoiceId(customerInvoceId);
+        cart.setCustomerInvoiceId(customerInvoiceId);
         cart.setProductNo(product.getProductNo());
         cart.setProductName(product.getName());
         cart.setPrice(product.getPrice());
@@ -56,7 +74,7 @@ public class CartServiceImpl implements CartService {
         cart.setStreet(address.getStreet());
         cart.setHouseFlatNumber(address.getHouseFlatNumber());
         cart.setDistrict(address.getDistrict());
-        orderClient.saveCartAsOrder(cart);
+        orderClient.createOrder(cart);
         cartRepository.save(cart);
     }
 

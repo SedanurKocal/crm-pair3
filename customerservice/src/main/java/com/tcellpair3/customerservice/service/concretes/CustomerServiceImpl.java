@@ -31,8 +31,8 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerValidationServiceImpl customerValidationService;
     private final ContactMediumValidationService contactMediumValidationService;
     private final CustomerInvoiceRepository customerInvoiceRepository;
-   // private final AddressClient addressClient;
     private final CartClient cartClient;
+   // private final AddressClient addressClient;
 
     public CustomerServiceImpl(CustomerRepository customerRepository, CustomerValidationServiceImpl customerValidationService, ContactMediumValidationService contactMediumValidationService, CustomerInvoiceRepository customerInvoiceRepository, CartClient cartClient) {
         this.customerRepository = customerRepository;
@@ -140,7 +140,11 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void deleteCustomer(int id) {
-
+        boolean customerActiveProduct = cartClient.hasActiveProducts(id);
+        if(!customerActiveProduct)
+        {
+            throw new BusinessException("Since the customer has active products, the customer cannot be deleted.");
+        }
         customerRepository.deleteById(id);
 
     }

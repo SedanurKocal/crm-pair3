@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.tcell-pair3</groupId>
-	<artifactId>invoiceservice</artifactId>
+	<artifactId>orderservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>invoiceservice</name>
+	<name>orderservice</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>

@@ -27,6 +27,7 @@
         <option value="$PROJECT_DIR$/adressservice/pom.xml" />
         <option value="$PROJECT_DIR$/authserver/pom.xml" />
         <option value="$PROJECT_DIR$/userservice/pom.xml" />
+        <option value="$PROJECT_DIR$/../../crm-new/crm-pair3/addressservice/pom.xml" />
       </set>
     </option>
   </component>

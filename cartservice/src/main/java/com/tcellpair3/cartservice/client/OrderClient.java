@@ -6,9 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "invoiceservice")
+@FeignClient(name = "orderservice")
 public interface OrderClient {
     @PostMapping("/api/v1/orders/save")
-    ResponseEntity<String> saveCartAsOrder(@RequestBody Cart cart);
+    ResponseEntity<String> createOrder(@RequestBody Cart cart);
 
 }

@@ -93,6 +93,7 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public CreateAddressResponse createAddress(CreateAddressRequest request) {
+        request.setDefault(false);
         boolean customerExists = client.doesCustomerExist(request.getCustomerId());
         if (!customerExists) {
             throw new BusinessException("Customer does not exist");
@@ -144,5 +145,18 @@ public class AddressServiceImpl implements AddressService {
                 saveAddress.getDistrict(),
                 saveAddress.isDefault()
         );
+    }
+
+    @Override
+    public AddressResponse getAddressDetails(int id) {
+        Address address = addressRepository.findById(id).orElseThrow();
+        return new AddressResponse(address.getAddressId(),
+                address.getCustomerId(),
+                address.getCity(),
+                address.getDistrict(),
+                address.getStreet(),
+                address.getHouseFlatNumber(),
+                address.getAddressDescription(),
+                address.isDefault());
     }
 }

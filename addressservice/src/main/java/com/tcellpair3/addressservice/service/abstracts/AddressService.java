@@ -14,7 +14,11 @@ public interface AddressService {
     Optional<GetByAddressIdResponse> getByIdAddress(int id);
     CreateAddressResponse createAddress(CreateAddressRequest request);
     UpdateAddressResponse updateAddress(int id, UpdateAddressRequest address);
+
+    AddressResponse getAddressDetails(int id);
+
     void deleteAddress(int id);
+
     boolean existById(int id);
     List<AddressResponse> getAddressesByCustomerInvoiceId(Integer customerInvoiceId);
 }

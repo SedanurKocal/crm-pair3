@@ -31,5 +31,5 @@ public class CreateAddressResponse {
     @NotBlank(message = "This field is required")
     private String addressDescription;
 
-    private boolean isDefault;
+    private boolean isDefault = false;
 }

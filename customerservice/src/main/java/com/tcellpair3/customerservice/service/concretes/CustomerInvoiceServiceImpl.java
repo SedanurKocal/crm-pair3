@@ -99,7 +99,7 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService {
     }
 
     @Override
-    public CustomerWithCustomerInvoiceResponse getCustomerByInvoiceId(Integer invoiceId) {
+    public CustomerWithCustomerInvoiceResponse getCustomerByOrderId(Integer invoiceId) {
         Optional<CustomerInvoice> customerInvoiceOptional = customerInvoiceRepository.findById(invoiceId);
         if (customerInvoiceOptional.isPresent()) {
             CustomerInvoice customerInvoice = customerInvoiceOptional.get();

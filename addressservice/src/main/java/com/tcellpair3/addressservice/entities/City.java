@@ -1,7 +1,7 @@
 package com.tcellpair3.addressservice.entities;
 
 public enum City {
-    NULL,
+
     ADANA,
     ADIYAMAN,
     AFYONKARAHİSAR,

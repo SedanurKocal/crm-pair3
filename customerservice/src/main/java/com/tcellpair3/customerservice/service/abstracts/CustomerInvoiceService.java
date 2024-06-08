@@ -18,6 +18,6 @@ public interface CustomerInvoiceService {
     List<CustomerInvoiceWithCustomerResponse> findByCustomerId(Integer customerId);
     Optional<GetCustomerInvoiceByIdResponse> findByIdCustomerInvoice(Integer customerInvoiceId);
 
-    CustomerWithCustomerInvoiceResponse getCustomerByInvoiceId(Integer invoiceId);
+    CustomerWithCustomerInvoiceResponse getCustomerByOrderId(Integer invoiceId);
 
 }
