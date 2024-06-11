@@ -52,6 +52,8 @@ class CustomerServiceImplTest {
 
     @Test
     void whenGetAllCustomers_thenReturnCustomerList() {
+        //Arrange
+
         Customer customer1 = new Customer();
         customer1.setId(1);
         customer1.setBirthdate(LocalDate.of(2001, 01, 30));
@@ -85,9 +87,11 @@ class CustomerServiceImplTest {
         when(customerRepository.findAll()).thenReturn(customers);
 
         //test edilen metodu çağırma
+        //Act
         List<GetAllCustomersResponse> result = customerService.getAllCustomers();
 
         // sonuçları doğrulama
+        //Assert
         assertEquals(customersResponses.size(), result.size());
 
         // Detaylı doğrulama
