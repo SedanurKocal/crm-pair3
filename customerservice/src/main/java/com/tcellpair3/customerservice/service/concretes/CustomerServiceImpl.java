@@ -97,51 +97,52 @@ public class CustomerServiceImpl implements CustomerService {
                 Integer.valueOf(request.getBirthdate().getYear())
         );
 
-        if(isRealPerson){
-            boolean hasNationalId =customerRepository.existsByNationalId(request.getNationalId());
-            if(hasNationalId)
-            {
-                throw new BusinessException("A customer is already exist with this Nationality ID");
-            }
-        Optional<Customer> customerOptional = customerRepository.findById(id);
-        Customer existingCustomer = customerOptional.get();
+        if (!isRealPerson) {
+            throw new BusinessException("Kullanıcı bulunamadı");
+        }
 
-        List<CustomerInvoice> invoices = customerInvoiceRepository.findByCustomerId(customerOptional.get().getId());
+        boolean hasNationalId = customerRepository.existsByNationalId(request.getNationalId());
+        if (hasNationalId) {
+            throw new BusinessException("A customer is already exist with this Nationality ID");
+        }
+
+        Optional<Customer> customerOptional = customerRepository.findById(id);
+        if (customerOptional.isEmpty()) {
+            throw new BusinessException("Kullanıcı Bulunamadı");
+        }
+
+        Customer existingCustomer = customerOptional.get();
+        List<CustomerInvoice> invoices = customerInvoiceRepository.findByCustomerId(existingCustomer.getId());
         for (CustomerInvoice invoice : invoices) {
             invoice.setAccountName(request.getAccountNumber());
             customerInvoiceRepository.save(invoice);
         }
+
         customerValidationService.validateBirthdate(request.getBirthdate());
         customerValidationService.isValidTC(request.getNationalId());
-        Customer customer = CustomerMapper.INSTANCE.updateCustomerMapper(request,existingCustomer);
-        Customer saveCustomer=customerRepository.save(customer);
+        Customer customer = CustomerMapper.INSTANCE.updateCustomerMapper(request, existingCustomer);
+        Customer savedCustomer = customerRepository.save(customer);
 
         return new UpdateCustomerResponse(
-                saveCustomer.getId(),
-                saveCustomer.getAccountNumber(),
-                saveCustomer.getFirstName(),
-                saveCustomer.getLastName(),
-                saveCustomer.getMiddleName(),
-                saveCustomer.getNationalId(),
-                saveCustomer.getMotherName(),
-                saveCustomer.getFatherName(),
-                saveCustomer.getBirthdate(),
-                saveCustomer.getGender()
-
-                );
-
+                savedCustomer.getId(),
+                savedCustomer.getAccountNumber(),
+                savedCustomer.getFirstName(),
+                savedCustomer.getLastName(),
+                savedCustomer.getMiddleName(),
+                savedCustomer.getNationalId(),
+                savedCustomer.getMotherName(),
+                savedCustomer.getFatherName(),
+                savedCustomer.getBirthdate(),
+                savedCustomer.getGender()
+        );
     }
 
-    else{
-        throw new IllegalArgumentException("Kullanıcı bulunamadı");
-        }
 
-    }
 
     @Override
     public void deleteCustomer(int id) {
         boolean customerActiveProduct = cartClient.hasActiveProducts(id);
-        if(!customerActiveProduct)
+        if(customerActiveProduct)
         {
             throw new BusinessException("Since the customer has active products, the customer cannot be deleted.");
         }

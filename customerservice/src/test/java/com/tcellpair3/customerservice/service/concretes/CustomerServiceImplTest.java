@@ -2,8 +2,11 @@ package com.tcellpair3.customerservice.service.concretes;
 
 import com.tcellpair3.customerservice.clients.CartClient;
 import com.tcellpair3.customerservice.core.dtos.requests.customer.CreateCustomerRequest;
+import com.tcellpair3.customerservice.core.dtos.requests.customer.UpdateCustomerRequest;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.CreateCustomerResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.GetAllCustomersResponse;
+import com.tcellpair3.customerservice.core.dtos.responses.customer.GetCustomerByIdResponse;
+import com.tcellpair3.customerservice.core.dtos.responses.customer.UpdateCustomerResponse;
 import com.tcellpair3.customerservice.core.exception.type.BusinessException;
 import com.tcellpair3.customerservice.core.exception.type.IllegalArgumentException;
 import com.tcellpair3.customerservice.core.mappers.CustomerMapper;
@@ -25,6 +28,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -46,6 +50,9 @@ class CustomerServiceImplTest {
     private  CustomerInvoiceRepository customerInvoiceRepository;
     @Mock
     private  CartClient cartClient;
+
+    @Mock
+    private IRKKPSPublicSoap client;
 
     @BeforeEach
     void setup(){
@@ -150,7 +157,7 @@ class CustomerServiceImplTest {
         customer.setBirthdate(LocalDate.of(2001, 1, 1));
         customer.setGender(Gender.FEMALE);
 
-        IRKKPSPublicSoap client = mock(IRKKPSPublicSoap.class); // Mock obje oluşturun
+        //IRKKPSPublicSoap client = mock(IRKKPSPublicSoap.class); // Mock obje oluşturun
 
         // Bağımlı servislerin davranışlarının belirlenmesi -- Act
         when(client.TCKimlikNoDogrula(Long.parseLong("26975604548"), "Duygu", "Orhan", 2001)).thenReturn(true);
@@ -191,7 +198,7 @@ class CustomerServiceImplTest {
         request.setBirthdate(LocalDate.of(2001, 1, 1));
         request.setGender(Gender.FEMALE);
 
-        IRKKPSPublicSoap client = mock(IRKKPSPublicSoap.class); // Mock obje oluşturun
+        //IRKKPSPublicSoap client = mock(IRKKPSPublicSoap.class); // Mock obje oluşturun
 
         when(client.TCKimlikNoDogrula(Long.parseLong("26975604548"), "Duygu", "Orhan", 2001)).thenReturn(true);
         when(customerRepository.existsByNationalId(request.getNationalId())).thenReturn(true);
@@ -216,20 +223,272 @@ class CustomerServiceImplTest {
         request.setBirthdate(LocalDate.of(2001, 1, 1));
         request.setGender(Gender.FEMALE);
 
-        IRKKPSPublicSoap client = mock(IRKKPSPublicSoap.class); // Mock obje oluşturun
-
+        //IRKKPSPublicSoap client = mock(IRKKPSPublicSoap.class); // Mock obje oluşturun
+        //Act
         when(client.TCKimlikNoDogrula(Long.parseLong("26975604999"), "Orhan", "Orhan", 2001)).thenReturn(false);
-
+        //Assert
         assertThrows(IllegalArgumentException.class, () -> {
             customerService.createCustomer(request);
         });
+    }
+
+    @Test
+    void deleteCustomer_whenCustomerHasActiveProducts_thenThrowBusinessException(){
+        //Arrange
+        int customerId=1;
+        when(cartClient.hasActiveProducts(customerId)).thenReturn(true);
+        //Act
+
+        BusinessException exception = assertThrows(BusinessException.class, () -> customerService.deleteCustomer(customerId));
+        assertEquals("Since the customer has active products, the customer cannot be deleted.", exception.getMessage());
+
+        verify(cartClient).hasActiveProducts(customerId);
+        verify(customerRepository, never()).deleteById(customerId);
+    }
+
+    @Test
+    void deleteCustomer_whenCustomerDoesNotHaveActiveProducts_thenSuccess() {
+        int customerId = 1;
+        when(cartClient.hasActiveProducts(customerId)).thenReturn(false);
+
+        assertDoesNotThrow(() -> customerService.deleteCustomer(customerId));
+
+        verify(cartClient).hasActiveProducts(customerId);
+        verify(customerRepository).deleteById(customerId);
+    }
+
+    @Test
+    void updateCustomer_whenNationalIdExists_thenThrowBusinessException() throws Exception {
+        // Arrange
+        int customerId = 1;
+
+        UpdateCustomerRequest request = new UpdateCustomerRequest();
+        request.setAccountNumber(123456);
+        request.setFirstName("Duygu");
+        request.setLastName("Orhan");
+        request.setMiddleName("");
+        request.setNationalId("26975604548");
+        request.setMotherName("Fatma");
+        request.setFatherName("Serkan");
+        request.setBirthdate(LocalDate.of(2001, 1, 1));
+        request.setGender(Gender.FEMALE);
+
+        when(client.TCKimlikNoDogrula(
+                Long.parseLong(request.getNationalId()),
+                request.getFirstName(),
+                request.getLastName(),
+                request.getBirthdate().getYear()))
+                .thenReturn(true);
+        when(customerRepository.existsByNationalId(request.getNationalId())).thenReturn(true);
+
+        // Act & Assert
+        BusinessException exception = assertThrows(BusinessException.class, () -> customerService.updateCustomer(customerId, request));
+        assertEquals("A customer is already exist with this Nationality ID", exception.getMessage());
+
+        // Verify
+        verify(customerRepository).existsByNationalId(request.getNationalId());
+        verify(customerRepository, never()).findById(customerId);
+    }
+
+
+
+    @Test
+    void updateCustomer_whenNotRealPerson_thenThrowBusinessException() throws Exception {
+        // Arrange
+        int customerId = 1;
+
+        UpdateCustomerRequest request = new UpdateCustomerRequest();
+        request.setAccountNumber(123456);
+        request.setFirstName("Duygu");
+        request.setLastName("Orhan");
+        request.setMiddleName("");
+        request.setNationalId("26975604549"); //yanlış National id
+        request.setMotherName("Fatma");
+        request.setFatherName("Serkan");
+        request.setBirthdate(LocalDate.of(2001, 1, 1));
+        request.setGender(Gender.FEMALE);
+
+        when(client.TCKimlikNoDogrula(
+                Long.parseLong(request.getNationalId()),
+                request.getFirstName(),
+                request.getLastName(),
+                request.getBirthdate().getYear()))
+                .thenReturn(false);
+
+        // Act & Assert
+        BusinessException exception = assertThrows(BusinessException.class, () -> customerService.updateCustomer(customerId, request));
+        assertEquals("Kullanıcı bulunamadı", exception.getMessage());
+
+        // Verify
+        verify(customerRepository, never()).existsByNationalId(request.getNationalId());
+        verify(customerRepository, never()).findById(customerId);
+
+    }
+
+    @Test
+    void updateCustomer_whenCustomerNotFound_thenThrowBusinessException() throws Exception {
+        // Arrange
+        int customerId = 1;
+
+        UpdateCustomerRequest request = new UpdateCustomerRequest();
+        request.setAccountNumber(123456);
+        request.setFirstName("Duygu");
+        request.setLastName("Orhan");
+        request.setMiddleName("");
+        request.setNationalId("26975604548");
+        request.setMotherName("Fatma");
+        request.setFatherName("Serkan");
+        request.setBirthdate(LocalDate.of(2001, 1, 1));
+        request.setGender(Gender.FEMALE);
+
+        when(client.TCKimlikNoDogrula(
+                Long.parseLong(request.getNationalId()),
+                request.getFirstName(),
+                request.getLastName(),
+                request.getBirthdate().getYear()))
+                .thenReturn(true);
+        when(customerRepository.existsByNationalId(request.getNationalId())).thenReturn(false);
+        when(customerRepository.findById(customerId)).thenReturn(Optional.empty());
+
+        // Act & Assert
+        BusinessException exception = assertThrows(BusinessException.class, () -> customerService.updateCustomer(customerId, request));
+        assertEquals("Kullanıcı Bulunamadı", exception.getMessage());
+
+        // Verify
+        verify(customerRepository).existsByNationalId(request.getNationalId());
+        verify(customerRepository).findById(customerId);
+    }
+
+    @Test
+    void updateCustomer_whenValidRequest_thenUpdateCustomerSuccessfully() throws Exception {
+        // Arrange
+        int customerId = 1;
+
+        UpdateCustomerRequest request = new UpdateCustomerRequest();
+        request.setAccountNumber(123456);
+        request.setFirstName("Duygu");
+        request.setLastName("Orhan");
+        request.setMiddleName("");
+        request.setNationalId("26975604548");
+        request.setMotherName("Fatma");
+        request.setFatherName("Serkan");
+        request.setBirthdate(LocalDate.of(2001, 1, 1));
+        request.setGender(Gender.FEMALE);
+
+        Customer existingCustomer = new Customer();
+        existingCustomer.setId(customerId);
+        existingCustomer.setNationalId("26975604548");
+
+        when(client.TCKimlikNoDogrula(
+                Long.parseLong(request.getNationalId()),
+                request.getFirstName(),
+                request.getLastName(),
+                request.getBirthdate().getYear()))
+                .thenReturn(true);
+        when(customerRepository.existsByNationalId(request.getNationalId())).thenReturn(false);
+        when(customerRepository.findById(customerId)).thenReturn(Optional.of(existingCustomer));
+        when(customerRepository.save(any(Customer.class))).thenReturn(existingCustomer);
+
+        // Act
+        UpdateCustomerResponse response = customerService.updateCustomer(customerId, request);
+
+        // Assert
+        assertNotNull(response);
+        assertEquals(customerId, response.getId());
+        assertEquals(request.getAccountNumber(), response.getAccountNumber());
+        assertEquals(request.getFirstName(), response.getFirstName());
+        assertEquals(request.getLastName(), response.getLastName());
+        assertEquals(request.getNationalId(), response.getNationalId());
+
+        // Verify
+        verify(customerRepository).existsByNationalId(request.getNationalId());
+        verify(customerRepository).findById(customerId);
+        verify(customerRepository).save(any(Customer.class));
+    }
+
+
+    @Test
+    void getByCustomerId_whenCustomerExists_thenReturnCustomer() {
+        // Arrange
+        int customerId = 1;
+
+        Customer customer = new Customer();
+        customer.setId(customerId);
+        customer.setAccountNumber(123456);
+        customer.setFirstName("Duygu");
+        customer.setLastName("Orhan");
+        customer.setMiddleName("");
+        customer.setNationalId("26975604548");
+        customer.setMotherName("Fatma");
+        customer.setFatherName("Serkan");
+        customer.setBirthdate(LocalDate.of(2001, 1, 1));
+        customer.setGender(Gender.FEMALE);
+
+        GetCustomerByIdResponse expectedResponse = new GetCustomerByIdResponse();
+        expectedResponse.setFirstName("Duygu");
+        expectedResponse.setLastName("Orhan");
+        expectedResponse.setAccountNumber(123456);
+        expectedResponse.setMiddleName("");
+        expectedResponse.setNationalId("26975604548");
+        expectedResponse.setMotherName("Fatma");
+        expectedResponse.setFatherName("Serkan");
+        expectedResponse.setBirthdate(LocalDate.of(2001, 1, 1));
+        expectedResponse.setGender(Gender.FEMALE);
+
+
+        when(customerRepository.findById(customerId)).thenReturn(Optional.of(customer));
+
+        // Act
+        Optional<GetCustomerByIdResponse> actualResponse = customerService.getByCustomerId(customerId);
+
+        // Assert
+        assertEquals(expectedResponse.getAccountNumber(), actualResponse.get().getAccountNumber());
+        assertEquals(expectedResponse.getFirstName(), actualResponse.get().getFirstName());
+        assertEquals(expectedResponse.getLastName(), actualResponse.get().getLastName());
+        assertEquals(expectedResponse.getMiddleName(), actualResponse.get().getMiddleName());
+        assertEquals(expectedResponse.getNationalId(), actualResponse.get().getNationalId());
+        assertEquals(expectedResponse.getMotherName(), actualResponse.get().getMotherName());
+        assertEquals(expectedResponse.getFatherName(), actualResponse.get().getFatherName());
+        assertEquals(expectedResponse.getBirthdate(), actualResponse.get().getBirthdate());
+        assertEquals(expectedResponse.getGender(), actualResponse.get().getGender());
+
+
+        // Verify
+        verify(customerRepository).findById(customerId);
+    }
+
+    @Test
+    void getByCustomerId_whenCustomerDoesNotExist_thenReturnEmpty() {
+        // Arrange
+        int customerId = 1;
+
+        when(customerRepository.findById(customerId)).thenReturn(Optional.empty());
+
+        // Act
+        Optional<GetCustomerByIdResponse> actualResponse = customerService.getByCustomerId(customerId);
+
+        // Assert
+        assertFalse(actualResponse.isPresent());
+
+        // Verify
+        verify(customerRepository).findById(customerId);
     }
 
 
 
 
 
-        @AfterEach
+
+
+
+
+
+
+
+
+
+
+    @AfterEach
     void tearDown(){
             reset(customerRepository);
     }
