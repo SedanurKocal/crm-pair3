@@ -1,8 +1,13 @@
 package com.tcellpair3.customerservice.service.concretes;
 
 import com.tcellpair3.customerservice.clients.CartClient;
+import com.tcellpair3.customerservice.core.dtos.requests.customer.CreateCustomerRequest;
+import com.tcellpair3.customerservice.core.dtos.responses.customer.CreateCustomerResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.GetAllCustomersResponse;
+import com.tcellpair3.customerservice.core.exception.type.BusinessException;
+import com.tcellpair3.customerservice.core.exception.type.IllegalArgumentException;
 import com.tcellpair3.customerservice.core.mappers.CustomerMapper;
+import com.tcellpair3.customerservice.core.mernis.IRKKPSPublicSoap;
 import com.tcellpair3.customerservice.core.service.abstracts.ContactMediumValidationService;
 import com.tcellpair3.customerservice.core.service.concretes.CustomerValidationServiceImpl;
 import com.tcellpair3.customerservice.entities.ContactMedium;
@@ -14,19 +19,16 @@ import com.tcellpair3.customerservice.repositories.CustomerRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.reset;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class CustomerServiceImplTest {
 
@@ -122,7 +124,112 @@ class CustomerServiceImplTest {
         );
     }
 
-    @AfterEach
+    @Test
+    void createCustomer_whenValidRequest_thenReturnCreateCustomerResponse() throws Exception {
+        // Test verilerinin hazırlanması Arrange
+        CreateCustomerRequest request = new CreateCustomerRequest();
+        request.setAccountNumber(123456);
+        request.setFirstName("Duygu");
+        request.setLastName("Orhan");
+        request.setMiddleName("");
+        request.setNationalId("26975604548");
+        request.setMotherName("Fatma");
+        request.setFatherName("Serkan");
+        request.setBirthdate(LocalDate.of(2001, 1, 1));
+        request.setGender(Gender.FEMALE);
+
+        Customer customer = new Customer();
+        customer.setId(1); // ID'yi Integer olarak ayarlayın
+        customer.setAccountNumber(123456);
+        customer.setFirstName("Duygu");
+        customer.setLastName("Orhan");
+        customer.setMiddleName("");
+        customer.setNationalId("26975604548");
+        customer.setMotherName("Fatma");
+        customer.setFatherName("Serkan");
+        customer.setBirthdate(LocalDate.of(2001, 1, 1));
+        customer.setGender(Gender.FEMALE);
+
+        IRKKPSPublicSoap client = mock(IRKKPSPublicSoap.class); // Mock obje oluşturun
+
+        // Bağımlı servislerin davranışlarının belirlenmesi -- Act
+        when(client.TCKimlikNoDogrula(Long.parseLong("26975604548"), "Duygu", "Orhan", 2001)).thenReturn(true);
+        when(customerRepository.existsByNationalId("26975604548")).thenReturn(false);
+        when(customerRepository.save(any(Customer.class))).thenReturn(customer);
+
+        // Test edilecek metodun çalıştırılması
+        CreateCustomerResponse response = customerService.createCustomer(request);
+        //Assert
+        // Sonuçların karşılaştırılması
+        assertEquals(1, response.getId());
+        assertEquals(123456, response.getAccountNumber());
+        assertEquals("Duygu", response.getFirstName());
+        assertEquals("Orhan", response.getLastName());
+        assertEquals("", response.getMiddleName());
+        assertEquals("26975604548", response.getNationalId());
+        assertEquals("Fatma", response.getMotherName());
+        assertEquals("Serkan", response.getFatherName());
+        assertEquals(LocalDate.of(2001, 1, 1), response.getBirthdate());
+        assertEquals(Gender.FEMALE, response.getGender());
+
+        // Bağımlı servislerin çağrıldığının doğrulanması
+        verify(customerRepository).existsByNationalId("26975604548");
+        verify(customerRepository).save(any(Customer.class)); // save metodunun çağrıldığını doğrulayın
+    }
+
+
+    @Test
+    void createCustomer_whenCustomerExistsWithSameNationalId_thenThrowBusinessException() throws Exception {
+        CreateCustomerRequest request = new CreateCustomerRequest();
+        request.setAccountNumber(123456);
+        request.setFirstName("Duygu");
+        request.setLastName("Orhan");
+        request.setMiddleName("");
+        request.setNationalId("26975604548");
+        request.setMotherName("Fatma");
+        request.setFatherName("Serkan");
+        request.setBirthdate(LocalDate.of(2001, 1, 1));
+        request.setGender(Gender.FEMALE);
+
+        IRKKPSPublicSoap client = mock(IRKKPSPublicSoap.class); // Mock obje oluşturun
+
+        when(client.TCKimlikNoDogrula(Long.parseLong("26975604548"), "Duygu", "Orhan", 2001)).thenReturn(true);
+        when(customerRepository.existsByNationalId(request.getNationalId())).thenReturn(true);
+
+        assertThrows(BusinessException.class,()->{
+            customerService.createCustomer(request);
+        });
+
+
+    }
+
+    @Test
+    void createCustomer_whenUserNotFound_thenThrowIllegalArgumentException() throws Exception {
+        CreateCustomerRequest request = new CreateCustomerRequest();
+        request.setAccountNumber(123456);
+        request.setFirstName("Orhan");
+        request.setLastName("Orhan");
+        request.setMiddleName("");
+        request.setNationalId("26975604999");
+        request.setMotherName("Fatma");
+        request.setFatherName("Serkan");
+        request.setBirthdate(LocalDate.of(2001, 1, 1));
+        request.setGender(Gender.FEMALE);
+
+        IRKKPSPublicSoap client = mock(IRKKPSPublicSoap.class); // Mock obje oluşturun
+
+        when(client.TCKimlikNoDogrula(Long.parseLong("26975604999"), "Orhan", "Orhan", 2001)).thenReturn(false);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            customerService.createCustomer(request);
+        });
+    }
+
+
+
+
+
+        @AfterEach
     void tearDown(){
             reset(customerRepository);
     }
