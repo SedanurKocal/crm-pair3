@@ -60,6 +60,7 @@ public class AddressServiceImpl implements AddressService {
         return AddressMapper.INSTANCE.getAllAddressByCustomerId(addresses);
     }
 
+
     @Override
     public List<GetAllAddressResponse> getAllAddress() {
         List<Address> addresses=addressRepository.findAll();
@@ -92,13 +93,46 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
+    public void setDefaultAddress(int customerId,int addressId) {
+        List<GetAddressByCustomerIdResponse> response = getAddressesByCustomerId(customerId);
+
+        for (GetAddressByCustomerIdResponse address: response){
+            UpdateAddressRequest request = new UpdateAddressRequest();
+            request.setCustomerId(customerId);
+            request.setCity(address.getCity());
+            request.setAddressDescription(address.getAddressDescription());
+            request.setStreet(address.getStreet());
+            request.setHouseFlatNumber(address.getHouseFlatNumber());
+            request.setDistrict(address.getDistrict());
+
+            if (address.getAddressId() == addressId) {
+                // Belirtilen adresi varsayılan yap
+                request.setDefault(true);
+            } else {
+                // Diğer adresleri varsayılan olmayan yap
+                request.setDefault(false);
+            }
+
+            // Adres durumunu veritabanında güncelle
+            updateAddress(address.getAddressId(), request);
+        }
+
+    }
+
+    @Override
     public CreateAddressResponse createAddress(CreateAddressRequest request) {
         request.setDefault(false);
         boolean customerExists = client.doesCustomerExist(request.getCustomerId());
         if (!customerExists) {
             throw new BusinessException("Customer does not exist");
         }
-
+        // Check if the customer already has any addresses
+        boolean customerHasAddresses = addressRepository.existsByCustomerId(request.getCustomerId());
+        if (!customerHasAddresses) {
+            request.setDefault(true); // Kullanıcnın ilk adresi ise default adres olarak ata
+        } else {
+            request.setDefault(false); // Diğerlerini false yap
+        }
         Address address = AddressMapper.INSTANCE.createAddressMapper(request);
         Address saveAddress = addressRepository.save(address);
         //return AddressMapper.INSTANCE.createAddressResponse(savedAddress);

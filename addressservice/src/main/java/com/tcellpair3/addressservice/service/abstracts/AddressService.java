@@ -21,4 +21,5 @@ public interface AddressService {
 
     boolean existById(int id);
     List<AddressResponse> getAddressesByCustomerInvoiceId(Integer customerInvoiceId);
+    void setDefaultAddress(int customerId, int addressId);
 }

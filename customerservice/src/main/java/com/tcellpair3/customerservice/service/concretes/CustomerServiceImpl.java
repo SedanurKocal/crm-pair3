@@ -147,7 +147,7 @@ public class CustomerServiceImpl implements CustomerService {
             throw new BusinessException("Since the customer has active products, the customer cannot be deleted.");
         }
         customerRepository.deleteById(id);
-
+        throw new BusinessException("Customer Deleted Successfully.");
     }
 
     @Override

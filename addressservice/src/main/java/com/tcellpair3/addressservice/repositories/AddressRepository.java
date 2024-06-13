@@ -11,4 +11,6 @@ public interface AddressRepository extends JpaRepository<Address,Integer> {
     List<AddressResponse> findAddressesByCustomerId(Integer customerId);
     int countByCustomerId(Integer customerId);
     boolean existsById(Integer id);
+    boolean existsByCustomerId(int customerId);
+
 }

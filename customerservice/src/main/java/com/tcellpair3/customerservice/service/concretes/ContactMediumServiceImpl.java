@@ -27,6 +27,12 @@ public class ContactMediumServiceImpl implements ContactMediumService {
        if(!customerRepository.existsById(request.getCustomerId())){
             throw new BusinessException("kullanıcı bulunamadı");
         }
+
+        List<ContactMedium> existingContactMediums = contactMediumRepository.findByCustomerId(request.getCustomerId());
+        if (!existingContactMediums.isEmpty()) {
+            throw new BusinessException("Contact medium already exists for this customer");
+        }
+
         //contactMediumServiceValidation.validatePhoneNumber(request.getMobilePhone());
         ContactMedium contactMedium = ContactMediumMapper.INSTANCE.createContactMediumMapper(request);
         ContactMedium saveContactMedium = contactMediumRepository.save(contactMedium);
