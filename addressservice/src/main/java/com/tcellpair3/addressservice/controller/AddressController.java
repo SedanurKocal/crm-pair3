@@ -71,6 +71,13 @@ public class AddressController {
         }
         return ResponseEntity.ok(addresses);
     }
+
+    @PostMapping("/setDefault")
+    public ResponseEntity<Void> setDefaultAddress(@RequestParam int customerId, @RequestParam int addressId) {
+        addressService.setDefaultAddress(customerId, addressId);
+        return ResponseEntity.ok().build();
+    }
+
 }
 
 
