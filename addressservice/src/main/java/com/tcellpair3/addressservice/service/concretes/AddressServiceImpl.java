@@ -15,13 +15,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class AddressServiceImpl implements AddressService {
     private final AddressRepository addressRepository;
-    private final CustomerServiceClient client;
+    private final CustomerServiceClient customerServiceClient;
 
     @Override
     public void deleteAddress(int id) {
@@ -30,10 +31,8 @@ public class AddressServiceImpl implements AddressService {
             Address address = addressOptional.get();
             int customerId = address.getCustomerId();
             long addressCount = addressRepository.countByCustomerId(customerId);
-            if(addressCount<=1)
-            {
+            if (addressCount <= 1) {
                 throw new BusinessException("A customer must have at least one address. You cannot delete the last address.");
-
             }
             if (address.isDefault()) {
                 throw new BusinessException("The address that you want to delete is a default address. Please, change the default address then try again");
@@ -42,7 +41,6 @@ public class AddressServiceImpl implements AddressService {
         } else {
             throw new BusinessException("Address not found");
         }
-
     }
 
     @Override
@@ -52,7 +50,7 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public List<GetAddressByCustomerIdResponse> getAddressesByCustomerId(Integer customerId) {
-        boolean customerExists = client.doesCustomerExist(customerId);
+        boolean customerExists = customerServiceClient.doesCustomerExist(customerId);
         if (!customerExists) {
             throw new BusinessException("Customer does not exist");
         }
@@ -63,15 +61,14 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public List<GetAllAddressResponse> getAllAddress() {
-        List<Address> addresses=addressRepository.findAll();
+        List<Address> addresses = addressRepository.findAll();
         return AddressMapper.INSTANCE.addressToListAddressResponse(addresses);
     }
 
     @Override
     public Optional<GetByAddressIdResponse> getByIdAddress(int id) {
         Optional<Address> existingAddress = addressRepository.findById(id);
-        if(existingAddress.isEmpty())
-        {
+        if (existingAddress.isEmpty()) {
             throw new BusinessException("Address not found");
         }
         return existingAddress.map(AddressMapper.INSTANCE::getByAddressIdMapper);
@@ -79,7 +76,7 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public List<AddressResponse> getAddressesByCustomerInvoiceId(Integer customerInvoiceId) {
-        ResponseEntity<GetAddressByCustomerInvoiceIdResponse> responseEntity = client.getCustomerByInvoiceId(customerInvoiceId);
+        ResponseEntity<GetAddressByCustomerInvoiceIdResponse> responseEntity = customerServiceClient.getCustomerByInvoiceId(customerInvoiceId);
 
         // Müşteri bilgilerini al
         GetAddressByCustomerInvoiceIdResponse customerResponse = responseEntity.getBody();
@@ -88,15 +85,14 @@ public class AddressServiceImpl implements AddressService {
             // Müşteri ID'sine göre adresleri al
             return addressRepository.findAddressesByCustomerId(customerResponse.getId());
         }
-
         return Collections.emptyList(); // Eğer müşteri bulunamazsa boş liste döner
     }
 
     @Override
-    public void setDefaultAddress(int customerId,int addressId) {
-        List<GetAddressByCustomerIdResponse> response = getAddressesByCustomerId(customerId);
+    public void setDefaultAddress(int customerId, int defaultAddressId) {
+        List<GetAddressByCustomerIdResponse> customerAddressList = getAddressesByCustomerId(customerId);
 
-        for (GetAddressByCustomerIdResponse address: response){
+        for (GetAddressByCustomerIdResponse address : customerAddressList) {
             UpdateAddressRequest request = new UpdateAddressRequest();
             request.setCustomerId(customerId);
             request.setCity(address.getCity());
@@ -105,24 +101,18 @@ public class AddressServiceImpl implements AddressService {
             request.setHouseFlatNumber(address.getHouseFlatNumber());
             request.setDistrict(address.getDistrict());
 
-            if (address.getAddressId() == addressId) {
-                // Belirtilen adresi varsayılan yap
-                request.setDefault(true);
-            } else {
-                // Diğer adresleri varsayılan olmayan yap
-                request.setDefault(false);
-            }
-
+            // Belirtilen adresi varsayılan yap
+            // Diğer adresleri varsayılan olmayan yap
+            request.setDefault(Objects.equals(defaultAddressId, address.getAddressId()));
             // Adres durumunu veritabanında güncelle
             updateAddress(address.getAddressId(), request);
         }
-
     }
 
     @Override
     public CreateAddressResponse createAddress(CreateAddressRequest request) {
         request.setDefault(false);
-        boolean customerExists = client.doesCustomerExist(request.getCustomerId());
+        boolean customerExists = customerServiceClient.doesCustomerExist(request.getCustomerId());
         if (!customerExists) {
             throw new BusinessException("Customer does not exist");
         }
@@ -146,19 +136,19 @@ public class AddressServiceImpl implements AddressService {
                 saveAddress.getDistrict(),
                 saveAddress.isDefault()
         );
-
     }
 
     @Override
     public UpdateAddressResponse updateAddress(int id, UpdateAddressRequest request) {
         Optional<Address> addressOptional = addressRepository.findById(id);
-        if (!addressOptional.isPresent()) {
+
+        if (addressOptional.isEmpty()) {
             throw new BusinessException("Address not found");
         }
 
         Address existingAddress = addressOptional.get();
 
-        boolean customerExists = client.doesCustomerExist(request.getCustomerId());
+        boolean customerExists = customerServiceClient.doesCustomerExist(request.getCustomerId());
         if (!customerExists) {
             throw new BusinessException("Customer does not exist");
         }
@@ -166,8 +156,8 @@ public class AddressServiceImpl implements AddressService {
         //address.setAddressId(existingAddress.getAddressId());
         //return addressRepository.saveAndFlush(address);
 
-        Address address = AddressMapper.INSTANCE.updateAddressMapper(request,existingAddress);
-        Address saveAddress=addressRepository.save(address);
+        Address address = AddressMapper.INSTANCE.updateAddressMapper(request, existingAddress);
+        Address saveAddress = addressRepository.save(address);
 
         return new UpdateAddressResponse(
                 saveAddress.getAddressId(),

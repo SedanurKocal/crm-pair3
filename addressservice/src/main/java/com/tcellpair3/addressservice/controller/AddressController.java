@@ -17,50 +17,48 @@ import java.util.Optional;
 @RequestMapping("/api/v1/addresses")
 @RequiredArgsConstructor
 public class AddressController {
+
     private final AddressService addressService;
     private final CustomerServiceClient customerServiceClient;
+
     @GetMapping("/customer/{customerId}")
     public List<GetAddressByCustomerIdResponse> getAddressesByCustomerId(@PathVariable Integer customerId) {
         return addressService.getAddressesByCustomerId(customerId);
     }
+
     @GetMapping()
-    public List<GetAllAddressResponse> getAllAddress()
-    {
+    public List<GetAllAddressResponse> getAllAddress() {
         return addressService.getAllAddress();
     }
+
     @GetMapping("/{id}")
-    public Optional<GetByAddressIdResponse> findByIdAddress(@PathVariable int id)
-    {
+    public Optional<GetByAddressIdResponse> findByIdAddress(@PathVariable int id) {
         return addressService.getByIdAddress(id);
     }
 
-// adressdetails
     @GetMapping("/addressDetail/{addressId}")
-    public AddressResponse addressDetails(@PathVariable Integer addressId)
-    {
+    public AddressResponse addressDetails(@PathVariable Integer addressId) {
         return addressService.getAddressDetails(addressId);
     }
 
-    /////
     @PostMapping
     public CreateAddressResponse createAddress(@Valid @RequestBody CreateAddressRequest request) {
-
         return addressService.createAddress(request);
     }
-    @PutMapping("/{id}")
-    public UpdateAddressResponse updateAddress(@PathVariable int id, @Valid @RequestBody UpdateAddressRequest address)
-    {
 
-        return addressService.updateAddress(id,address);
+    @PutMapping("/{id}")
+    public UpdateAddressResponse updateAddress(@PathVariable int id, @Valid @RequestBody UpdateAddressRequest address) {
+        return addressService.updateAddress(id, address);
     }
+
     @DeleteMapping("/{id}")
-    public void deleteAddress(@PathVariable int id){
+    public void deleteAddress(@PathVariable int id) {
         addressService.deleteAddress(id);
     }
 
     @GetMapping("/{addressId}/exists")
-    public boolean addressIdExists(@PathVariable int addressId){
-        return  addressService.existById(addressId);
+    public boolean addressIdExists(@PathVariable int addressId) {
+        return addressService.existById(addressId);
     }
 
     @GetMapping("/customerInvoice/{customerInvoiceId}")
@@ -77,7 +75,6 @@ public class AddressController {
         addressService.setDefaultAddress(customerId, addressId);
         return ResponseEntity.ok().build();
     }
-
 }
 
 
