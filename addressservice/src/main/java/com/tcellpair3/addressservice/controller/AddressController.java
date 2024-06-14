@@ -32,7 +32,7 @@ public class AddressController {
     }
 
     @GetMapping("/{id}")
-    public Optional<GetByAddressIdResponse> findByIdAddress(@PathVariable int id) {
+    public Optional<GetByAddressIdResponse> findByIdAddress(@PathVariable("id") int id) {
         return addressService.getByIdAddress(id);
     }
 

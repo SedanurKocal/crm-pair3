@@ -15,5 +15,6 @@ public interface CustomerServiceClient {
     boolean doesCustomerExist(@PathVariable("customerId") Integer customerId);
 
     @GetMapping("/api/v1/customerInvoices/{orderId}/customer")
-    ResponseEntity<GetAddressByCustomerInvoiceIdResponse> getCustomerByInvoiceId(@PathVariable Integer orderId);
+    ResponseEntity<GetAddressByCustomerInvoiceIdResponse> getCustomerByInvoiceId(@PathVariable("id") Integer orderId);
+
 }

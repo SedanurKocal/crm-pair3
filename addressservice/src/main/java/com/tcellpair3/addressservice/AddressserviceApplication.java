@@ -8,6 +8,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 @EnableFeignClients
 @EnableSecurity
+
+
 public class AddressserviceApplication {
 
 	public static void main(String[] args) {

@@ -79,6 +79,7 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -91,7 +92,6 @@
 			<url>https://maven.pkg.github.com/tcell-gygy-pair3/core-pair3</url>
 		</repository>
 	</repositories>
-
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
