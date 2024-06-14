@@ -64,7 +64,7 @@ public class CustomerController {
     }
 
     @GetMapping("findByMobilePhone")
-    public List<SearchResultsResponse> findByMobilePhome(String mobilePhone) {
+    public List<SearchResultsResponse> findByMobilePhone(String mobilePhone) {
         return customerService.findByContactMedium_MobilePhone(mobilePhone);
     }
 

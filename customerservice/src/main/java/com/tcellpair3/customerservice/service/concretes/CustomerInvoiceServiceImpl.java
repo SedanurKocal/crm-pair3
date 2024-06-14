@@ -4,6 +4,7 @@ import com.tcellpair3.customerservice.clients.CartClient;
 import com.tcellpair3.customerservice.core.dtos.requests.customerinvoice.CreateCustomerInvoiceRequest;
 import com.tcellpair3.customerservice.core.dtos.requests.customerinvoice.UpdateCustomerInvoiceRequest;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.CustomerWithCustomerInvoiceResponse;
+import com.tcellpair3.customerservice.core.dtos.responses.customer.SearchResultsResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customerinvoice.*;
 import com.tcellpair3.customerservice.core.exception.type.BusinessException;
 import com.tcellpair3.customerservice.core.mappers.CustomerInvoiceMapper;
@@ -15,6 +16,9 @@ import com.tcellpair3.customerservice.repositories.CustomerRepository;
 import com.tcellpair3.customerservice.service.abstracts.CustomerInvoiceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -112,6 +116,28 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService {
             return CustomerMapper.INSTANCE.toCustomerWithCustomerInvoiceResponse(customer);
         }
         return null;
+    }
+
+    @Override
+    public Page<SearchResultsCustomerInvoiceResponse> getCustomersByFirstName(String firstName, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Customer> customerPage = customerRepository.findByFirstNameStartingWithIgnoreCase(firstName, pageable);
+
+        return customerPage.map(customer -> {
+            SearchResultsCustomerInvoiceResponse response = new SearchResultsCustomerInvoiceResponse();
+            response.setCustomerId(customer.getId());
+            response.setFirstName(customer.getFirstName());
+            response.setLastName(customer.getLastName());
+
+            // Get invoice accounts for the customer
+            List<CustomerInvoice> allAccounts = customerInvoiceRepository.findByCustomerId(customer.getId());
+            int start = page * 6;
+            int end = Math.min(start + 6, allAccounts.size());
+            List<CustomerInvoice> pagedAccounts = allAccounts.subList(start, end);
+
+            response.setCustomerInvoices(pagedAccounts);
+            return response;
+        });
     }
 
 

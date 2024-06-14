@@ -161,7 +161,6 @@ public class CustomerServiceImpl implements CustomerService {
         Optional<Customer> customerOptional= customerRepository.findById(id);
         return customerOptional.map(CustomerMapper.INSTANCE::getByIdCustomerMapper);
     }
-
     @Override
     public Page<SearchResultsResponse> getCustomersByFirstName(String firstName, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);

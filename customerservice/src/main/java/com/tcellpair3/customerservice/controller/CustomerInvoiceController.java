@@ -1,12 +1,16 @@
 package com.tcellpair3.customerservice.controller;
 
 import com.tcellpair3.customerservice.core.dtos.requests.customerinvoice.CreateCustomerInvoiceRequest;
+import com.tcellpair3.customerservice.core.dtos.responses.customer.SearchResultsResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customerinvoice.CreateCustomerInvoiceResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customerinvoice.CustomerInvoiceWithCustomerResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customerinvoice.GetCustomerInvoiceByIdResponse;
+import com.tcellpair3.customerservice.core.dtos.responses.customerinvoice.SearchResultsCustomerInvoiceResponse;
 import com.tcellpair3.customerservice.service.abstracts.CustomerInvoiceService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -51,5 +55,14 @@ public class CustomerInvoiceController {
         customerInvoiceService.deleteCustomerInvoice(id);
     }
 
+//TODO: Çıktısı hatalı
+    @GetMapping("/search")
+    public ResponseEntity<Page<SearchResultsCustomerInvoiceResponse>> getCustomersByFirstName(
+            @RequestParam String firstName,
+            @RequestParam int page,
+            @RequestParam int size) {
+        Page<SearchResultsCustomerInvoiceResponse> response = customerInvoiceService.getCustomersByFirstName(firstName, page, size);
+        return ResponseEntity.ok(response);
+    }
 
 }
