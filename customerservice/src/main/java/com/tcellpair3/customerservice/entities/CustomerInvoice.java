@@ -1,5 +1,6 @@
 package com.tcellpair3.customerservice.entities;
 
+import com.tcellpair3.customerservice.core.entities.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +14,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomerInvoice  extends  BaseEntity{
+public class CustomerInvoice  extends BaseEntity {
 
     @Column(name = "account_name")
     private int accountName;

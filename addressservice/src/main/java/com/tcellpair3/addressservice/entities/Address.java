@@ -1,5 +1,6 @@
 package com.tcellpair3.addressservice.entities;
 
+import com.tcellpair3.addressservice.core.entities.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -13,11 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "addresses")
-public class Address{
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int addressId;
+public class Address extends BaseEntity {
 
     @Column(name = "customer_id")
     private int customerId;

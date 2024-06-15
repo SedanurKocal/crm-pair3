@@ -1,4 +1,4 @@
-package com.tcellpair3.customerservice.entities;
+package com.tcellpair3.customerservice.core.entities;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

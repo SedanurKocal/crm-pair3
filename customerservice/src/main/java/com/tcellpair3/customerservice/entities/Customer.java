@@ -1,5 +1,6 @@
 package com.tcellpair3.customerservice.entities;
 
+import com.tcellpair3.customerservice.core.entities.BaseCustomer;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "customers")
-public class Customer extends BaseCustomer{
+public class Customer extends BaseCustomer {
     //TODO : check MERNIS for nationalID
 
 

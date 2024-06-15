@@ -1,5 +1,6 @@
 package com.tcellpair3.orderservice.entities;
 
+import com.tcellpair3.orderservice.core.entities.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,11 +16,8 @@ import java.util.List;
 @Table(name = "orders")
 @Entity
 
-public class Order {
+public class Order extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
     @Column(name = "customer_invoice_id")
     private int customerInvoiceId;
     @ElementCollection

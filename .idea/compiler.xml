@@ -16,7 +16,7 @@
         <module name="cartservice" />
         <module name="orderservice" />
       </profile>
-      <profile name="Annotation profile for addressservice" enabled="true">
+      <profile name="Annotation profile for customerservice" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -28,8 +28,8 @@
         </processorPath>
         <module name="identityservice" />
         <module name="customerservice" />
-        <module name="addressservice" />
         <module name="productservice" />
+        <module name="addressservice" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

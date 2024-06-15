@@ -127,7 +127,7 @@ public class AddressServiceImpl implements AddressService {
         Address saveAddress = addressRepository.save(address);
         //return AddressMapper.INSTANCE.createAddressResponse(savedAddress);
         return new CreateAddressResponse(
-                saveAddress.getAddressId(),
+                saveAddress.getId(),
                 saveAddress.getCustomerId(),
                 saveAddress.getCity(),
                 saveAddress.getAddressDescription(),
@@ -160,7 +160,7 @@ public class AddressServiceImpl implements AddressService {
         Address saveAddress = addressRepository.save(address);
 
         return new UpdateAddressResponse(
-                saveAddress.getAddressId(),
+                saveAddress.getId(),
                 saveAddress.getCustomerId(),
                 saveAddress.getCity(),
                 saveAddress.getAddressDescription(),
@@ -174,7 +174,7 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public AddressResponse getAddressDetails(int id) {
         Address address = addressRepository.findById(id).orElseThrow();
-        return new AddressResponse(address.getAddressId(),
+        return new AddressResponse(address.getId(),
                 address.getCustomerId(),
                 address.getCity(),
                 address.getDistrict(),

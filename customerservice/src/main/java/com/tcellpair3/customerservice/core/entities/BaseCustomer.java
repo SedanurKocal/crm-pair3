@@ -1,8 +1,7 @@
-package com.tcellpair3.customerservice.entities;
+package com.tcellpair3.customerservice.core.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
