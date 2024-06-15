@@ -16,5 +16,4 @@ public interface CustomerServiceClient {
 
     @GetMapping("/api/v1/customerInvoices/{orderId}/customer")
     ResponseEntity<GetAddressByCustomerInvoiceIdResponse> getCustomerByInvoiceId(@PathVariable("id") Integer orderId);
-
 }

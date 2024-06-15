@@ -7,6 +7,7 @@ import com.tcellpair3.customerservice.core.dtos.responses.customer.GetCustomerBy
 import com.tcellpair3.customerservice.core.dtos.responses.customer.GetAllCustomersResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.SearchResultsResponse;
 import com.tcellpair3.customerservice.entities.Customer;
+import com.tcellpair3.customerservice.entities.CustomerInvoice;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -38,4 +39,5 @@ public interface CustomerMapper {
     @Mapping(target = "lastName", source = "lastName")
     CustomerWithCustomerInvoiceResponse toCustomerWithCustomerInvoiceResponse(Customer customer);
 
+    Object toSearchResultsResponse(CustomerInvoice customerInvoice);
 }

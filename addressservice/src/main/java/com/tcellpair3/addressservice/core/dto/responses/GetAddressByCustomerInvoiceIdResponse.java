@@ -12,7 +12,10 @@ import lombok.Setter;
 public class GetAddressByCustomerInvoiceIdResponse {
 
     private Integer id;
+
     private Integer customerInvoiceId;
+
     private String firstName;
+
     private String lastName;
 }

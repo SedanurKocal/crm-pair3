@@ -19,6 +19,7 @@ public class AddressGlobalExceptionHandler {
         businessExceptionDetails.setTitle(exception.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(businessExceptionDetails);
     }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> handleValidationExceptions(MethodArgumentNotValidException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)

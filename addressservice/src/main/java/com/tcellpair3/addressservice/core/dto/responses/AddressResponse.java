@@ -11,12 +11,20 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddressResponse {
+
     private int addressId;
+
     private int customerInvoiceId;
+
     private City city;
+
     private String district;
+
     private String street;
+
     private String houseFlatNumber;
+
     private String addressDescription;
+
     private boolean isDefault;
 }

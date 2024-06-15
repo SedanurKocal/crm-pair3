@@ -2,6 +2,7 @@ package com.tcellpair3.addressservice.controller;
 
 import com.tcellpair3.addressservice.clients.CustomerServiceClient;
 import com.tcellpair3.addressservice.core.dto.requests.CreateAddressRequest;
+import com.tcellpair3.addressservice.core.dto.requests.SetDefaultAddressRequestDto;
 import com.tcellpair3.addressservice.core.dto.requests.UpdateAddressRequest;
 import com.tcellpair3.addressservice.core.dto.responses.*;
 import com.tcellpair3.addressservice.service.abstracts.AddressService;
@@ -71,8 +72,8 @@ public class AddressController {
     }
 
     @PostMapping("/setDefault")
-    public ResponseEntity<Void> setDefaultAddress(@RequestParam int customerId, @RequestParam int addressId) {
-        addressService.setDefaultAddress(customerId, addressId);
+    public ResponseEntity<Void> setDefaultAddress(@RequestParam SetDefaultAddressRequestDto request) {
+        addressService.setDefaultAddress(request.getCustomerId(), request.getAddressId());
         return ResponseEntity.ok().build();
     }
 }

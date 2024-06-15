@@ -12,20 +12,17 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetByAddressIdResponse {
+
     private int customerId;
 
     private City city;
 
-    @NotBlank(message = "This field is required")
     private String district;
 
-    @NotBlank(message = "This field is required")
     private String street;
 
-    @NotBlank(message = "This field is required")
     private String houseFlatNumber;
 
-    @NotBlank(message = "This field is required")
     private String addressDescription;
 
     private boolean isDefault;

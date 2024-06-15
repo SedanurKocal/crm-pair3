@@ -8,7 +8,6 @@ import java.time.LocalDate;
 
 @Service
 public class CustomerValidationServiceImpl implements CustomerValidationService {
-
     public void validateBirthdate(LocalDate birthdate) {
 
         LocalDate today = LocalDate.now();
@@ -17,8 +16,6 @@ public class CustomerValidationServiceImpl implements CustomerValidationService 
         if (birthdate.isAfter(today)) {
             throw new BusinessException("Birthdate cannot be in the future");
         }
-
-
     }
 
     @Override
@@ -38,9 +35,6 @@ public class CustomerValidationServiceImpl implements CustomerValidationService 
             throw new BusinessException("TC Kimlik numarasının son rakamı çift olmalıdır.");
         }
 
-
         return true;
     }
-
-
 }

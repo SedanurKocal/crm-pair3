@@ -12,8 +12,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateAddressRequest {
-    private int customerId;
 
+    private int customerId;
 
     private City city;
 

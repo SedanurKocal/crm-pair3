@@ -39,6 +39,4 @@ public class Address{
 
     @Column(name = "is_default")
     private boolean isDefault;
-
-
 }

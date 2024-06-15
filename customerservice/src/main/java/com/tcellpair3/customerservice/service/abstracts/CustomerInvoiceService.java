@@ -4,7 +4,7 @@ import com.tcellpair3.customerservice.core.dtos.requests.customerinvoice.CreateC
 import com.tcellpair3.customerservice.core.dtos.requests.customerinvoice.UpdateCustomerInvoiceRequest;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.CustomerWithCustomerInvoiceResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customerinvoice.*;
-import org.springframework.data.domain.Page;
+import com.tcellpair3.customerservice.entities.CustomerInvoice;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,13 +13,10 @@ public interface CustomerInvoiceService {
     CreateCustomerInvoiceResponse createCustomerInvoice(CreateCustomerInvoiceRequest request);
     UpdateCustomerInvoiceResponse updateCustomerInvoice(int id , UpdateCustomerInvoiceRequest request);
     void deleteCustomerInvoice(int id);
-    List<GetAllCustomerInvoiceResponse> getAllCustomerInvoice();
+    List<CustomerInvoice> getAllCustomerInvoice();
     Optional<GetCustomerInvoiceByIdResponse> getByCustomerInvoiceId(int id);
     boolean existsById(Integer customerInvoiceId);
     List<CustomerInvoiceWithCustomerResponse> findByCustomerId(Integer customerId);
     Optional<GetCustomerInvoiceByIdResponse> findByIdCustomerInvoice(Integer customerInvoiceId);
-
     CustomerWithCustomerInvoiceResponse getCustomerByOrderId(Integer invoiceId);
-    Page<SearchResultsCustomerInvoiceResponse> getCustomersByFirstName(String firstName, int page, int size);
-
 }

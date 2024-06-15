@@ -17,7 +17,6 @@ public interface AddressMapper {
 
     AddressMapper INSTANCE = Mappers.getMapper(AddressMapper.class);
 
-    //CreateAddressResponse addressToAddressDTO(Address address);
     Address createAddressMapper(CreateAddressRequest request);
 
     Address updateAddressMapper(UpdateAddressRequest addressRequest, @MappingTarget Address address);
@@ -28,7 +27,4 @@ public interface AddressMapper {
     GetAddressByCustomerIdResponse getAddressByCustomerId(Address address);
     GetAllAddressResponse getAllAddressMapper(Address address);
     List<GetAllAddressResponse> addressToListAddressResponse(List<Address> addresses);
-
-
-
 }
