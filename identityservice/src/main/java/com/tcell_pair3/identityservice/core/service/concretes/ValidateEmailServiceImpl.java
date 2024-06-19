@@ -2,6 +2,7 @@ package com.tcell_pair3.identityservice.core.service.concretes;
 
 import com.tcell_pair3.identityservice.core.service.abstracts.ValidateEmailService;
 import org.springframework.stereotype.Service;
+import org.turkcell.tcell.exception.exceptions.type.BaseBusinessException;
 
 import java.util.regex.Pattern;
 
@@ -13,7 +14,7 @@ public class ValidateEmailServiceImpl implements ValidateEmailService {
     @Override
     public void validateEmail(String email) {
         if (!EMAIL_PATTERN.matcher(email).matches()) {
-            throw new BusinessException("Please enter a valid e-mail address'");
+            throw new BaseBusinessException("Please enter a valid e-mail address'");
         }
     }
 }

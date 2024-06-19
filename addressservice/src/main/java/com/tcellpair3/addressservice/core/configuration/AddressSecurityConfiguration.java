@@ -21,7 +21,7 @@ public class AddressSecurityConfiguration {
         baseSecurityService.configureCommonSecurityRules(http);
         http.authorizeHttpRequests(authorizeRequests ->
                 authorizeRequests
-                        //.requestMatchers("/api/v1/addresses/**").authenticated()
+                        .requestMatchers("/api/v1/addresses/**").authenticated()
                         .anyRequest().permitAll()
         );
         return http.build();

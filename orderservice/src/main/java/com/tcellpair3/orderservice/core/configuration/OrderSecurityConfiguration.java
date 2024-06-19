@@ -19,7 +19,7 @@ public class OrderSecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         baseSecurityService.configureCommonSecurityRules(http);
         http.authorizeHttpRequests(authorizeRequests ->
-                authorizeRequests.requestMatchers("/api/v1/orders/{orderId}").authenticated()
+                authorizeRequests.requestMatchers("/api/v1/orders/**").authenticated()
                         .anyRequest().permitAll()
         );
         return http.build();

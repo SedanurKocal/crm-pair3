@@ -19,8 +19,7 @@ public class CartSecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         baseSecurityService.configureCommonSecurityRules(http);
         http.authorizeHttpRequests(authorizeRequests ->
-                authorizeRequests.requestMatchers("/api/v1/carts/findAll").authenticated()
-                        .requestMatchers("/api/v1/orders/save").permitAll()
+                authorizeRequests.requestMatchers("/api/v1/carts/**").authenticated()
                         .anyRequest().permitAll()
         );
         return http.build();
