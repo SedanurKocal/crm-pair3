@@ -1,8 +1,8 @@
 package com.tcellpair3.customerservice.core.service.concretes;
 
-import com.tcellpair3.customerservice.core.exception.type.BusinessException;
 import com.tcellpair3.customerservice.core.service.abstracts.ContactMediumValidationService;
 import org.springframework.stereotype.Service;
+import org.turkcell.tcell.exception.exceptions.type.BaseBusinessException;
 
 import java.util.regex.Pattern;
 
@@ -13,16 +13,16 @@ public class ContactServiceMediumValidationImpl implements ContactMediumValidati
     @Override
     public void validatePhoneNumber(String phoneNumber) {
         if (!PHONE_NUMBER_PATTERN.matcher(phoneNumber).matches()) {
-            throw new BusinessException("Telefon numarası 0 ile başlamalı ve 11 haneli olmalıdır");
+            throw new BaseBusinessException("Telefon numarası 0 ile başlamalı ve 11 haneli olmalıdır");
         }
 
         try {
             long gsmNumber = Long.parseLong(phoneNumber);
             if (gsmNumber <= 0) {
-                throw new BusinessException("GSM numarası pozitif bir tamsayı olmalıdır");
+                throw new BaseBusinessException("GSM numarası pozitif bir tamsayı olmalıdır");
             }
         } catch (NumberFormatException e) {
-            throw new BusinessException("GSM numarası geçerli bir tamsayı olmalıdır");
+            throw new BaseBusinessException("GSM numarası geçerli bir tamsayı olmalıdır");
         }
     }
 }

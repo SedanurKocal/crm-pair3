@@ -3,7 +3,6 @@ package com.tcellpair3.customerservice.service.concretes;
 import com.tcellpair3.customerservice.core.dtos.requests.contactmedium.CreateContactMediumRequest;
 import com.tcellpair3.customerservice.core.dtos.requests.contactmedium.UpdateContactMediumRequest;
 import com.tcellpair3.customerservice.core.dtos.responses.contactmedium.*;
-import com.tcellpair3.customerservice.core.exception.type.BusinessException;
 import com.tcellpair3.customerservice.core.mappers.ContactMediumMapper;
 import com.tcellpair3.customerservice.core.service.abstracts.ContactMediumValidationService;
 import com.tcellpair3.customerservice.entities.ContactMedium;
@@ -12,6 +11,7 @@ import com.tcellpair3.customerservice.repositories.CustomerRepository;
 import com.tcellpair3.customerservice.service.abstracts.ContactMediumService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.turkcell.tcell.exception.exceptions.type.BaseBusinessException;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,12 +25,12 @@ public class ContactMediumServiceImpl implements ContactMediumService {
     @Override
     public CreateContactMediumResponse createContactMedium(CreateContactMediumRequest request) {
        if(!customerRepository.existsById(request.getCustomerId())){
-            throw new BusinessException("kullanıcı bulunamadı");
+            throw new BaseBusinessException("kullanıcı bulunamadı");
         }
 
         List<ContactMedium> existingContactMediums = contactMediumRepository.findByCustomerId(request.getCustomerId());
         if (!existingContactMediums.isEmpty()) {
-            throw new BusinessException("Contact medium already exists for this customer");
+            throw new BaseBusinessException("Contact medium already exists for this customer");
         }
 
         //contactMediumServiceValidation.validatePhoneNumber(request.getMobilePhone());

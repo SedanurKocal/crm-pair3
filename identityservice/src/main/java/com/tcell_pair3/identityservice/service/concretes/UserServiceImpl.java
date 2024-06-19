@@ -1,6 +1,5 @@
 package com.tcell_pair3.identityservice.service.concretes;
 
-import com.tcell_pair3.identityservice.core.exception.type.BusinessException;
 import com.tcell_pair3.identityservice.service.abstracts.UserService;
 import com.tcell_pair3.identityservice.core.exception.type.UnauthorizedException;
 import com.tcell_pair3.identityservice.entities.User;
@@ -9,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.turkcell.tcell.exception.exceptions.type.BaseBusinessException;
 
 import java.util.Optional;
 
@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
         Optional<User> hasEmail = userRepository.findByEmail(user.getEmail());
         if (hasEmail.isPresent())
         {
-            throw new BusinessException("User already exists");
+            throw new BaseBusinessException("User already exists");
         }
         userRepository.save(user);
     }

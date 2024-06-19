@@ -6,7 +6,6 @@ import com.tcellpair3.productservice.core.dtos.response.catalog.CreateCatalogRes
 import com.tcellpair3.productservice.core.dtos.response.catalog.GetAllCatalogsResponse;
 import com.tcellpair3.productservice.core.dtos.response.catalog.GetCatalogByIdResponse;
 import com.tcellpair3.productservice.core.dtos.response.catalog.UpdateCatalogResponse;
-import com.tcellpair3.productservice.core.exception.type.BusinessException;
 import com.tcellpair3.productservice.service.abstracts.CatalogService;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;

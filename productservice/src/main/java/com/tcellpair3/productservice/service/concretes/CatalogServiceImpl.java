@@ -6,13 +6,13 @@ import com.tcellpair3.productservice.core.dtos.response.catalog.CreateCatalogRes
 import com.tcellpair3.productservice.core.dtos.response.catalog.GetAllCatalogsResponse;
 import com.tcellpair3.productservice.core.dtos.response.catalog.GetCatalogByIdResponse;
 import com.tcellpair3.productservice.core.dtos.response.catalog.UpdateCatalogResponse;
-import com.tcellpair3.productservice.core.exception.type.BusinessException;
 import com.tcellpair3.productservice.core.mappers.CatalogMapper;
 import com.tcellpair3.productservice.entities.Catalog;
 import com.tcellpair3.productservice.repositories.CatalogRepository;
 import com.tcellpair3.productservice.service.abstracts.CatalogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.turkcell.tcell.exception.exceptions.type.BaseBusinessException;
 
 import java.util.List;
 import java.util.Optional;
@@ -57,7 +57,7 @@ public class CatalogServiceImpl implements CatalogService {
         Optional<Catalog> catalogOptional = catalogRepository.findByIdAndNotDeleted(id);
         if(catalogOptional.isEmpty())
         {
-            throw new BusinessException("Catalog not found");
+            throw new BaseBusinessException("Catalog not found");
         }
         return catalogOptional.map(CatalogMapper.INSTANCE::getCatalogByIdMapper);
     }

@@ -4,8 +4,6 @@ import com.tcellpair3.customerservice.clients.CartClient;
 import com.tcellpair3.customerservice.core.dtos.requests.customer.CreateCustomerRequest;
 import com.tcellpair3.customerservice.core.dtos.requests.customer.UpdateCustomerRequest;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.*;
-import com.tcellpair3.customerservice.core.exception.type.BusinessException;
-import com.tcellpair3.customerservice.core.exception.type.IllegalArgumentException;
 import com.tcellpair3.customerservice.core.mappers.CustomerMapper;
 import com.tcellpair3.customerservice.core.mernis.IRKKPSPublicSoap;
 import com.tcellpair3.customerservice.core.service.abstracts.ContactMediumValidationService;
@@ -24,6 +22,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.turkcell.tcell.exception.exceptions.type.BaseBusinessException;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -212,7 +211,7 @@ class CustomerServiceImplTest {
         when(client.TCKimlikNoDogrula(Long.parseLong("26975604548"), "Duygu", "Orhan", 2001)).thenReturn(true);
         when(customerRepository.existsByNationalId(request.getNationalId())).thenReturn(true);
 
-        assertThrows(BusinessException.class,()->{
+        assertThrows(BaseBusinessException.class,()->{
             customerService.createCustomer(request);
         });
 
@@ -248,7 +247,7 @@ class CustomerServiceImplTest {
         when(cartClient.hasActiveProducts(customerId)).thenReturn(true);
         //Act
 
-        BusinessException exception = assertThrows(BusinessException.class, () -> customerService.deleteCustomer(customerId));
+        BaseBusinessException exception = assertThrows(BaseBusinessException.class, () -> customerService.deleteCustomer(customerId));
         assertEquals("Since the customer has active products, the customer cannot be deleted.", exception.getMessage());
 
         verify(cartClient).hasActiveProducts(customerId);
@@ -291,7 +290,7 @@ class CustomerServiceImplTest {
         when(customerRepository.existsByNationalId(request.getNationalId())).thenReturn(true);
 
         // Act & Assert
-        BusinessException exception = assertThrows(BusinessException.class, () -> customerService.updateCustomer(customerId, request));
+        BaseBusinessException exception = assertThrows(BaseBusinessException.class, () -> customerService.updateCustomer(customerId, request));
         assertEquals("A customer is already exist with this Nationality ID", exception.getMessage());
 
         // Verify
@@ -325,7 +324,7 @@ class CustomerServiceImplTest {
                 .thenReturn(false);
 
         // Act & Assert
-        BusinessException exception = assertThrows(BusinessException.class, () -> customerService.updateCustomer(customerId, request));
+        BaseBusinessException exception = assertThrows(BaseBusinessException.class, () -> customerService.updateCustomer(customerId, request));
         assertEquals("Kullanıcı bulunamadı", exception.getMessage());
 
         // Verify
@@ -360,7 +359,7 @@ class CustomerServiceImplTest {
         when(customerRepository.findById(customerId)).thenReturn(Optional.empty());
 
         // Act & Assert
-        BusinessException exception = assertThrows(BusinessException.class, () -> customerService.updateCustomer(customerId, request));
+        BaseBusinessException exception = assertThrows(BaseBusinessException.class, () -> customerService.updateCustomer(customerId, request));
         assertEquals("Kullanıcı Bulunamadı", exception.getMessage());
 
         // Verify
@@ -527,7 +526,7 @@ class CustomerServiceImplTest {
         when(customerRepository.findByFirstName(firstName)).thenReturn(Collections.emptyList());
 
         // Act
-        BusinessException exception = assertThrows(BusinessException.class, () -> {
+        BaseBusinessException exception = assertThrows(BaseBusinessException.class, () -> {
             customerService.findByFirstName(firstName);
         });
 
@@ -561,7 +560,7 @@ class CustomerServiceImplTest {
         when(customerRepository.findByLastName(lastName)).thenReturn(Collections.emptyList());
 
         // Act
-        BusinessException exception = assertThrows(BusinessException.class, () -> {
+        BaseBusinessException exception = assertThrows(BaseBusinessException.class, () -> {
             customerService.findByLastName(lastName);
         });
 
@@ -593,7 +592,7 @@ class CustomerServiceImplTest {
         when(customerRepository.findByAccountNumber(accountNumber)).thenReturn(Collections.emptyList());
 
         // Act
-        BusinessException exception = assertThrows(BusinessException.class, () -> {
+        BaseBusinessException exception = assertThrows(BaseBusinessException.class, () -> {
             customerService.findByAccountNumber(accountNumber);
         });
 
@@ -626,7 +625,7 @@ class CustomerServiceImplTest {
         when(customerRepository.findByNationalId(nationalId)).thenReturn(Collections.emptyList());
 
         // act
-        BusinessException exception = assertThrows(BusinessException.class, () -> {
+        BaseBusinessException exception = assertThrows(BaseBusinessException.class, () -> {
             customerService.findByNationalId(nationalId);
         });
 
@@ -664,7 +663,7 @@ class CustomerServiceImplTest {
         when(customerRepository.findByContactMedium_MobilePhone(mobilePhone)).thenReturn(Collections.emptyList());
 
 
-        BusinessException exception = assertThrows(BusinessException.class, () -> {
+        BaseBusinessException exception = assertThrows(BaseBusinessException.class, () -> {
             customerService.findByContactMedium_MobilePhone(mobilePhone);
         });
 

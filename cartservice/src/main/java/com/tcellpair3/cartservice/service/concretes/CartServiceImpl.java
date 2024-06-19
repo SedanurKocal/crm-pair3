@@ -8,7 +8,6 @@ import com.tcellpair3.cartservice.core.dtos.AddressResponse;
 import com.tcellpair3.cartservice.core.dtos.AddressResponse;
 import com.tcellpair3.cartservice.core.dtos.ProductResponse;
 import com.tcellpair3.cartservice.core.dtos.ProductResponse;
-import com.tcellpair3.cartservice.core.exceptions.type.BusinessException;
 import com.tcellpair3.cartservice.entities.Cart;
 import com.tcellpair3.cartservice.repository.CartRepository;
 import com.tcellpair3.cartservice.service.abstracts.CartService;
@@ -20,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.HttpClientErrorException;
+import org.turkcell.tcell.exception.exceptions.type.BaseBusinessException;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,10 +40,10 @@ public class CartServiceImpl implements CartService {
         try {
             ResponseEntity<Boolean> customerInvoiceExistsResponse = customerInvoiceClient.doesCustomerInvoiceExist(customerInvoiceId);
             if (customerInvoiceExistsResponse.getStatusCode() == HttpStatus.NOT_FOUND || !Boolean.TRUE.equals(customerInvoiceExistsResponse.getBody())) {
-                throw new BusinessException("Customer invoice not found");
+                throw new BaseBusinessException("Customer invoice not found");
             }
         } catch (HttpClientErrorException.NotFound ex) {
-            throw new BusinessException("Customer invoice not found", ex);
+            throw new BaseBusinessException("Customer invoice not found");
         } catch (Exception ex) {
             throw new ServiceException("An error occurred while checking if customer invoice exists", ex);
         }
@@ -53,10 +53,10 @@ public class CartServiceImpl implements CartService {
         try {
             addressExists = addressClient.doesAddressExist(addressId);
             if (!addressExists) {
-                throw new BusinessException("Address not found");
+                throw new BaseBusinessException("Address not found");
             }
         } catch (HttpClientErrorException.NotFound ex) {
-            throw new BusinessException("Address not found", ex);
+            throw new BaseBusinessException("Address not found");
         } catch (Exception ex) {
             throw new ServiceException("An error occurred while checking if address exists", ex);
         }

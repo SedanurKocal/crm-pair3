@@ -5,7 +5,6 @@ import com.tcellpair3.customerservice.core.dtos.requests.customerinvoice.CreateC
 import com.tcellpair3.customerservice.core.dtos.requests.customerinvoice.UpdateCustomerInvoiceRequest;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.CustomerWithCustomerInvoiceResponse;
 import com.tcellpair3.customerservice.core.dtos.responses.customerinvoice.*;
-import com.tcellpair3.customerservice.core.exception.type.BusinessException;
 import com.tcellpair3.customerservice.core.mappers.CustomerInvoiceMapper;
 import com.tcellpair3.customerservice.core.mappers.CustomerMapper;
 import com.tcellpair3.customerservice.entities.Customer;
@@ -15,6 +14,7 @@ import com.tcellpair3.customerservice.repositories.CustomerRepository;
 import com.tcellpair3.customerservice.service.abstracts.CustomerInvoiceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.turkcell.tcell.exception.exceptions.type.BaseBusinessException;
 
 import java.util.List;
 import java.util.Optional;
@@ -51,7 +51,7 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService {
             );
         }
         else {
-            throw new BusinessException("Customer not found with ID: " + request.getCustomerId());
+            throw new BaseBusinessException("Customer not found with ID: " + request.getCustomerId());
         }
     }
 
@@ -72,7 +72,7 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService {
         boolean customerActiveProduct = cartClient.hasActiveProducts(id);
 
         if (customerActiveProduct) {
-            throw new BusinessException("There are product/products connected to the billing account");
+            throw new BaseBusinessException("There are product/products connected to the billing account");
         }
         customerInvoiceRepository.deleteById(id);
     }

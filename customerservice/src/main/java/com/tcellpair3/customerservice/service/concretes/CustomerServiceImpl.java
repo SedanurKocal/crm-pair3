@@ -4,8 +4,6 @@ import com.tcellpair3.customerservice.clients.CartClient;
 import com.tcellpair3.customerservice.core.dtos.requests.customer.CreateCustomerRequest;
 import com.tcellpair3.customerservice.core.dtos.requests.customer.UpdateCustomerRequest;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.*;
-import com.tcellpair3.customerservice.core.exception.type.BusinessException;
-import com.tcellpair3.customerservice.core.exception.type.IllegalArgumentException;
 import com.tcellpair3.customerservice.core.mappers.CustomerMapper;
 import com.tcellpair3.customerservice.core.mernis.IRKKPSPublicSoap;
 import com.tcellpair3.customerservice.core.service.abstracts.ContactMediumValidationService;
@@ -19,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.turkcell.tcell.exception.exceptions.type.BaseBusinessException;
 
 
 import java.util.List;
@@ -58,7 +57,7 @@ public class CustomerServiceImpl implements CustomerService {
             boolean hasNationalId =customerRepository.existsByNationalId(request.getNationalId());
             if(hasNationalId)
             {
-                throw new BusinessException("A customer is already exist with this Nationality ID");
+                throw new BaseBusinessException("A customer is already exist with this Nationality ID");
             }
             customerValidationService.validateBirthdate(request.getBirthdate());
 
@@ -98,17 +97,17 @@ public class CustomerServiceImpl implements CustomerService {
         );
 
         if (!isRealPerson) {
-            throw new BusinessException("Kullanıcı bulunamadı");
+            throw new BaseBusinessException("Kullanıcı bulunamadı");
         }
 
         boolean hasNationalId = customerRepository.existsByNationalId(request.getNationalId());
         if (hasNationalId) {
-            throw new BusinessException("A customer is already exist with this Nationality ID");
+            throw new BaseBusinessException("A customer is already exist with this Nationality ID");
         }
 
         Optional<Customer> customerOptional = customerRepository.findById(id);
         if (customerOptional.isEmpty()) {
-            throw new BusinessException("Kullanıcı Bulunamadı");
+            throw new BaseBusinessException("Kullanıcı Bulunamadı");
         }
 
         Customer existingCustomer = customerOptional.get();
@@ -144,10 +143,10 @@ public class CustomerServiceImpl implements CustomerService {
         boolean customerActiveProduct = cartClient.hasActiveProducts(id);
         if(customerActiveProduct)
         {
-            throw new BusinessException("Since the customer has active products, the customer cannot be deleted.");
+            throw new BaseBusinessException("Since the customer has active products, the customer cannot be deleted.");
         }
         customerRepository.deleteById(id);
-        throw new BusinessException("Customer Deleted Successfully.");
+        throw new BaseBusinessException("Customer Deleted Successfully.");
     }
 
     @Override
@@ -172,7 +171,7 @@ public class CustomerServiceImpl implements CustomerService {
         List<Customer> customers = customerRepository.findByFirstName(firstName);
         if(customers.isEmpty())
         {
-            throw new BusinessException("No customer found! Would you like to create the customer?");
+            throw new BaseBusinessException("No customer found! Would you like to create the customer?");
         }
         return customers.stream()
                 .map(CustomerMapper.INSTANCE::searchResultResponse)
@@ -184,7 +183,7 @@ public class CustomerServiceImpl implements CustomerService {
         List<Customer> customers = customerRepository.findByLastName(lastName);
         if(customers.isEmpty())
         {
-            throw new BusinessException("No customer found! Would you like to create the customer?");
+            throw new BaseBusinessException("No customer found! Would you like to create the customer?");
         }
         return customers.stream()
                 .map(CustomerMapper.INSTANCE::searchResultResponse)
@@ -196,7 +195,7 @@ public class CustomerServiceImpl implements CustomerService {
         List<Customer> customers = customerRepository.findByAccountNumber(accountNumber);
         if(customers.isEmpty())
         {
-            throw new BusinessException("No customer found! Would you like to create the customer?");
+            throw new BaseBusinessException("No customer found! Would you like to create the customer?");
         }
         return customers.stream()
                 .map(CustomerMapper.INSTANCE::searchResultResponse)
@@ -208,7 +207,7 @@ public class CustomerServiceImpl implements CustomerService {
         List<Customer> customers = customerRepository.findByNationalId(nationalId);
         if(customers.isEmpty())
         {
-            throw new BusinessException("No customer found! Would you like to create the customer?");
+            throw new BaseBusinessException("No customer found! Would you like to create the customer?");
         }
         return customers.stream()
                 .map(CustomerMapper.INSTANCE::searchResultResponse)
@@ -221,7 +220,7 @@ public class CustomerServiceImpl implements CustomerService {
         List<Customer> customers = customerRepository.findByContactMedium_MobilePhone(mobilePhone);
         if(customers.isEmpty())
         {
-            throw new BusinessException("No customer found! Would you like to create the customer?");
+            throw new BaseBusinessException("No customer found! Would you like to create the customer?");
         }
         return customers.stream()
                 .map(CustomerMapper.INSTANCE::searchResultResponse)

@@ -1,6 +1,5 @@
 package com.tcell_pair3.identityservice.core.service.concretes;
 
-import com.tcell_pair3.identityservice.core.exception.type.BusinessException;
 import com.tcell_pair3.identityservice.core.service.abstracts.ValidateEmailService;
 import org.springframework.stereotype.Service;
 

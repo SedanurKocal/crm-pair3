@@ -4,7 +4,6 @@ import com.tcellpair3.addressservice.clients.CustomerServiceClient;
 import com.tcellpair3.addressservice.core.dto.requests.CreateAddressRequest;
 import com.tcellpair3.addressservice.core.dto.requests.UpdateAddressRequest;
 import com.tcellpair3.addressservice.core.dto.responses.*;
-import com.tcellpair3.addressservice.core.exception.type.BusinessException;
 import com.tcellpair3.addressservice.core.mappers.AddressMapper;
 import com.tcellpair3.addressservice.entities.Address;
 import com.tcellpair3.addressservice.repositories.AddressRepository;
@@ -12,6 +11,7 @@ import com.tcellpair3.addressservice.service.abstracts.AddressService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.turkcell.tcell.exception.exceptions.type.BaseBusinessException;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,14 +32,14 @@ public class AddressServiceImpl implements AddressService {
             int customerId = address.getCustomerId();
             long addressCount = addressRepository.countByCustomerId(customerId);
             if (addressCount <= 1) {
-                throw new BusinessException("A customer must have at least one address. You cannot delete the last address.");
+                throw new BaseBusinessException("A customer must have at least one address. You cannot delete the last address.");
             }
             if (address.isDefault()) {
-                throw new BusinessException("The address that you want to delete is a default address. Please, change the default address then try again");
+                throw new BaseBusinessException("The address that you want to delete is a default address. Please, change the default address then try again");
             }
             addressRepository.deleteById(id);
         } else {
-            throw new BusinessException("Address not found");
+            throw new BaseBusinessException("Address not found");
         }
     }
 
@@ -52,7 +52,7 @@ public class AddressServiceImpl implements AddressService {
     public List<GetAddressByCustomerIdResponse> getAddressesByCustomerId(Integer customerId) {
         boolean customerExists = customerServiceClient.doesCustomerExist(customerId);
         if (!customerExists) {
-            throw new BusinessException("Customer does not exist");
+            throw new BaseBusinessException("Customer does not exist");
         }
         List<Address> addresses = addressRepository.findByCustomerId(customerId);
         return AddressMapper.INSTANCE.getAllAddressByCustomerId(addresses);
@@ -69,7 +69,7 @@ public class AddressServiceImpl implements AddressService {
     public Optional<GetByAddressIdResponse> getByIdAddress(int id) {
         Optional<Address> existingAddress = addressRepository.findById(id);
         if (existingAddress.isEmpty()) {
-            throw new BusinessException("Address not found");
+            throw new BaseBusinessException("Address not found");
         }
         return existingAddress.map(AddressMapper.INSTANCE::getByAddressIdMapper);
     }
@@ -114,7 +114,7 @@ public class AddressServiceImpl implements AddressService {
         request.setDefault(false);
         boolean customerExists = customerServiceClient.doesCustomerExist(request.getCustomerId());
         if (!customerExists) {
-            throw new BusinessException("Customer does not exist");
+            throw new BaseBusinessException("Customer does not exist");
         }
         // Check if the customer already has any addresses
         boolean customerHasAddresses = addressRepository.existsByCustomerId(request.getCustomerId());
@@ -143,14 +143,14 @@ public class AddressServiceImpl implements AddressService {
         Optional<Address> addressOptional = addressRepository.findById(id);
 
         if (addressOptional.isEmpty()) {
-            throw new BusinessException("Address not found");
+            throw new BaseBusinessException("Address not found");
         }
 
         Address existingAddress = addressOptional.get();
 
         boolean customerExists = customerServiceClient.doesCustomerExist(request.getCustomerId());
         if (!customerExists) {
-            throw new BusinessException("Customer does not exist");
+            throw new BaseBusinessException("Customer does not exist");
         }
 
         //address.setAddressId(existingAddress.getAddressId());

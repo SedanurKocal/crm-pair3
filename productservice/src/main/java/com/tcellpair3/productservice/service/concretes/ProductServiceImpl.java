@@ -4,7 +4,6 @@ package com.tcellpair3.productservice.service.concretes;
 import com.tcellpair3.productservice.core.dtos.request.product.CreateProductRequest;
 import com.tcellpair3.productservice.core.dtos.request.product.UpdateProductRequest;
 import com.tcellpair3.productservice.core.dtos.response.product.*;
-import com.tcellpair3.productservice.core.exception.type.BusinessException;
 import com.tcellpair3.productservice.core.mappers.ProductMapper;
 import com.tcellpair3.productservice.entities.Product;
 import com.tcellpair3.productservice.repositories.ProductRepository;

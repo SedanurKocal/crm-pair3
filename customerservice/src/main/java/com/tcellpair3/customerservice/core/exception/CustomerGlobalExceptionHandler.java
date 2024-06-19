@@ -1,12 +1,5 @@
 package com.tcellpair3.customerservice.core.exception;
 
-
-import com.tcellpair3.customerservice.core.exception.details.BusinessExceptionDetails;
-import com.tcellpair3.customerservice.core.exception.details.DateTimeParseExceptionDetails;
-import com.tcellpair3.customerservice.core.exception.details.IllegalArgumentExceptionDetails;
-import com.tcellpair3.customerservice.core.exception.type.BusinessException;
-import com.tcellpair3.customerservice.core.exception.type.DateTimeParseException;
-import com.tcellpair3.customerservice.core.exception.type.IllegalArgumentException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -14,13 +7,19 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.turkcell.tcell.exception.exceptions.details.BusinessExceptionDetails;
+import org.turkcell.tcell.exception.exceptions.details.DateTimeParseExceptionDetails;
+import org.turkcell.tcell.exception.exceptions.details.IllegalArgumentExceptionDetails;
+import org.turkcell.tcell.exception.exceptions.type.BaseBusinessException;
+
+import java.time.format.DateTimeParseException;
 
 @RestControllerAdvice
 public class CustomerGlobalExceptionHandler {
 
-    @ExceptionHandler({BusinessException.class})
+    @ExceptionHandler({BaseBusinessException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public BusinessExceptionDetails handleRuntimeException(BusinessException exception)
+    public BusinessExceptionDetails handleRuntimeException(BaseBusinessException exception)
     {
         BusinessExceptionDetails businessExceptionDetails = new BusinessExceptionDetails();
         businessExceptionDetails.setTitle(exception.getMessage());
