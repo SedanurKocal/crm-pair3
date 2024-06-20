@@ -63,7 +63,7 @@ Proje ekibi ile ilgili sorularınız veya önerileriniz için aşağıdaki kişi
 
 - **Ahmet Melih İnce** - [LinkedIn](https://www.linkedin.com/in/kullanici-adi) - [Github](mailto:email@example.com)
 - **Duygu Orhan** - [LinkedIn](https://www.linkedin.com/in/kullanici-adi) - [Github](mailto:email@example.com)
-- **Oğuzhan Seçgel** - [LinkedIn](https://www.linkedin.com/in/kullanici-adi) - [Github](mailto:email@example.com)
+- **Oğuzhan Seçgel** - [LinkedIn](https://www.linkedin.com/in/oguzhansecgel) - [Github](https://github.com/oguzhansecgel)
 - **Sedanur Koçal** - [LinkedIn](https://www.linkedin.com/in/kullanici-adi) - [Github](mailto:email@example.com)
 - **Yuşa Kaynar** - [LinkedIn](https://www.linkedin.com/in/kullanici-adi) - [Github](mailto:email@example.com)
 
