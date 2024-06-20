@@ -1,5 +1,6 @@
 package com.tcellpair3.cartservice.entities;
 
+import com.tcellpair3.cartservice.core.entities.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -10,9 +11,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 @ToString
 @Document(collection = "cartservice")
-public class Cart {
-    @Id
-    private String id;
+public class Cart extends BaseEntity {
+
     private int productNo;
     private double price;
     private String productName;

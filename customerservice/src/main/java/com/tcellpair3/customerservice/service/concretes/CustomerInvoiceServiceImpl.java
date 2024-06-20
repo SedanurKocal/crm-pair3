@@ -78,9 +78,10 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService {
     }
 
     @Override
-    public List<CustomerInvoice> getAllCustomerInvoice() {
-        //todo
-        return customerInvoiceRepository.findAll();
+    public List<GetAllCustomerInvoiceResponse> getAllCustomerInvoice() {
+        List<CustomerInvoice> customerInvoices = customerInvoiceRepository.findAll();
+
+        return CustomerInvoiceMapper.INSTANCE.customerInvoiceToListCustomerInvoiceResponses(customerInvoices);
 
     }
 

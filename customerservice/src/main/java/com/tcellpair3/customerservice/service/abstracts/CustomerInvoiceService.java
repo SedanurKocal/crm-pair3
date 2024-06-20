@@ -13,7 +13,7 @@ public interface CustomerInvoiceService {
     CreateCustomerInvoiceResponse createCustomerInvoice(CreateCustomerInvoiceRequest request);
     UpdateCustomerInvoiceResponse updateCustomerInvoice(int id , UpdateCustomerInvoiceRequest request);
     void deleteCustomerInvoice(int id);
-    List<CustomerInvoice> getAllCustomerInvoice();
+    List<GetAllCustomerInvoiceResponse> getAllCustomerInvoice();
     Optional<GetCustomerInvoiceByIdResponse> getByCustomerInvoiceId(int id);
     boolean existsById(Integer customerInvoiceId);
     List<CustomerInvoiceWithCustomerResponse> findByCustomerId(Integer customerId);

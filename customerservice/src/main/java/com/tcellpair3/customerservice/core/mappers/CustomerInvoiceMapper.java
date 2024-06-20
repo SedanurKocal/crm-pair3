@@ -21,7 +21,7 @@ public interface CustomerInvoiceMapper {
 
     @Mapping(target = "customerId",source = "customer.id")
     GetCustomerInvoiceByIdResponse getByIdCustomerInvoiceMapper(CustomerInvoice customerInvoice);
-
+    @Mapping(target = "customerId",source = "customer.id")
     GetAllCustomerInvoiceResponse getAllCustomerInvoiceMapper(CustomerInvoice customerInvoice);
 
     List<GetAllCustomerInvoiceResponse> customerInvoiceToListCustomerInvoiceResponses(List<CustomerInvoice> customerInvoices);
