@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class GetAllAddressResponse {
 
-    private int addressId;
+    private int id;
 
     private int customerId;
 

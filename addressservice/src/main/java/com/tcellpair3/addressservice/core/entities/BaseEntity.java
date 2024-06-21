@@ -18,14 +18,11 @@ public class BaseEntity {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "createdDate")
+    @Column(name = "created_date")
     private LocalDateTime createdDate;
 
-    @Column(name = "updatedDate")
+    @Column(name = "updated_date")
     private LocalDateTime updatedDate;
-
-    @Column(name = "deletedDate")
-    private LocalDateTime deletedDate;
 
     public BaseEntity(){
         this.createdDate = LocalDateTime.now();

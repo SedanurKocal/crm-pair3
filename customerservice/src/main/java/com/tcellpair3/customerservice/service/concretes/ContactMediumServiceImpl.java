@@ -68,6 +68,7 @@ public class ContactMediumServiceImpl implements ContactMediumService {
 
     @Override
     public void deleteContactMedium(int id) {
+
             contactMediumRepository.deleteById(id);
     }
 

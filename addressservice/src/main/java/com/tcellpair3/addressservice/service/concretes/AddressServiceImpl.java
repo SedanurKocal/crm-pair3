@@ -78,14 +78,13 @@ public class AddressServiceImpl implements AddressService {
     public List<AddressResponse> getAddressesByCustomerInvoiceId(Integer customerInvoiceId) {
         ResponseEntity<GetAddressByCustomerInvoiceIdResponse> responseEntity = customerServiceClient.getCustomerByInvoiceId(customerInvoiceId);
 
-        // Müşteri bilgilerini al
         GetAddressByCustomerInvoiceIdResponse customerResponse = responseEntity.getBody();
 
         if (customerResponse != null && customerResponse.getId() != null) {
-            // Müşteri ID'sine göre adresleri al
+
             return addressRepository.findAddressesByCustomerId(customerResponse.getId());
         }
-        return Collections.emptyList(); // Eğer müşteri bulunamazsa boş liste döner
+        return Collections.emptyList();
     }
 
     @Override
@@ -101,10 +100,8 @@ public class AddressServiceImpl implements AddressService {
             request.setHouseFlatNumber(address.getHouseFlatNumber());
             request.setDistrict(address.getDistrict());
 
-            // Belirtilen adresi varsayılan yap
-            // Diğer adresleri varsayılan olmayan yap
             request.setDefault(Objects.equals(defaultAddressId, address.getAddressId()));
-            // Adres durumunu veritabanında güncelle
+
             updateAddress(address.getAddressId(), request);
         }
     }
@@ -116,16 +113,14 @@ public class AddressServiceImpl implements AddressService {
         if (!customerExists) {
             throw new BaseBusinessException("Customer does not exist");
         }
-        // Check if the customer already has any addresses
         boolean customerHasAddresses = addressRepository.existsByCustomerId(request.getCustomerId());
         if (!customerHasAddresses) {
-            request.setDefault(true); // Kullanıcnın ilk adresi ise default adres olarak ata
+            request.setDefault(true);
         } else {
-            request.setDefault(false); // Diğerlerini false yap
+            request.setDefault(false);
         }
         Address address = AddressMapper.INSTANCE.createAddressMapper(request);
         Address saveAddress = addressRepository.save(address);
-        //return AddressMapper.INSTANCE.createAddressResponse(savedAddress);
         return new CreateAddressResponse(
                 saveAddress.getId(),
                 saveAddress.getCustomerId(),
