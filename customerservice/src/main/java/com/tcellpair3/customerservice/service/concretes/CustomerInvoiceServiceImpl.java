@@ -1,6 +1,7 @@
 package com.tcellpair3.customerservice.service.concretes;
 
 import com.tcellpair3.customerservice.clients.CartClient;
+import com.tcellpair3.customerservice.clients.OrderClient;
 import com.tcellpair3.customerservice.core.dtos.requests.customerinvoice.CreateCustomerInvoiceRequest;
 import com.tcellpair3.customerservice.core.dtos.requests.customerinvoice.UpdateCustomerInvoiceRequest;
 import com.tcellpair3.customerservice.core.dtos.responses.customer.CustomerWithCustomerInvoiceResponse;
@@ -26,6 +27,7 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService {
     private final CustomerInvoiceRepository customerInvoiceRepository;
     private final CustomerRepository customerRepository;
     private final CartClient cartClient;
+    private final OrderClient orderClient;
     //private final AddressClient addressClient;
 
     @Override
@@ -69,7 +71,7 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService {
     @Override
     public void deleteCustomerInvoice(int id) {
 
-        boolean customerActiveProduct = cartClient.hasActiveProducts(id);
+        boolean customerActiveProduct = orderClient.hasActiveProducts(id);
 
         if (customerActiveProduct) {
             throw new BaseBusinessException("There are product/products connected to the billing account");

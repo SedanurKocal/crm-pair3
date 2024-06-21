@@ -94,10 +94,7 @@ public class CartServiceImpl implements CartService {
     }
 
 
-    @Override
-    public boolean hasActiveProducts(int customerInvoiceId) {
-        return cartRepository.existsByCustomerInvoiceId(customerInvoiceId);
-    }
+
 
     @Override
     public double getTotalPriceByCustomerInvoiceId(Integer customerInvoiceId) {

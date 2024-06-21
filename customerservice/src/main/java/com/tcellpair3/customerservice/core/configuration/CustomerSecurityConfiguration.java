@@ -23,7 +23,7 @@ public class CustomerSecurityConfiguration {
                 authorizeRequests
                         .requestMatchers("/api/v1/customers/**").authenticated()
                         .requestMatchers("/api/v1/address/**").authenticated()
-                        .requestMatchers("/api/v1/contactMedium/**").authenticated()
+                        .requestMatchers("/api/v1/contactMediums/**").authenticated()
                         .requestMatchers("/api/v1/customerInvoices/**").authenticated()
 
                         .anyRequest().permitAll()

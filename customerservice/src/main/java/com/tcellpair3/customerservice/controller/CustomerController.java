@@ -79,17 +79,17 @@ public class CustomerController {
         customerService.cartNumber(cartId);
     }
 
-    @PostMapping
+    @PostMapping("/createCustomer")
     public CreateCustomerResponse createCustomer(@Valid @RequestBody CreateCustomerRequest request) throws Exception {
         return customerService.createCustomer(request);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("deleteCustomer/{id}")
     public void deleteCustomer(@PathVariable int id) {
         customerService.deleteCustomer(id);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/updateCustomer/{id}")
     public UpdateCustomerResponse updateCustomer(@PathVariable int id, @RequestBody @Valid UpdateCustomerRequest request) throws Exception {
         return customerService.updateCustomer(id, request);
     }

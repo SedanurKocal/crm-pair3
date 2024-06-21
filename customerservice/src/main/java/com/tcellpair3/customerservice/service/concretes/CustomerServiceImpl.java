@@ -84,7 +84,6 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     }
-
     @Override
     public UpdateCustomerResponse updateCustomer(int id, UpdateCustomerRequest request) throws Exception {
         IRKKPSPublicSoap client = new IRKKPSPublicSoap();
@@ -100,17 +99,21 @@ public class CustomerServiceImpl implements CustomerService {
             throw new BaseBusinessException("Kullanıcı bulunamadı");
         }
 
-        boolean hasNationalId = customerRepository.existsByNationalId(request.getNationalId());
-        if (hasNationalId) {
-            throw new BaseBusinessException("A customer is already exist with this Nationality ID");
-        }
-
         Optional<Customer> customerOptional = customerRepository.findById(id);
         if (customerOptional.isEmpty()) {
             throw new BaseBusinessException("Kullanıcı Bulunamadı");
         }
 
         Customer existingCustomer = customerOptional.get();
+
+        // Aynı T.C. Kimlik numarasına sahip başka bir müşteri olup olmadığını kontrol edin
+        List<Customer> customersWithSameNationalId = customerRepository.findByNationalId(request.getNationalId());
+        for (Customer customer : customersWithSameNationalId) {
+            if (customer.getId() != existingCustomer.getId()) {
+                throw new BaseBusinessException("A customer is already exist with this Nationality ID");
+            }
+        }
+
         List<CustomerInvoice> invoices = customerInvoiceRepository.findByCustomerId(existingCustomer.getId());
         for (CustomerInvoice invoice : invoices) {
             invoice.setAccountName(request.getAccountNumber());
@@ -135,7 +138,6 @@ public class CustomerServiceImpl implements CustomerService {
                 savedCustomer.getGender()
         );
     }
-
 
 
     @Override

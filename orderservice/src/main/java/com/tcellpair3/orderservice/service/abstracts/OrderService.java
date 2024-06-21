@@ -10,6 +10,6 @@ public interface OrderService {
     List<CartResponse> getCartsByCustomerInvoiceId(int customerInvoiceId);
     void createOrder(CartResponse cartResponse);
     List<Order> getOrdersByCustomerInvoiceId(int customerInvoiceId);
-
+    boolean hasActiveProducts(int customerInvoiceId);
     Optional<Order> getByOrderId(int orderId);
 }

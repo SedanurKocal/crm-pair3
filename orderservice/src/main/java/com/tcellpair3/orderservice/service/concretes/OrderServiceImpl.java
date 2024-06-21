@@ -1,6 +1,7 @@
 package com.tcellpair3.orderservice.service.concretes;
 
 import com.tcellpair3.orderservice.clients.CartClient;
+import com.tcellpair3.orderservice.clients.CustomerInvoiceClient;
 import com.tcellpair3.orderservice.core.dtos.response.CartResponse;
 import com.tcellpair3.orderservice.entities.Order;
 import com.tcellpair3.orderservice.repository.OrderRepository;
@@ -8,6 +9,7 @@ import com.tcellpair3.orderservice.service.abstracts.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.turkcell.tcell.exception.exceptions.type.BaseBusinessException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,14 +22,22 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
     private final CartClient cartClient;
+    private final CustomerInvoiceClient customerInvoiceClient;
     @Override
     public List<CartResponse> getCartsByCustomerInvoiceId(int customerInvoiceId) {
-        ResponseEntity<List<CartResponse>> response = cartClient.getCartsByCustomerInvoiceId(customerInvoiceId);
-        if(response.getStatusCode().is2xxSuccessful()){
-            return  response.getBody();
-        } else{
-            throw new RuntimeException("Failed to fetch baskets from cart service");
+        boolean customerInvoiceExist = customerInvoiceClient.doesCustomerInvoiceExist(customerInvoiceId);
+        if(customerInvoiceExist)
+        {
+            ResponseEntity<List<CartResponse>> response = cartClient.getCartsByCustomerInvoiceId(customerInvoiceId);
+            if(response.getStatusCode().is2xxSuccessful()){
+                return  response.getBody();
+            } else{
+                throw new RuntimeException("Failed to fetch baskets from cart service");
+            }
         }
+        else
+            throw new BaseBusinessException("CustomerInvoice Not Found");
+
     }
 
     @Override
@@ -61,6 +71,11 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> getOrdersByCustomerInvoiceId(int customerInvoiceId) {
         return orderRepository.findByCustomerInvoiceId((customerInvoiceId));
+    }
+
+    @Override
+    public boolean hasActiveProducts(int customerInvoiceId) {
+        return orderRepository.existsByCustomerInvoiceId(customerInvoiceId);
     }
 
     @Override
