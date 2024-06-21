@@ -39,10 +39,7 @@ public class CartController {
             return ResponseEntity.ok(carts);
         }
     }
-    @GetMapping("/customer/{customerInvoiceId}/active-products")
-    public boolean hasActiveProducts(@PathVariable("customerInvoiceId") int customerInvoiceId) {
-        return cartService.hasActiveProducts(customerInvoiceId);
-    }
+
     @PostMapping("/addProductToCustomer/{customerInvoiceId}/{productId}/{addressId}")
     public ResponseEntity<String> addProductToCustomer(
             @PathVariable("customerInvoiceId") Integer customerInvoiceId,

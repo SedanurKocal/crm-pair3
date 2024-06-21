@@ -14,7 +14,7 @@ public interface CustomerService {
     void deleteCustomer(int id);
     List<GetAllCustomersResponse> getAllCustomers();
     Optional<GetCustomerByIdResponse> getByCustomerId(int id);
-    public Page<SearchResultsResponse> getCustomersByFirstName(String firstName, int page, int size);
+    Page<SearchResultsResponse> getCustomersByFirstName(String firstName, int page, int size);
     List<SearchResultsResponse> findByFirstName(String firstName);
     List<SearchResultsResponse> findByLastName(String lastName);
     List<SearchResultsResponse> findByAccountNumber(Integer accountNumber);

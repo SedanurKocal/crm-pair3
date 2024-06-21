@@ -34,11 +34,17 @@ public class OrderController {
     {
         return orderService.getByOrderId(orderId);
     }
-    @GetMapping("/customer-invoice/{customerInvoiceId}")
+
+
+    @GetMapping("/getOrdersAndTotalAmountByCustomerInvoiceId/{customerInvoiceId}")
     public Map<String, Object> getOrdersAndTotalAmountByCustomerInvoiceId(@PathVariable int customerInvoiceId) {
         List<Order> orders = orderService.getOrdersByCustomerInvoiceId(customerInvoiceId);
         Map<String, Object> response = new HashMap<>();
         response.put("orders", orders);
         return response;
+    }
+    @GetMapping("/customer/{customerInvoiceId}/active-products")
+    public boolean hasActiveProducts(@PathVariable("customerInvoiceId") int customerInvoiceId) {
+        return orderService.hasActiveProducts(customerInvoiceId);
     }
 }

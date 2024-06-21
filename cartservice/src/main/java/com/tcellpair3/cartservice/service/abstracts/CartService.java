@@ -13,7 +13,6 @@ public interface CartService {
     void deleteCart(String cartId);
     Optional<Cart> getByIdCart(String cartId);
     List<Cart> getCartsByCustomerInvoiceId(Integer customerInvoiceId);
-    boolean hasActiveProducts(int customerInvoice);
     double getTotalPriceByCustomerInvoiceId(Integer customerInvoiceId);
     List<Cart> getAllCarts();
 }

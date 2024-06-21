@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient(name = "cartservice",configuration = FeignClientConfig.class)
 public interface CartClient {
-    @GetMapping("/api/v1/cart/{id}")
+    @GetMapping("/api/v1/carts/{id}")
     void getByIdCart(@PathVariable("id") int cartId);
 
-    @GetMapping("/api/v1/cart/customer/{customerId}/active-products")
+    @GetMapping("/api/v1/carts/customer/{customerInvoiceId}/active-products")
     boolean hasActiveProducts(@PathVariable("customerId") int customerId);
 }
