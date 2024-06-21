@@ -7,6 +7,7 @@ import com.tcellpair3.addressservice.core.dto.responses.GetAllAddressResponse;
 import com.tcellpair3.addressservice.core.dto.responses.GetByAddressIdResponse;
 import com.tcellpair3.addressservice.entities.Address;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
@@ -25,6 +26,7 @@ public interface AddressMapper {
 
     List<GetAddressByCustomerIdResponse> getAllAddressByCustomerId(List<Address> addresses);
     GetAddressByCustomerIdResponse getAddressByCustomerId(Address address);
+    @Mapping(source = "id",target = "id")
     GetAllAddressResponse getAllAddressMapper(Address address);
     List<GetAllAddressResponse> addressToListAddressResponse(List<Address> addresses);
 }

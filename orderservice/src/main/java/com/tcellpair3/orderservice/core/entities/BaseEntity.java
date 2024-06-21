@@ -25,8 +25,6 @@ public class BaseEntity {
     @Column(name = "updatedDate")
     private LocalDateTime updatedDate;
 
-    @Column(name = "deletedDate")
-    private LocalDateTime deletedDate;
 
     public BaseEntity(){
         this.createdDate = LocalDateTime.now();
