@@ -3,7 +3,7 @@
 ## CRM Uygulaması
 
 Bu proje, Turkcell Java 3 Bootcamp kapsamında verilen eğitim sonuncunda geliştirilen bir CRM (Customer Relationship Management) uygulamasıdır. 
-Bu uygulama, müşteri ilişkilerini yönetmeyi ve iş süreçlerini optimize etmeyi amaçlayan çeşitli özellikler sunar.
+Bu uygulama, müşteri ilişkilerini yönetmeyi ve iş süreçlerini optimize etmeyi amaçlayan çeşitli özellikler sunar. Bu uygulama pair3 ekibi tarafından geliştirilmiştir.
 
 ## İçindekiler
 - [Özellikler](#özellikler)
