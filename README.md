@@ -16,24 +16,28 @@ Bu uygulama, müşteri ilişkilerini yönetmeyi ve iş süreçlerini optimize et
 ## Özellikler
 
 - Müşteri bilgilerini ekleme, güncelleme ve silme
-- Satış fırsatlarını takip etme
+- Kategori ekleme, güncelleme ve silme
+- Ürün ekleme, güncelleme ve silme
+- Sepet oluşturma
+- Satış takip etme
 - Müşteri etkileşimlerini kaydetme ve yönetme
-- Raporlama ve analiz araçları
-- Kullanıcı dostu arayüz
+- Raporlama ve analiz 
+
 
   ## Kullanılan Teknolojiler
 
 - Java
 - Spring Boot
+- Maven
 - PostgreSQL
 - Docker
 - Open API
-- ....
-- ....
-- ....
-- 
+- Postman
+
+## Kurulum
 
 Projeyi yerel ortamınıza kurmak için aşağıdaki adımları takip edebilirsiniz:
+### Manuel Kurulum
 
 1. Bu repository'i klonlayın:
     ```bash
@@ -54,18 +58,38 @@ Projeyi yerel ortamınıza kurmak için aşağıdaki adımları takip edebilirsi
     ```bash
     mvn spring-boot:run
     ```
+    
+### Docker ile Kurulum (https://www.docker.com/products/docker-desktop/)
 
-    ## Kullanım
+ 1. Bu repository'i klonlayın:
+    ```bash
+    git clone https://github.com/tcell-gygy-pair3/crm-pair3.git
+    ```
+
+2. Proje dizinine gidin:
+    ```bash
+    cd turkcell-crm
+    ```
+    
+3. Docker bileşenlerini oluşturun ve başlatın:
+    ```bash
+    docker-compose up --build
+    ```
+
+    Docker, gerekli tüm bileşenleri (uygulama, veritabanı vb.) çalıştıracak ve uygulamayı `http://localhost:8080` adresinde erişilebilir hale getirecektir.
+
+## Kullanım
 
 Uygulamayı çalıştırdıktan sonra tarayıcınızda `http://localhost:8080` adresine giderek giriş yapabilirsiniz. 
 
+## İletişim
 Proje ekibi ile ilgili sorularınız veya önerileriniz için aşağıdaki kişilerle iletişime geçebilirsiniz:
 
-- **Ahmet Melih İnce** - [LinkedIn](https://www.linkedin.com/in/kullanici-adi) - [Github](mailto:email@example.com)
-- **Duygu Orhan** - [LinkedIn](https://www.linkedin.com/in/kullanici-adi) - [Github](mailto:email@example.com)
+- **Ahmet Melih İnce** - [LinkedIn](https://www.linkedin.com/in/melihince/) - [Github](https://github.com/melihnc)
+- **Duygu Orhan** - [LinkedIn](https://www.linkedin.com/in/duygu-orhan-9a7a711ba/) - [Github](https://github.com/duygu2)
 - **Oğuzhan Seçgel** - [LinkedIn](https://www.linkedin.com/in/oguzhansecgel) - [Github](https://github.com/oguzhansecgel)
-- **Sedanur Koçal** - [LinkedIn](https://www.linkedin.com/in/kullanici-adi) - [Github](mailto:email@example.com)
-- **Yuşa Kaynar** - [LinkedIn](https://www.linkedin.com/in/kullanici-adi) - [Github](mailto:email@example.com)
+- **Sedanur Koçal** - [LinkedIn](https://www.linkedin.com/in/sedanurkocal/) - [Github](https://github.com/SedanurKocal)
+- **Yuşa Kaynar** - [LinkedIn](https://www.linkedin.com/in/yusa-kaynar/) - [Github](https://github.com/yusadev24)
 
 Grup olarak birlikte çalışmaktan büyük keyif aldık ve bu projeyi geliştirdik. Her türlü geri bildirim ve katkıya açığız!
 
