@@ -55,7 +55,7 @@ Projeyi yerel ortamınıza kurmak için aşağıdaki adımları takip edebilirsi
 
 2. Proje dizinine gidin:
     ```bash
-    cd turkcell-crm
+    cd crm-pair3
     ```
 
 3. Gerekli bağımlılıkları yükleyin:
@@ -77,7 +77,7 @@ Projeyi yerel ortamınıza kurmak için aşağıdaki adımları takip edebilirsi
 
 2. Proje dizinine gidin:
     ```bash
-    cd turkcell-crm
+    cd crm-pair3
     ```
     
 3. Docker bileşenlerini oluşturun ve başlatın:
