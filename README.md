@@ -37,6 +37,12 @@ Bu uygulama, müşteri ilişkilerini yönetmeyi ve iş süreçlerini optimize et
 - Open API
 - Postman
 
+## Gereksinimler
+- Java 11 veya üstü
+- Maven 3.6.3 veya üstü
+- PostgreSQL
+- Docker
+- MongoDB
 ## Kurulum
 
 Projeyi yerel ortamınıza kurmak için aşağıdaki adımları takip edebilirsiniz:
