@@ -28,8 +28,11 @@ Bu uygulama, müşteri ilişkilerini yönetmeyi ve iş süreçlerini optimize et
 
 - Java
 - Spring Boot
+- Spring Cloud
+- Spring Security
 - Maven
 - PostgreSQL
+- MongoDB
 - Docker
 - Open API
 - Postman
