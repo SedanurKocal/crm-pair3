@@ -23,15 +23,15 @@
     </option>
     <option name="ignoredFiles">
       <set>
-        <option value="$USER_HOME$/crm-new/crm-pair3/addressservice/pom.xml" />
         <option value="$PROJECT_DIR$/adresservice/pom.xml" />
         <option value="$PROJECT_DIR$/adressservice/pom.xml" />
         <option value="$PROJECT_DIR$/authserver/pom.xml" />
         <option value="$PROJECT_DIR$/userservice/pom.xml" />
+        <option value="$USER_HOME$/crm-new/crm-pair3/addressservice/pom.xml" />
       </set>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="21" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_X" default="true" project-jdk-name="21" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="ProjectType">

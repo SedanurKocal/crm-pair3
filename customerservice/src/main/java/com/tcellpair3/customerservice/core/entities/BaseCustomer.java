@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @MappedSuperclass
 public class BaseCustomer extends BaseEntity {
+
     @Column(name = "account_number")
     private int accountNumber;
-
 }

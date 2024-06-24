@@ -41,5 +41,4 @@ public class UpdateCustomerRequest {
     private LocalDate birthdate;
 
     private Gender gender;
-
 }

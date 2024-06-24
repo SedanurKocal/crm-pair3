@@ -14,6 +14,7 @@ import java.util.List;
 
 @Mapper
 public interface CustomerInvoiceMapper {
+
     CustomerInvoiceMapper INSTANCE = Mappers.getMapper(CustomerInvoiceMapper.class);
 
     @Mapping(target = "customer.id",source = "customerId")

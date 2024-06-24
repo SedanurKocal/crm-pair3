@@ -13,6 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class CartSecurityConfiguration {
+
     private final BaseSecurityService baseSecurityService;
 
     @Bean

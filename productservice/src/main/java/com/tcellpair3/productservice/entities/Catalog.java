@@ -19,5 +19,4 @@ public class Catalog extends BaseEntity {
 
     @OneToMany(mappedBy = "catalog", cascade = CascadeType.ALL)
     private List<Product> products;
-
 }

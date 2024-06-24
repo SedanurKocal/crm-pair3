@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class ProblemDetails {
+
     private String title;
+
     private String detail;
 }

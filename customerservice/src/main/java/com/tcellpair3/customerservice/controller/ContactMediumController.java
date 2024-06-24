@@ -18,22 +18,24 @@ public class ContactMediumController {
 
     private final ContactMediumService contactMediumService;
 
-
     @GetMapping
     public List<GetAllContactMediumResponse> getAllContactMedium()
     {
         return contactMediumService.getAllContactMedium();
     }
+
     @GetMapping("{id}")
     public Optional<GetContactMediumByIdResponse> getByIdContactMedium(@PathVariable int id)
     {
         return contactMediumService.getByContactMediumId(id);
     }
+
     @GetMapping("/ContactMediumWithCustomer/{customerId}")
     public List<ContactMediumWithCustomerResponse> findByCustomerId(@PathVariable Integer customerId)
     {
         return contactMediumService.findByCustomerId(customerId);
     }
+
     @PostMapping
     public CreateContactMediumResponse createContactMedium(@Valid @RequestBody CreateContactMediumRequest request) {
         return contactMediumService.createContactMedium(request);

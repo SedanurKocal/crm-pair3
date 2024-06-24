@@ -18,7 +18,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class CreateCustomerRequest {
 
-
     @NotNull(message = "This field is required")
     private int accountNumber;
 
@@ -30,17 +29,13 @@ public class CreateCustomerRequest {
     @Size(max = 50,message = "Maksimum 50 karakterlik veri girişi yapınız.")
     private String lastName;
 
-
     @Size(max = 50,message = "Maksimum 50 karakterlik veri girişi yapınız.")
     private String middleName;
-
 
     @NotBlank(message = "This field is required")
     private String nationalId;
 
-
     private String motherName;
-
 
     private String fatherName;
 
@@ -48,6 +43,4 @@ public class CreateCustomerRequest {
     private LocalDate birthdate;
 
     private Gender gender;
-
-
 }

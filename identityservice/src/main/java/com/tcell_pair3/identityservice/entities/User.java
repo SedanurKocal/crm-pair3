@@ -18,6 +18,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
@@ -27,7 +28,6 @@ public class User implements UserDetails {
     private String password;
     @Column(name="email")
     private String email;
-
 
     @ManyToMany
     @JoinTable(

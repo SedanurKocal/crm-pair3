@@ -10,10 +10,16 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetContactMediumByIdResponse {
+
     private int id;
+
     private String email;
+
     private String mobilePhone;
+
     private String homePhone;
+
     private String faxNumber;
+
     private int customerId;
 }

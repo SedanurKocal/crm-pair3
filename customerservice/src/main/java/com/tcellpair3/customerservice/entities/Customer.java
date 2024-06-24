@@ -19,7 +19,6 @@ import java.util.List;
 public class Customer extends BaseCustomer {
     //TODO : check MERNIS for nationalID
 
-
     @Column(name = "first_name")
     private String firstName;
 

@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @MappedSuperclass
 public class BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -26,6 +27,4 @@ public class BaseEntity {
         this.createdDate = LocalDateTime.now();
         this.updatedDate = LocalDateTime.now();
     }
-
-
 }

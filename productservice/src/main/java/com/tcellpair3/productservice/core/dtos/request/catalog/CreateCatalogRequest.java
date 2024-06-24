@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 public class CreateCatalogRequest {
 
     private String name;
+
     private LocalDateTime createdDate;
+
     private boolean isDeleted;
-
-
 }

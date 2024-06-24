@@ -14,6 +14,7 @@ import java.util.Optional;
 public interface CatalogService {
 
     CreateCatalogResponse createCatalog(CreateCatalogRequest request);
+
     UpdateCatalogResponse updateCatalog(int id,UpdateCatalogRequest request);
 
     void deleteCatalog(int id);
@@ -21,5 +22,4 @@ public interface CatalogService {
     List<GetAllCatalogsResponse> getAllCatalog();
 
     Optional<GetCatalogByIdResponse> getByCatalogId(int id);
-
 }

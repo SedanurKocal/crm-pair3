@@ -22,8 +22,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @SecurityRequirement(name = "bearerAuth")
 public class CustomerController {
-    private final CustomerService customerService;
 
+    private final CustomerService customerService;
 
     @GetMapping("getAll")
     public List<GetAllCustomersResponse> getAllCustomers() {
@@ -67,7 +67,6 @@ public class CustomerController {
     public List<SearchResultsResponse> findByMobilePhone(String mobilePhone) {
         return customerService.findByContactMedium_MobilePhone(mobilePhone);
     }
-
 
     @GetMapping("/{customerId}/exists")
     public boolean doesCustomerExist(@PathVariable Integer customerId) {

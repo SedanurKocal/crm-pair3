@@ -9,10 +9,16 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CartService {
+
     void addProductToCustomer(Integer customerInvoceId, Integer productId,Integer addressId);
+
     void deleteCart(String cartId);
+
     Optional<Cart> getByIdCart(String cartId);
+
     List<Cart> getCartsByCustomerInvoiceId(Integer customerInvoiceId);
+
     double getTotalPriceByCustomerInvoiceId(Integer customerInvoiceId);
+
     List<Cart> getAllCarts();
 }

@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: authserver
+
+
+server:
+  port: 8086
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8888/eureka/
+    registerWithEureka: true
+    fetchRegistry: true

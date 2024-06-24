@@ -26,7 +26,6 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService {
 
     private final CustomerInvoiceRepository customerInvoiceRepository;
     private final CustomerRepository customerRepository;
-    private final CartClient cartClient;
     private final OrderClient orderClient;
     //private final AddressClient addressClient;
 

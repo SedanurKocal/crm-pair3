@@ -15,10 +15,7 @@ public class UpdateCatalogRequest {
 
     private String name;
 
-
     private LocalDateTime updatedDate;
 
     private boolean isDeleted;
-
-
 }

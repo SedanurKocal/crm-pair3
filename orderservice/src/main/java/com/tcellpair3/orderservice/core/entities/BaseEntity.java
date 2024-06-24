@@ -25,7 +25,6 @@ public class BaseEntity {
     @Column(name = "updatedDate")
     private LocalDateTime updatedDate;
 
-
     public BaseEntity(){
         this.createdDate = LocalDateTime.now();
         this.updatedDate = LocalDateTime.now();

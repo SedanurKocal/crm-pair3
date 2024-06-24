@@ -14,9 +14,9 @@ import java.time.LocalDateTime;
 @Document
 @MappedSuperclass
 public class BaseEntity {
+
     @Id
     private String id;
-
 
     @Column(name = "created_date")
     private LocalDateTime createdDate;

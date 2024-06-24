@@ -12,9 +12,14 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetAllCustomerInvoiceResponse {
+
     private int id;
+
     private int accountName;
+
     private AccountStatus accountStatus;
+
     private AccountType accountType;
+
     private int customerId;
 }

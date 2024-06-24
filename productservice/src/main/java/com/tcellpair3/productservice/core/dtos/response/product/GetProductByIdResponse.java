@@ -9,11 +9,18 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetProductByIdResponse {
+
     private String name;
+
     private int productNo;
+
     private double price;
+
     private LocalDateTime createdDate;
+
     private LocalDateTime updatedDate;
+
     private boolean isDeleted;
+
     private int catalogId;
 }

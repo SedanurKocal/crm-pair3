@@ -10,7 +10,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SearchResultsResponse {
+
     private int id;
+
     private int productNo;
+
     private String name;
 }

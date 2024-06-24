@@ -10,10 +10,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SearchResultsResponse {
+
     private int id;
 
     private String firstName;
-
 
     private String lastName;
 

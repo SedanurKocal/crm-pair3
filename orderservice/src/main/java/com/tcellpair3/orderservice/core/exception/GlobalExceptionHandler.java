@@ -11,6 +11,7 @@ import org.turkcell.tcell.exception.exceptions.type.BaseBusinessException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
     @ExceptionHandler(BaseBusinessException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<BusinessExceptionDetails> handleBusinessException(BaseBusinessException exception) {

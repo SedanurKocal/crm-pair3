@@ -12,7 +12,7 @@ import java.util.List;
 
 @FeignClient(name = "cartservice",configuration = FeignClientConfig.class)
 public interface CartClient {
+
     @GetMapping("/api/v1/carts/customerInvoice/{customerInvoiceId}")
     ResponseEntity<List<CartResponse>> getCartsByCustomerInvoiceId(@PathVariable("customerInvoiceId") int customerInvoiceId);
-
 }

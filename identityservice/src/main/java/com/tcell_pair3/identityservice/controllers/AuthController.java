@@ -21,6 +21,7 @@ public class AuthController {
 
     private final AuthService authService;
     private final RoleService roleService;
+
     @PostMapping("register")
     public void register( @RequestBody RegisterRequest request)
     {
@@ -31,9 +32,5 @@ public class AuthController {
     public String login( @RequestBody LoginRequest request)
     {
         return authService.login(request);
-
-
     }
-
-
 }

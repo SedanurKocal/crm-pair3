@@ -20,7 +20,9 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class CatalogServiceImpl implements CatalogService {
+
     private final CatalogRepository catalogRepository;
+
     @Override
     public CreateCatalogResponse createCatalog(CreateCatalogRequest request) {
          request.setDeleted(false);

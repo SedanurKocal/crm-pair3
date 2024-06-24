@@ -8,5 +8,6 @@ import java.util.Optional;
 public interface UserService extends UserDetailsService {
 
     void add(User user);
+
     Optional<User> getUserById(int id);
 }

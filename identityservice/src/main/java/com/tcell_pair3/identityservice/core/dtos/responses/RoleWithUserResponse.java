@@ -12,5 +12,6 @@ import lombok.Setter;
 public class RoleWithUserResponse {
 
     private int userId;
+
     private int roleId;
 }

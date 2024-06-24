@@ -12,5 +12,4 @@ import java.util.List;
 public interface ContactMediumRepository extends JpaRepository<ContactMedium,Integer> {
 
     List<ContactMedium> findByCustomerId(int customerId);
-
 }

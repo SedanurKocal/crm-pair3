@@ -12,8 +12,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateCatalogResponse {
+
     private int id;
+
     private String name;
+
     private LocalDateTime createdDate;
+
     private boolean isDeleted;
 }

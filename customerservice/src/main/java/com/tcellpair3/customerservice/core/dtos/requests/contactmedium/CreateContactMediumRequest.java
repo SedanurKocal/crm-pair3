@@ -15,6 +15,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateContactMediumRequest {
+
     @Email
     @NotBlank(message = "This field is required")
     private String email;

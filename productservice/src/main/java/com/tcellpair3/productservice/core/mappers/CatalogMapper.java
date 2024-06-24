@@ -14,7 +14,9 @@ import java.util.List;
 
 @Mapper
 public interface CatalogMapper {
+
     CatalogMapper INSTANCE = Mappers.getMapper(CatalogMapper.class);
+
     @Mapping(target = "updatedDate", ignore = true)
     Catalog createCatalogMapper(CreateCatalogRequest catalog);
 

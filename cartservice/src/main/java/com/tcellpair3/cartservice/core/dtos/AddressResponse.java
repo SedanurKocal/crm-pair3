@@ -12,6 +12,7 @@ import lombok.Setter;
 public class AddressResponse {
 
     private int addressId;
+
     private int customerId;
 
     private String city;
@@ -23,5 +24,4 @@ public class AddressResponse {
     private String houseFlatNumber;
 
     private String addressDescription;
-
 }

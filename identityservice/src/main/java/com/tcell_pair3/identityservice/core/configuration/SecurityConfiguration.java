@@ -16,10 +16,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfiguration {
+
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final BaseSecurityService baseSecurityService;
-
 
     private static final String[] WHITE_LIST = {
             "/api/v1/auth/**",
@@ -30,7 +30,6 @@ public class SecurityConfiguration {
             "/swagger-ui/index.html/**",
 
     };
-
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

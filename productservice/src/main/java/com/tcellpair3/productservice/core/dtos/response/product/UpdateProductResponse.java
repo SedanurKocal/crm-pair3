@@ -11,11 +11,17 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class UpdateProductResponse {
+
     private int id;
+
     private int productNo;
+
     private String name;
+
     private LocalDateTime updatedDate;
+
     private boolean isDeleted;
+
     private int catalogId;
 
     public UpdateProductResponse(int id, int productNo, String name, LocalDateTime updatedDate, boolean isDeleted, int catalogId) {

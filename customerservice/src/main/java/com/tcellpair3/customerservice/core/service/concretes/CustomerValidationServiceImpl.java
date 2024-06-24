@@ -8,6 +8,7 @@ import java.time.LocalDate;
 
 @Service
 public class CustomerValidationServiceImpl implements CustomerValidationService {
+
     public void validateBirthdate(LocalDate birthdate) {
 
         LocalDate today = LocalDate.now();

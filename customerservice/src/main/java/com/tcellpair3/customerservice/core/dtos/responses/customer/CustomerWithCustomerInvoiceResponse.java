@@ -10,10 +10,14 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomerWithCustomerInvoiceResponse {
-    private int id;
-    private int customerInvoiceId;
-    private int customerId;
-    private String firstName;
-    private String lastName;
 
+    private int id;
+
+    private int customerInvoiceId;
+
+    private int customerId;
+
+    private String firstName;
+
+    private String lastName;
 }

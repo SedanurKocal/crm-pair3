@@ -11,6 +11,7 @@ import org.turkcell.tcell.exception.exceptions.type.BaseBusinessException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
     @ExceptionHandler(BaseBusinessException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<BusinessExceptionDetails> handleBusinessException(BaseBusinessException exception) {
@@ -18,6 +19,7 @@ public class GlobalExceptionHandler {
         businessExceptionDetails.setTitle(exception.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(businessExceptionDetails);
     }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> handleValidationExceptions(MethodArgumentNotValidException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)

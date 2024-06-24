@@ -18,21 +18,15 @@ public class GetCustomerByIdResponse {
 
     private String firstName;
 
-
     private String lastName;
-
 
     private String middleName;
 
-
     private String nationalId;
-
 
     private String motherName;
 
-
     private String fatherName;
-
 
     private LocalDate birthdate;
 

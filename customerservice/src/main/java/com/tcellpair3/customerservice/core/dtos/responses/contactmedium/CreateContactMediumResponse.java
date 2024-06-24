@@ -17,9 +17,14 @@ import lombok.Setter;
 public class CreateContactMediumResponse {
 
     private int id;
+
     private String email;
+
     private String mobilePhone;
+
     private String homePhone;
+
     private String faxNumber;
+
     private int customerId;
 }
