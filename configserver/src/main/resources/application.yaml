@@ -1,12 +1,11 @@
 spring:
   application:
     name: configserver
-
   cloud:
     config:
       server:
         git:
-          uri:
+          uri: https://github.com/tcell-gygy-pair3/tcell-pair3-configserver
 
 server:
   port: 8079

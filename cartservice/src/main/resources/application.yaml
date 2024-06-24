@@ -1,13 +1,9 @@
 spring:
   application:
     name: cartservice
-
-server:
-  port: 8082
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8888/eureka/
-    registerWithEureka: true
-    fetchRegistry: true
+  cloud:
+    config:
+      profile: local
+  config:
+    import: "configserver:${configurl}"
+configurl: http://localhost:8079

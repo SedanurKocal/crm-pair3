@@ -1,0 +1,297 @@
+version: '3.8'
+
+services:
+  address-service:
+    container_name: address-service-prod
+    build:
+      context: ./addressservice
+      dockerfile: Dockerfile
+      args:
+        GITHUB_USERNAME: ${GITHUB_USERNAME}
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+    ports:
+      - "8090:8090"
+    restart: on-failure
+    depends_on:
+      - address-db
+      - discovery-server
+      - config-server
+      - gateway-server
+    networks:
+      - common
+    environment:
+      - SPRING_CLOUD_CONFIG_PROFILE=prod
+      - CONFIGURL=http://config-server:8079
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://address-db:5432/addressservice
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=test
+
+  product-service:
+    container_name: product-service-prod
+    build:
+      context: ./productservice
+      dockerfile: Dockerfile
+      args:
+        GITHUB_USERNAME: ${GITHUB_USERNAME}
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+    ports:
+      - "8084:8084"
+    restart: on-failure
+    depends_on:
+      - product-db
+      - discovery-server
+      - config-server
+      - gateway-server
+    networks:
+      - common
+    environment:
+      - SPRING_CLOUD_CONFIG_PROFILE=prod
+      - CONFIGURL=http://config-server:8079
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://product-db:5432/productservice
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=test
+
+  customer-service:
+    container_name: customer-service-prod
+    build:
+      context: ./customerservice
+      dockerfile: Dockerfile
+      args:
+        GITHUB_USERNAME: ${GITHUB_USERNAME}
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+    ports:
+      - "8087:8087"
+    restart: on-failure
+    depends_on:
+      - customer-db
+      - discovery-server
+      - config-server
+      - gateway-server
+    networks:
+      - common
+    environment:
+      - SPRING_CLOUD_CONFIG_PROFILE=prod
+      - CONFIGURL=http://config-server:8079
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://customer-db:5432/customerservice
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=test
+
+  cart-service:
+    container_name: cart-service-prod
+    build:
+      context: ./cartservice
+      dockerfile: Dockerfile
+      args:
+        GITHUB_USERNAME: ${GITHUB_USERNAME}
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+    ports:
+      - "8082:8082"
+    restart: on-failure
+    depends_on:
+      - cart-db
+      - discovery-server
+      - config-server
+      - gateway-server
+    networks:
+      - common
+    environment:
+      - SPRING_CLOUD_CONFIG_PROFILE=prod
+      - CONFIGURL=http://config-server:8079
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://cart-db:5432/cartservice
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=test
+
+  order-service:
+    container_name: order-service-prod
+    build:
+      context: ./orderservice
+      dockerfile: Dockerfile
+      args:
+        GITHUB_USERNAME: ${GITHUB_USERNAME}
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+    ports:
+      - "8083:8083"
+    restart: on-failure
+    depends_on:
+      - order-db
+      - discovery-server
+      - config-server
+      - gateway-server
+    networks:
+      - common
+    environment:
+      - SPRING_CLOUD_CONFIG_PROFILE=prod
+      - CONFIGURL=http://config-server:8079
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://order-db:5432/orderservice
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=test
+
+  config-server:
+    build:
+      context: ./configserver
+      dockerfile: Dockerfile
+      args:
+        GITHUB_USERNAME: ${GITHUB_USERNAME}
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+    ports:
+      - "8079:8079"
+    environment:
+      - SPRING_CLOUD_CONFIG_SERVER_GIT_URI=https://github.com/tcell-gygy-pair3/tcell-pair3-configserver
+    networks:
+      - common
+
+  discovery-server:
+    build:
+      context: ./discoveryserver
+      dockerfile: Dockerfile
+      args:
+        GITHUB_USERNAME: ${GITHUB_USERNAME}
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+    ports:
+      - "8888:8888"
+    restart: on-failure
+    environment:
+      - SPRING_CLOUD_CONFIG_PROFILE=prod
+      - CONFIGURL=http://config-server:8079
+    networks:
+      - common
+
+  identity-service:
+    container_name: identity-service-prod
+    build:
+      context: ./identityservice
+      dockerfile: Dockerfile
+      args:
+        GITHUB_USERNAME: ${GITHUB_USERNAME}
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+    ports:
+      - "8086:8086"
+    restart: on-failure
+    depends_on:
+      - identity-db
+      - discovery-server
+      - config-server
+      - gateway-server
+    networks:
+      - common
+    environment:
+      - SPRING_CLOUD_CONFIG_PROFILE=prod
+      - CONFIGURL=http://config-server:8079
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://identity-db:5432/identityservice
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=test
+
+  gateway-server:
+    build:
+      context: ./gatewayserver
+      dockerfile: Dockerfile
+      args:
+        GITHUB_USERNAME: ${GITHUB_USERNAME}
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+    ports:
+      - "8080:8080"
+    restart: on-failure
+    depends_on:
+      - discovery-server
+      - config-server
+    environment:
+      - SPRING_CLOUD_CONFIG_PROFILE=prod
+      - CONFIGURL=http://config-server:8079
+    networks:
+      - common
+
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - common
+
+  address-db:
+    image: postgres
+    container_name: address-db-prod
+    environment:
+      POSTGRES_DB: addressservice
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: test
+    ports:
+      - "5434:5432"
+    volumes:
+      - address_data_prod:/var/lib/postgresql/data
+    networks:
+      - common
+  product-db:
+    image: postgres
+    container_name: product-db-prod
+    environment:
+      POSTGRES_DB: productservice
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: test
+    ports:
+      - "5435:5432"
+    volumes:
+      - product_data_prod:/var/lib/postgresql/data
+    networks:
+      - common
+
+  customer-db:
+    image: postgres
+    container_name: customer-db-prod
+    environment:
+      POSTGRES_DB: customerservice
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: test
+    ports:
+      - "5436:5432"
+    volumes:
+      - customer_data_prod:/var/lib/postgresql/data
+    networks:
+      - common
+  cart-db:
+    image: mongo:latest
+    container_name: cart-db-prod
+    ports:
+      - "27030:27017"
+    volumes:
+      - cart_data_prod:/data/db
+    networks:
+        - common
+  identity-db:
+    image: postgres
+    container_name: identity-db-prod
+    environment:
+      POSTGRES_DB: identityservice
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: test
+    ports:
+      - "5438:5432"
+    volumes:
+      - identity_data_prod:/var/lib/postgresql/data
+    networks:
+      - common
+  order-db:
+    image: postgres
+    container_name: order-db-prod
+    environment:
+      POSTGRES_DB: orderservice
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: test
+    ports:
+      - "5439:5432"
+    volumes:
+      - order_data_prod:/var/lib/postgresql/data
+    networks:
+      - common
+
+
+volumes:
+  address_data_prod:
+  product_data_prod:
+  customer_data_prod:
+  cart_data_prod:
+  identity_data_prod:
+  order_data_prod:
+
+networks:
+  common:
+    driver: bridge
