@@ -93,6 +93,4 @@ public class ContactMediumServiceImpl implements ContactMediumService {
         List<ContactMedium> contactMediums = contactMediumRepository.findByCustomerId(customerId);
         return ContactMediumMapper.INSTANCE.toDtoList(contactMediums);
     }
-
-
 }

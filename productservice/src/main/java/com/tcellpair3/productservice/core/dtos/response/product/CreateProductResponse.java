@@ -11,12 +11,16 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class CreateProductResponse {
+
     private int id;
+
     private int productNo;
+
     private String name;
+
     private LocalDateTime createdDate;
+
     private boolean isDeleted;
+
     private int catalogId;
-
-
 }

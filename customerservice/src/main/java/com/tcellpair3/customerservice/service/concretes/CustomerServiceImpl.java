@@ -84,6 +84,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     }
+
     @Override
     public UpdateCustomerResponse updateCustomer(int id, UpdateCustomerRequest request) throws Exception {
         IRKKPSPublicSoap client = new IRKKPSPublicSoap();
@@ -138,7 +139,6 @@ public class CustomerServiceImpl implements CustomerService {
                 savedCustomer.getGender()
         );
     }
-
 
     @Override
     public void deleteCustomer(int id) {
@@ -229,8 +229,6 @@ public class CustomerServiceImpl implements CustomerService {
                 .collect(Collectors.toList());
     }
 
-
-
     @Override
     public boolean existsById(Integer customerId) {
         return customerRepository.existsById(customerId);
@@ -240,6 +238,4 @@ public class CustomerServiceImpl implements CustomerService {
     public void cartNumber(int cartId) {
         cartClient.getByIdCart(cartId);
     }
-
-
 }

@@ -18,6 +18,7 @@ public class GlobalExceptionHandler {
         unAuthorizedExceptionDetails.setDetail(exception.getMessage());
         return unAuthorizedExceptionDetails;
     }
+
     @ExceptionHandler({BaseBusinessException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public BusinessExceptionDetails handleRuntimeException(BaseBusinessException exception)
@@ -26,5 +27,4 @@ public class GlobalExceptionHandler {
         businessExceptionDetails.setTitle(exception.getMessage());
         return businessExceptionDetails;
     }
-
 }

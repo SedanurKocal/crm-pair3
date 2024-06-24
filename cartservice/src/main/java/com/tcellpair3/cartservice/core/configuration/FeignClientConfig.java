@@ -14,7 +14,6 @@ import java.util.Map;
 public class FeignClientConfig {
 
     private final BaseJwtService jwtService;
-
     public FeignClientConfig(BaseJwtService jwtService) {
         this.jwtService = jwtService;
     }

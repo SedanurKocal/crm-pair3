@@ -93,9 +93,6 @@ public class CartServiceImpl implements CartService {
         return cartRepository.findByCustomerInvoiceId(customerInvoiceId);
     }
 
-
-
-
     @Override
     public double getTotalPriceByCustomerInvoiceId(Integer customerInvoiceId) {
         List<Cart> carts = cartRepository.findByCustomerInvoiceId(customerInvoiceId);

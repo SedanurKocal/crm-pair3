@@ -16,6 +16,7 @@ public class UpdateProductRequest {
     private String name;
 
     private boolean isDeleted;
+
     private LocalDateTime updatedDate;
 
     private double price;

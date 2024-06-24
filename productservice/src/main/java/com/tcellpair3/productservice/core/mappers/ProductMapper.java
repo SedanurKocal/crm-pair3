@@ -22,7 +22,6 @@ public interface ProductMapper {
     @Mapping(target = "updatedDate", ignore = true)
     Product createProductMapper(CreateProductRequest product);
 
-
     @Mapping(target = "catalogId", source = "catalog.id")
     GetProductByIdResponse getProductByIdMapper(Product product);
 
@@ -34,9 +33,9 @@ public interface ProductMapper {
 
     List<SearchResultsResponse> productsToSearchResultsResponses(List<Product> products);
 
-
     List<GetAllProductsResponse> getProductsListMapper(List<Product> product);
     //@Mapping(target = "productNo", source = "productNo")
+
     @Mapping(target = "createdDate", ignore = true)
     Product updateProductMapper(UpdateProductRequest request, @MappingTarget Product product);
 }

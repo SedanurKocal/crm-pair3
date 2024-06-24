@@ -10,13 +10,22 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CustomerInvoiceService {
+
     CreateCustomerInvoiceResponse createCustomerInvoice(CreateCustomerInvoiceRequest request);
+
     UpdateCustomerInvoiceResponse updateCustomerInvoice(int id , UpdateCustomerInvoiceRequest request);
+
     void deleteCustomerInvoice(int id);
+
     List<GetAllCustomerInvoiceResponse> getAllCustomerInvoice();
+
     Optional<GetCustomerInvoiceByIdResponse> getByCustomerInvoiceId(int id);
+
     boolean existsById(Integer customerInvoiceId);
+
     List<CustomerInvoiceWithCustomerResponse> findByCustomerId(Integer customerId);
+
     Optional<GetCustomerInvoiceByIdResponse> findByIdCustomerInvoice(Integer customerInvoiceId);
+
     CustomerWithCustomerInvoiceResponse getCustomerByOrderId(Integer invoiceId);
 }

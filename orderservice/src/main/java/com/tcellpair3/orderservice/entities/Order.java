@@ -31,5 +31,4 @@ public class Order extends BaseEntity {
     private List<String> serviceAddresses;
     @Column(name = "total_amount")
     private double totalAmount;
-
 }

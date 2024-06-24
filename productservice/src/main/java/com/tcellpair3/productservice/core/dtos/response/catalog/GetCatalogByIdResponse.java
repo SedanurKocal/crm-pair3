@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 public class GetCatalogByIdResponse {
 
     private int id;
+
     private String name;
 
     private LocalDateTime createdDate;
@@ -22,5 +23,4 @@ public class GetCatalogByIdResponse {
     private LocalDateTime updatedDate;
 
     private boolean isDeleted;
-
 }

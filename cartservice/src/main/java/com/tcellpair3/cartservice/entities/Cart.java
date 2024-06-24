@@ -14,9 +14,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Cart extends BaseEntity {
 
     private int productNo;
+
     private double price;
+
     private String productName;
+
     private int customerInvoiceId;
+
     private String city;
 
     private String district;

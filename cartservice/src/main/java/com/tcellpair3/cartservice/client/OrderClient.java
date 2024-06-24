@@ -11,5 +11,4 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface OrderClient {
     @PostMapping("/api/v1/orders/save")
     ResponseEntity<String> createOrder(@RequestBody Cart cart);
-
 }

@@ -19,7 +19,9 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
+
     private final ProductRepository productRepository;
+
     @Override
     public CreateProductResponse createProduct(CreateProductRequest createProductRequest) {
         createProductRequest.setDeleted(false);

@@ -12,10 +12,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateProductRequest {
+
     private String name;
 
     private boolean isDeleted;
+
     private LocalDateTime createdDate;
+
     private double price;
 
     private int catalogId;

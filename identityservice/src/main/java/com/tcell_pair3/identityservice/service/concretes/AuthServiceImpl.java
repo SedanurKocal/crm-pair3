@@ -60,6 +60,5 @@ public class AuthServiceImpl implements AuthService {
                 .toList();
         claims.put("roles", roles);
         return baseJwtService.generateToken(loginRequest.getEmail(), claims);
-
     }
 }

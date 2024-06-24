@@ -14,9 +14,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomerInvoiceWithAddressResponse {
+
     private Integer id;
+
     private int accountName;
+
     private AccountStatus accountStatus;
+
     private AccountType accountType;
+
     private Integer customerId;
 }

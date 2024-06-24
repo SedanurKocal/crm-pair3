@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 @Service
 public class ContactServiceMediumValidationImpl implements ContactMediumValidationService {
+
     private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile("^0[0-9]{10}$");
 
     @Override

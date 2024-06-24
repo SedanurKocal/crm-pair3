@@ -12,6 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateCustomerInvoiceRequest {
+
     private int accountName;
 
     private AccountStatus accountStatus;

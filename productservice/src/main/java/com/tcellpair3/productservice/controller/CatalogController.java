@@ -18,28 +18,32 @@ import java.util.Optional;
 @RequestMapping("/api/v1/catalogs")
 @RequiredArgsConstructor
 public class CatalogController {
-    private final CatalogService catalogService;
 
+    private final CatalogService catalogService;
 
     @GetMapping("/getAll")
     public List<GetAllCatalogsResponse> getAllCatalogs()
     {
         return catalogService.getAllCatalog();
     }
+
     @GetMapping("/{id}")
     public Optional<GetCatalogByIdResponse> getCatalogById(@PathVariable int id) {
         return catalogService.getByCatalogId(id);
     }
+
     @PostMapping("/create")
     public CreateCatalogResponse createCatalog(@RequestBody CreateCatalogRequest request)
     {
         return catalogService.createCatalog(request);
     }
+
     @PutMapping("/update/{id}")
     public UpdateCatalogResponse updateCatalog(@PathVariable int id,@RequestBody UpdateCatalogRequest request)
     {
         return catalogService.updateCatalog(id,request);
     }
+
     @DeleteMapping("delete/{id}")
     public void deleteCatalog(@PathVariable int id)
     {

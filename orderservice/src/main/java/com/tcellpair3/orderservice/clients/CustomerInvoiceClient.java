@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient(name = "customerservice",configuration = FeignClientConfig.class)
 public interface CustomerInvoiceClient {
+
     @GetMapping("/api/v1/customerInvoices/{customerInvoiceId}/exists")
     boolean doesCustomerInvoiceExist(@PathVariable Integer customerInvoiceId);
 }

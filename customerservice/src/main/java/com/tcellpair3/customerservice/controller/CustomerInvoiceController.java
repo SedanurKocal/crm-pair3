@@ -18,6 +18,7 @@ import java.util.Optional;
 @RequestMapping("/api/v1/customerInvoices")
 @RequiredArgsConstructor
 public class CustomerInvoiceController {
+
     private final CustomerInvoiceService customerInvoiceService;
 
     @GetMapping("getAllCustomerInvoice")

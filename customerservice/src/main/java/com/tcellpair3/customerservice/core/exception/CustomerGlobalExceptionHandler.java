@@ -25,6 +25,7 @@ public class CustomerGlobalExceptionHandler {
         businessExceptionDetails.setTitle(exception.getMessage());
         return businessExceptionDetails;
     }
+
     @ExceptionHandler({IllegalArgumentException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public IllegalArgumentExceptionDetails handleIllegalArgumentException(IllegalArgumentException exception){
@@ -32,6 +33,7 @@ public class CustomerGlobalExceptionHandler {
         illegalArgumentExceptionDetails.setTitle(exception.getMessage());
         return illegalArgumentExceptionDetails;
     }
+
     @ExceptionHandler({HttpMessageNotReadableException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public DateTimeParseExceptionDetails handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
@@ -50,6 +52,4 @@ public class CustomerGlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(ex.getBindingResult().getAllErrors().get(0).getDefaultMessage());
     }
-
-
 }

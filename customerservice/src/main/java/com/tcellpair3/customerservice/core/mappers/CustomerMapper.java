@@ -28,7 +28,6 @@ public interface CustomerMapper {
     SearchResultsResponse searchResultResponse(Customer customer);
     List<GetAllCustomersResponse> customersToListCustomerResponses(List<Customer> customers);
 
-
     @Mapping(target = "accountNumber", source = "accountNumber")
     Customer updateCustomerMapper(UpdateCustomerRequest customerRequest, @MappingTarget Customer customer);
 

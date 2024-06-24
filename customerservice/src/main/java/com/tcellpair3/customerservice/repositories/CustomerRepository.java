@@ -12,6 +12,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface CustomerRepository extends JpaRepository<Customer,Integer> {
+
     boolean existsByNationalId(String nationalId);
     boolean existsById(Integer customerId);
     Page<Customer> findByFirstNameStartingWithIgnoreCase(String firstName, Pageable pageable);
@@ -22,7 +23,4 @@ public interface CustomerRepository extends JpaRepository<Customer,Integer> {
     List<Customer> findByContactMedium_MobilePhone(String mobilePhone);
 
     //TODO: order search
-
-
-
 }

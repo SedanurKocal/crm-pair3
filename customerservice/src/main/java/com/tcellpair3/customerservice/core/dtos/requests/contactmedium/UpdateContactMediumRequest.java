@@ -14,6 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateContactMediumRequest {
+
     @Email
     @NotBlank(message = "This field is required")
     private String email;
@@ -27,5 +28,4 @@ public class UpdateContactMediumRequest {
 
     @Pattern(regexp = "^0[0-9]{11}$|^$", message = "Fax numarası formatında başında 0 olacak şekilde 12 haneli veri girişi yapınız veya boş bırakabilirsiniz")
     private String faxNumber;
- 
 }

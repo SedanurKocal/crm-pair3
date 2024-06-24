@@ -10,6 +10,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomerWithCustomerInvoiceResponse {
+
     private int customerId;
+
     private int customerInvoiceId;
 }

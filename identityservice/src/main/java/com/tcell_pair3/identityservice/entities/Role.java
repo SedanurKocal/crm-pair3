@@ -16,6 +16,7 @@ import java.util.Set;
 @Getter
 @Setter
 public class Role implements GrantedAuthority {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")

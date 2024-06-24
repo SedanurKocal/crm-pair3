@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface RoleService {
+
     Role addRole(RoleRequest request);
 
     void deleteRole(int id);

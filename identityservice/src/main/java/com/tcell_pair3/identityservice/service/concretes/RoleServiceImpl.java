@@ -17,7 +17,6 @@ public class RoleServiceImpl implements RoleService {
 
     private final RoleRepository roleRepository;
 
-
     @Override
     public Role addRole(RoleRequest request) {
         Role role = RoleMapper.INSTANCE.roleFromRequest(request);
@@ -27,7 +26,6 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public void deleteRole(int id) {
-
     }
 
     @Override

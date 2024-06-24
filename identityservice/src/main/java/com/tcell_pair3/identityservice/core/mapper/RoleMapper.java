@@ -10,6 +10,7 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper
 public interface RoleMapper {
+
     RoleMapper INSTANCE = Mappers.getMapper(RoleMapper.class);
 
     Role roleFromRequest(RoleRequest request);
